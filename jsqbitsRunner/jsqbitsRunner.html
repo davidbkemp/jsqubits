@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jsqbits runner</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="quantum, quantum programming, quantum computer, simulator">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    <link rel="stylesheet" type="text/css" href="../resources/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../resources/css/runner.css" />
+    <script type="text/javascript" src="../resources/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="../lib/jsqbits.js"></script>
+    <script type="text/javascript" src="../lib/jsqbitsmath.js"></script>
+    <script type="text/javascript" src="../resources/js/jsqbitsRunner.js"></script>
+</head>
+<body>
+<h1>jsqbits runner</h1>
+<h2>An online quantum computer simulator</h2>
+<p>
+    This is a JavaScript runner preloaded with
+    the <a href="http://davidbkemp.github.com/jsqbits/">jsqbits library</a>.
+    Enter arbitrary JavaScript in the text area below and press the "Run" button.
+    For more information, see the
+    <a href="http://davidbkemp.github.com/jsqbits/jsqbitsManual.html">jsqbits user manual</a>.
+</p>
+
+<textarea id="code" rows="15"></textarea>
+
+<div>
+    <div class="buttons">
+        <button id="run">Run</button>
+        <button id="clear">Clear</button>
+    </div>
+    <div class="examples">
+        <span>Load example: </span>
+        <select id="example">
+            <option value="none">Please Select...</option>
+            <option value="bernsteinVazirani">Bernstein Vazirani Algorithm</option>
+            <option value="deutsch">Deutsch's Algorithm</option>
+            <option value="deutschJozsa">Deutsch-Jozsa Algorithm</option>
+            <option value="quantumTeleportation">Quantum Teleportation</option>
+            <option value="simonsAlg">Simon's Algorithm</option>
+            <option value="simpleSearch">Simple search algorithm</option>
+            <option value="superDenseCoding">Super Dense Coding</option>
+            <option value="groverSearch">Grover's search algorithm</option>
+            <option value="specialPeriodFinding">Period Finding (special case)</option>
+            <option value="generalPeriodFinding">Period Finding (general case)</option>
+            <option value="factoring">Shor's factoring algorithm</option>
+        </select>
+    </div>
+</div>
+<div class="result">
+    <div id="result"></div>
+    <div id="console"></div>
+</div>
+
+<h3>jsqbits methods</h3>
+<div class="commandlistblock clearfix">
+    <div class="commandlist first">
+            <div class='row'><div class="method">jsqbits(bitstring)</div><div class="desc">Create a QState object</div></div>
+            <div class='row'><div class="method">new QState(numbits, amplitudes)</div><div class="desc">Create a QState object</div></div>
+            <div class='row'><div class="method">add(otherState)</div><div class="desc">Add another state</div></div>
+            <div class='row'><div class="method">subtract(otherState)</div><div class="desc">Subtract another state</div></div>
+            <div class='row'><div class="method">multiply(value)</div><div class="desc">Multiply by a global phase</div></div>
+            <div class='row'><div class="method">normalize()</div><div class="desc">Normalize the amplitudes</div></div>
+            <div class='row'><div class="method">x(targetBits)</div><div class="desc">Pauli X</div></div>
+            <div class='row'><div class="method">y(targetBits)</div><div class="desc">Pauli Y</div></div>
+            <div class='row'><div class="method">z(targetBits)</div><div class="desc">Pauli Z</div></div>
+            <div class='row'><div class="method">r(targetBits, angle)</div><div class="desc">Phase shift gate</div></div>
+            <div class='row'><div class="method">s(targetBits)</div><div class="desc">Phase gate: r(&pi;/2)</div></div>
+            <div class='row'><div class="method">t(targetBits)</div><div class="desc">T gate: r(&pi;/4)</div></div>
+            <div class='row'><div class="method">hadamard(targetBits)</div><div class="desc">Hadamard</div></div>
+            <div class='row'><div class="method">not(targetBits)</div><div class="desc">Not</div></div>
+            <div class='row'><div class="method">swap(bit1, bit2)</div><div class="desc">Swap two bits</div></div>
+    </div>
+    <div class="commandlist second">
+            <div class='row'><div class="method">rotateX(targetBits, angle)</div><div class="desc">Rotate about X</div></div>
+            <div class='row'><div class="method">rotateY(targetBits, angle)</div><div class="desc">Rotate about Y</div></div>
+            <div class='row'><div class="method">rotateZ(targetBits, angle)</div><div class="desc">Rotate about Z</div></div>
+            <div class='row'><div class="method">controlledHadamard(controlBits, targetBits))</div><div class="desc">Controlled Hadamard</div></div>
+            <div class='row'><div class="method">cnot(controlBits, targetBits)</div><div class="desc">Controlled Not</div></div>
+            <div class='row'><div class="method">controlledX(controlBits, targetBits)</div><div class="desc">Controlled Pauli X</div></div>
+            <div class='row'><div class="method">controlledXRotation(ctrlBits, trgtBits, angle)</div><div class="desc">Controlled rotation about X</div></div>
+            <div class='row'><div class="method">toffoli(controlBit, controlBit, ..., targetBit)</div><div class="desc">Toffoli</div></div>
+            <div class='row'><div class="method">applyFunction(inputBits, targetBits, function)</div><div class="desc">Apply a function</div></div>
+            <div class='row'><div class="method">tensorProduct(otherQState)</div><div class="desc">Tensor product</div></div>
+            <div class='row'><div class="method">qft(targetBits)</div><div class="desc">Quantum Fourier Transform</div></div>
+            <div class='row'><div class="method">amplitude(basisState)</div><div class="desc">Get an amplitude</div></div>
+            <div class='row'><div class="method">measure(targetBits)</div><div class="desc">Make a measurement</div></div>
+            <div class='row'><div class="method">jsqbits.complex(real, imaginary)</div><div class="desc">Create a complex number</div></div>
+            <div class='row'><div class="method">jsqbits.Complex.add,subtract,multiply,negate</div><div class="desc">Some Complex methods</div></div>
+    </div>
+</div>
+
+<h4>Note:</h4>
+<ul>
+    <li>
+        There are "controlled" versions of many operators such as controlledSwap, controlledX, controlledY, etc.
+        For all of these, the controlBits must be specified before the target bits.
+        (There is presently no controlled version of qft).
+    </li>
+    <li>
+        Most of the bit specifiers can be single numbers (0 being least significant),
+        arrays of numbers,
+        bit ranges (e.g. <code>{from: 5, to:15}</code>,
+        or the constant <code>jsqbits.ALL</code>.
+        Exceptions to this include <code>measure</code> and <code>applyFunction</code> as these
+        cannot currently take arrays.
+        Also, while the <code>controlledSwap</code> method is
+        able to take the various types of bit specifiers as control bits,
+        it (and the <swap>swap</swap>) operator can only take single numbers for the two bits to be swapped.
+    </li>
+</ul>
+<p>
+    For more details, see the
+    <a href="http://davidbkemp.github.com/jsqbits/jsqbitsManual.html">jsqbits user manual</a>.
+</p>
+<small>
+    Copyright 2012 David Kemp. Licensed under
+    <a href="http://www.apache.org/licenses/LICENSE-2.0">the Apache License, Version 2.0</a>.
+</small>
+</body>
+</html>

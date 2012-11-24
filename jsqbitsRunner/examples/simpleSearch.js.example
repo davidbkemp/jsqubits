@@ -1,0 +1,22 @@
+/*
+ * A simple search algorithm.
+ * Given an oracle that returns true for only one number between zero and three,
+ * the simple search function can determine which it is with only a single invocation.
+ */
+
+function simpleSearch(f) {
+    var inputBits = {from: 1, to: 2};
+    return jsqbits('|001>')
+            .hadamard(ALL)
+            .applyFunction(inputBits, 0, f)
+            .hadamard(inputBits)
+            .z(inputBits)
+            .controlledZ(2, 1)
+            .hadamard(inputBits)
+            .measure(inputBits)
+            .result;
+};
+
+var f = promptForFunction("Enter a function f: f(x) = 1 for a single x between 0 and 3, and f(x) = 0 otherwise", "function(x) {return x === 2 ? 1 : 0}");
+
+log("f(x) = 1 for x = " + simpleSearch(f));

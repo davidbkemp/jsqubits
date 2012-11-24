@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jsqbits User Manual</title>
+    <meta name="keywords" content="quantum, quantum programming, quantum computer, simulator">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../resources/css/jsqbits.css" />
+    <script src="../resources/js/jquery-1.7.1.min.js"></script>
+    <script src="../lib/jsqbits.js"></script>
+    <script src="../resources/js/jsqbitsManual.js"></script>
+</head>
+<body>
+<h1>jsqbits User Manual</h1>
+
+<p id='tableOfContents'>
+ Function list:
+</p>
+
+<p>
+    <a href="http://jsqbits.org">jsqbits</a> is a JavaScript library for quantum computation simulation.
+    Try the online
+    <a href="http://davidbkemp.github.com/jsqbits/jsqbitsRunner.html">jsqbits runner</a>.
+    Alternatively, you can download and use the JavaScript jsqbits.js library from the
+    <a href="https://github.com/davidbkemp/jsqbits">jsqbits github repository</a>.
+    It is fully self contained: no third party libraries are required.
+    You can use it to implement quantum algorithms using JavaScript like this:
+</p>
+
+<code class="block">
+jsqbits('|01>')
+    .hadamard(jsqbits.ALL)
+    .cnot(1, 0)
+    .hadamard(jsqbits.ALL)
+    .measure(1)
+    .result
+</code>
+<p>
+    If you are new to quantum programming, then it is highly recommended that you try reading
+    <a href="http://www.cs.uwaterloo.ca/~watrous/lecture-notes.html">John Watrous' Quantum Information and Computation Lecture Notes</a>.
+    You may also wish to try reading the partially finished
+    <a href="jsqbitsTutorial.html">Introduction to Quantum Programming using jsqbits</a>.
+</p>
+
+<div class='section'  id='jsqbits'>
+    <h2>jsqbits.QState</h2>
+    <ul class="code index">
+        <li>jsqbits(bitString)</li>
+        <li>QState(numBits, amplitudes)</li>
+        <li>add(otherState)</li>
+        <li>subtract(otherState)</li>
+        <li>multiply(globalPhase)</li>
+        <li>normalize()</li>
+    </ul>
+    <p>
+        QState is used to encapsulate the state of a quantum computer.
+        You create one by either calling its constructor or using the convenient <code>jsqbits(bitString)</code> function.
+    </p>
+    <p>
+        The jsqbits function takes a string zeros and ones representing the state of its qbits.
+        The string may optionally be a "ket" in the Dirac or "bra-ket" notation.
+    </p>
+    <table class="samples">
+        <tbody>
+        <tr>
+            <td class="code" id="jsqbits1">jsqbits("0101")</td>
+            <td>creates a 4 qbit QState in the simple basis state of</td>
+            <td class="code" data-sampleref="jsqbits1">|0101></td>
+        </tr>
+        <tr>
+            <td class="code" id="jsqbits2">jsqbits("|0101>")</td>
+            <td>also creates a 4 qbit QState of</td>
+            <td class="code" data-sampleref="jsqbits2">|0101></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>
+        If you want your initial state to be in a super-position of states,
+        then you can use use a number of convenience methods.
+        <code>QState.add()</code>
+        can be used to add one quantum state to another in a super-position,
+        <code>QState.normalize()</code>
+        can be used to normalize the amplitudes to ensure that the square of their magnitudes sums to 1,
+        and <code>QState.multiply()</code>
+        can be used to multiply all a state's amplitudes by any complex number.
+        For example,
+    </p>
+    <code class="block" id="multiplyAddAndNormalize">
+jsqbits('|00>')
+        .multiply(jsqbits.complex(1,1))
+        .add(jsqbits('|01>'))
+        .subtract(jsqbits('|10>'))
+        .normalize()
+    </code>
+
+    <p>
+        creates the QState <code data-sampleref="multiplyAddAndNormalize">0.5+0.5i |00> + 0.5 |01> - 0.5 |10></code>
+    </p>
+
+    <p>
+        Another way to create an initial super-position of states is to use the QState constructor directly,
+        passing it the number of qbits, and a (sparse) array of complex number amplitudes.  For example
+    </p>
+
+    <code class="block" id="QState">
+var a = []; a[0] = a[1] = a[4] = a[5] = jsqbits.complex(0.5, 0);
+new jsqbits.QState(4, a)
+    </code>
+    <p>creates the following 4 qbit QState:</p>
+    <code class="block"  data-sampleref="QState">
+0.5 |0000> + 0.5 |0001> + 0.5 |0100> + 0.5 |0101>
+    </code>
+
+    <p>
+        WARNING: Currently, instead of copying the supplied amplitude array, a reference to it is used,
+        and so any subsequent modifications will affect the QState object.
+    </p>
+
+</div>
+
+<div class='section' id='singleQbitOperators'>
+    <h2>Single qbit operators</h2>
+    <ul class="code index">
+        <li>x(targetBits)</li>
+        <li>y(targetBits)</li>
+        <li>z(targetBits)</li>
+        <li>r(targetBits, angle)</li>
+        <li>s(targetBits)</li>
+        <li>t(targetBits)</li>
+        <li>hadamard(targetBits)</li>
+        <li>not(targetBits)</li>
+        <li>rotateX(targetBits, angle)</li>
+        <li>rotateY(targetBits, angle)</li>
+        <li>rotateZ(targetBits, angle)</li>
+    </ul>
+    <p>
+        A number of operators operate on a single qubit.
+        For these, you must specify the index of the bit to be operated on, with the right most bit being bit 0,
+        and the left most bit being bit n-1 for an n bit state.
+        As a convenience, you can also specify a range of bits using an object with "from" and "to" properties,
+        and the operator will be applied to each of the bits in that range (inclusive).
+        The constant <code>jsqbits.ALL</code> can be used to apply the operator to all the bits.
+        For most operators (except where indicated), you may also use an array of bit indexes.
+    </p>
+
+    <p>
+        Here are some examples using the Pauli X operator.
+    </p>
+
+    <table class="samples">
+        <tbody>
+        <tr>
+            <td class="code" id="single1">jsqbits("|0000>").x(0)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="single1">|0001></td>
+        </tr>
+        <tr>
+            <td class="code" id="single2">jsqbits("|0000>").x({from: 0, to: 2})</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="single2">|0111></td>
+        </tr>
+        <tr>
+            <td class="code" id="single3">jsqbits("|0000>").x(jsqbits.ALL)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="single3">|1111></td>
+        </tr>
+        <tr>
+            <td class="code" id="single4">jsqbits("|0000>").x([0,2])</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="single4">|0101></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>
+        All qubit manipulations return a new QState and leave the original one untouched.
+        Consider the following code:
+    </p>
+
+    <code class="block" id='immutableExample'>
+var state1 = jsqbits('|00>');
+var state2 = state1.x(1);
+"state2 is " + state2 + " but state1 is still " + state1
+    </code>
+
+    <p>
+        This results in
+        "<span class="code" data-sampleref="immutableExample">state2 is |10> but state1 is still |00></span>"
+    </p>
+
+    <p>
+        There are single bit operators for the Pauli operators X, Y, and Z.
+        These can be invoked as x(), y(), z(), or as X(), Y(), or Z().
+        There is also a hadamard() function.
+        There is a "not" function, which is just an alias for X.
+    </p>
+
+    <table class="samples">
+        <tbody>
+        <tr>
+            <td class="code" id="x0">jsqbits("|00>").x(0)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="x0">|01></td>
+        </tr>
+        <tr>
+            <td class="code" id="x1">jsqbits("|01>").x(0)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="x1">|00></td>
+        </tr>
+        <tr>
+            <td class="code" id="y0">jsqbits("|00>").y(0)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="y0">i |01></td>
+        </tr>
+        <tr>
+            <td class="code" id="y1">jsqbits("|01>").y(0)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="y1">-i |00></td>
+        </tr>
+        <tr>
+            <td class="code" id="z0">jsqbits("|00>").z(0)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="z0">|00></td>
+        </tr>
+        <tr>
+            <td class="code" id="z1">jsqbits("|01>").z(0)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="z1">-1 |01></td>
+        </tr>
+        <tr>
+            <td class="code" id="not0">jsqbits("|00>").not(0)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="not0">|01></td>
+        </tr>
+        <tr>
+            <td class="code" id="not1">jsqbits("|01>").not(0)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="not1">|00></td>
+        </tr>
+        </tr>
+            <td class="code" id="hadamard0">jsqbits("|00>").hadamard(0)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="hadamard0">0.7071 |00> + 0.7071 |01></td>
+        </tr>
+        <tr>
+            <td class="code" id="hadamard1">jsqbits("|01>").hadamard(0)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="hadamard1">0.7071 |00> - 0.7071 |01></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>
+        The R operator is also known as the "phase shift" operator.
+        It leaves the |0> state unchanged, but modifies the amplitude of the |1> state by e<sup>i&theta;</sup>,
+        There are also the S and T operators (also known as the phase gate and &pi;/8 gate respectively),
+        which are equivalent to r(&pi;/2) and r(&pi;/4) respectively.
+    </p>
+
+    <table class="samples">
+        <tbody>
+        <tr>
+            <td class="code" id="r0">jsqbits("|00>").r(0, Math.PI/3)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="r0">|00></td>
+        </tr>
+        <tr>
+            <td class="code" id="r1">jsqbits("|01>").r(0, Math.PI/3)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="r1">0.5+0.866i |01></td>
+        </tr>
+        <tr>
+            <td class="code" id="s0">jsqbits("|00>").s(0)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="s0">|00></td>
+        </tr>
+        <tr>
+            <td class="code" id="s1">jsqbits("|01>").s(0)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="s1">i |01></td>
+        </tr>
+        <tr>
+            <td class="code" id="t0">jsqbits("|00>").t(0)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="t0">|00></td>
+        </tr>
+        <tr>
+            <td class="code" id="t1">jsqbits("|01>").t(0)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="t1">0.7071+0.7071i |01></td>
+        </tr>
+        </tbody>
+    </table>
+        
+    <p>
+    Other single qubit operators are those that rotate around the X, Y, and Z axis of the Bloch sphere.
+    These take an angle and apply the operation
+    e<sup>-i&theta;X/2</sup>,
+    e<sup>-i&theta;Y/2</sup> or
+    e<sup>-i&theta;Z/2</sup>.
+    </p>
+
+    <table class="samples">
+        <tbody>
+        <tr>
+            <td class="code" id="rotateX0">jsqbits("|00>").rotateX(0, Math.PI/2)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="rotateX0">0.7071 |00> - 0.7071i |01></td>
+        </tr>
+        <tr>
+            <td class="code" id="rotateX1">jsqbits("|01>").rotateX(0, Math.PI/2)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="rotateX1">-0.7071i |00> + 0.7071 |01></td>
+        </tr>
+        <tr>
+            <td class="code" id="rotateY0">jsqbits("|00>").rotateY(0, Math.PI/2)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="rotateY0">0.7071 |00> + 0.7071 |01></td>
+        </tr>
+        <tr>
+            <td class="code" id="rotateY1">jsqbits("|01>").rotateY(0, Math.PI/2)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="rotateY1">-0.7071 |00> + 0.7071 |01></td>
+        </tr>
+        <tr>
+            <td class="code" id="rotateZ0">jsqbits("|00>").rotateZ(0, Math.PI/2)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="rotateZ0">0.7071-0.7071i |00></td>
+        </tr>
+        <tr>
+            <td class="code" id="rotateZ1">jsqbits("|01>").rotateZ(0, Math.PI/2)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="rotateZ1">0.7071+0.7071i |01></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class='section' id='ControlledOperations'>
+    <h2>Controlled operations</h2>
+    <ul class="code index">
+        <li>controlledX(controlBits, targetBits)</li>
+        <li>controlledY(controlBits, targetBits)</li>
+        <li>controlledZ(controlBits, targetBits)</li>
+        <li>controlledR(controlBits, targetBits, angle)</li>
+        <li>controlledS(controlBits, targetBits)</li>
+        <li>controlledT(controlBits, targetBits)</li>
+        <li>controlledHadamard(controlBits, targetBits)</li>
+        <li>cnot(controlBits, targetBits)</li>
+        <li>controlledXRotation(controlBits, targetBits, angle)</li>
+        <li>controlledYRotation(controlBits, targetBits, angle)</li>
+        <li>controlledZRotation(controlBits, targetBits, angle)</li>
+    </ul>
+    <p>
+        There are controlled versions of all the single qubit operators.
+        For these you must specify control bits as well as target bits.
+        As with the target bits, the control bits may be a single bit index,
+        a range of bits using an object with "from" and "to" properties,
+        or an array of bit indexes.
+        The operation is only performed when all of the control bits are ones.
+        Note that the control and target bits must not have any bits in common.
+    </p>
+
+    <p>
+        Here are some examples using the Pauli X operator.
+    </p>
+
+    <table class="samples">
+        <tbody>
+        <tr>
+            <td class="code" id="control1">jsqbits("|0000>").controlledX(2, 0)</td>
+            <td>leaves the state unchanged:</td>
+            <td class="code" data-sampleref="control1">|0000></td>
+        </tr>
+        <tr>
+            <td class="code" id="control2">jsqbits("|0100>").controlledX(2, 0)</td>
+            <td>flips bit zero to give:</td>
+            <td class="code" data-sampleref="control2">|0101></td>
+        </tr>
+        <tr>
+            <td class="code" id="control3">jsqbits("|0010>").controlledX([1,3], 0)</td>
+            <td>leaves the state unchanged:</td>
+            <td class="code" data-sampleref="control3">|0010></td>
+        </tr>
+        <tr>
+            <td class="code" id="control4">jsqbits("|1010>").controlledX([1,3], 0)</td>
+            <td>flips bit zero to give:</td>
+            <td class="code" data-sampleref="control4">|1011></td>
+        </tr>
+        <tr>
+            <td class="code" id="control5">jsqbits("|1010>").controlledX({from:1, to: 3}, 0)</td>
+            <td>leaves the state unchanged:</td>
+            <td class="code" data-sampleref="control5">|1010></td>
+        </tr>
+        <tr>
+            <td class="code" id="control6">jsqbits("|1110>").controlledX({from:1, to: 3}, 0)</td>
+            <td>flips bit zero to give:</td>
+            <td class="code" data-sampleref="control6">|1111></td>
+        </tr>
+        <tr>
+            <td class="code" id="control7">jsqbits("|1010>").controlledX([2,3], [0,1])</td>
+            <td>leaves the state unchanged:</td>
+            <td class="code" data-sampleref="control7">|1010></td>
+        </tr>
+        <tr>
+            <td class="code" id="control8">jsqbits("|1110>").controlledX([2,3], [0,1])</td>
+            <td>flips bit zero and one give:</td>
+            <td class="code" data-sampleref="control8">|1101></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>
+        In addition to controlledX(), there are controlledY(), controlledZ(), controlledR(), controlledS(), controlledT(),
+        and controlledHadamard() functions.
+        The function cnot() is an alias for controlledX().
+        There are also controlledXRotation(), controlledYRotation(), and controlledZRotation() functions.
+    </p>
+    <table class="samples">
+        <tbody>
+        <tr>
+            <td class="code" id="controlledXRotation">jsqbits("|010>").controlledXRotation(1, 0, Math.PI/2)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="controlledXRotation">0.7071 |010> - 0.7071i |011></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section" id="swapOperators">
+    <h2>Swap</h2>
+    <ul class="code index">
+        <li>swap(bit1, bit2)</li>
+        <li>controlledSwap(controlBits, bit1, bit2)</li>
+    </ul>
+    <p>
+        The swap and controlledSwap operators allow you to swap two qubits:
+    </p>
+    <table class="samples">
+        <tbody>
+        <tr>
+            <td class="code" id="swap">jsqbits("|1110>").swap(1, 0)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="swap">|1101></td>
+        </tr>
+        <tr>
+            <td class="code" id="controlledSwap">jsqbits("|1110>").controlledSwap([2,3], 0, 1)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="controlledSwap">|1101></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class='section' id='measurement'>
+    <h2>Measurement</h2>
+    <ul class="code index">
+        <li>measure(targetBits)</li>
+    </ul>
+    <p>
+        The measurement operator is intended to simulate the act of measuring one or more of the qbits.
+        You may specify a single bit index, a range of bits using an object with "from" and "to" properties,
+        or the constant <code>jsqbits.ALL</code>.
+        Note that currently you cannot supply an array of bit indexes.
+        As with all QState functions, the meaurement() function does not actually modify the object,
+        but instead returns a Measurement object with a "result" field containing the integer value of the result,
+        and a "newState" field containing the new quantum state (as a new QState object).
+    </p>
+    <table class="samples">
+        <tbody>
+        <tr>
+            <td class="code" id="measurement1">jsqbits("|0110>").measure(2)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="measurement1">{result: 1, newState: |0110>}</td>
+        </tr>
+        <tr>
+            <td class="code" id="measurement2">jsqbits("|0110>").measure({from:1, to: 3})</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="measurement2">{result: 3, newState: |0110>}</td>
+        </tr>
+        <tr>
+            <td class="code" id="measurement3">jsqbits("|0110>").measure(jsqbits.ALL)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="measurement3">{result: 6, newState: |0110>}</td>
+        </tr>
+        <tr>
+            <td class="code" id="measurement4">jsqbits("|00>").hadamard(0).measure(1)</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="measurement4">{result: 0, newState: 0.7071 |00> + 0.7071 |01>}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>
+        Measurement objects have a convenient <code>asBitString()</code> method that returns the state of the measured qbits as a string of 0's and 1's.
+        So, for example, <span class="code" id="MeasurementAsBitString">jsqbits("|0110>").measure({from:1, to: 3}).asBitString()</span> will result in
+        the string <span class="code" data-sampleref="MeasurementAsBitString">011</span>.
+    </p>
+
+    <p>
+        The random number generator used during measurement is exposed as
+        a function called "random" on instances of QState and hence may be over-ridden
+        by replacing the prototype function or replacing it on individual objects.
+        Here is how you can get measurements to always choose the first basis state with
+        a non-zero amplitude:
+    </p>
+    <code class="block" id="random">
+jsqbits.QState.prototype.random = function() {return 0;};
+jsqbits("|100>").hadamard([0,1]).measure(0)
+    </code>
+    <p>
+        always results in
+        <span class="code" data-sampleref="random">{result: 0, newState: 0.7071 |100> + 0.7071 |110>}</span>
+    </p>
+</div>
+
+<div class='section' id='toffoli'>
+    <h2>Toffoli</h2>
+    <ul class="code index">
+        <li>toffoli(controlBit, controlBit, ..., targetBit)</li>
+    </ul>
+    <p>
+        Given that the controlledX() operator can take multiple control bits,
+        a separate Toffoli operator is redundant,
+        but has been added for the sake of convenience.
+        It takes one or more control bit indexes as separate arguments,
+        followed by a target bit index (which actually can instead be a bit range or array).
+    </p>
+
+    <table class="samples">
+        <tbody>
+        <tr>
+            <td class="code" id="Toffoli1">jsqbits("|0001>").toffoli(0, 2, 3)</td>
+            <td>leaves the state unchanged:</td>
+            <td class="code" data-sampleref="Toffoli1">|0001></td>
+        </tr>
+        <tr>
+            <td class="code" id="Toffoli2">jsqbits("|0101>").toffoli(0, 2, 3)</td>
+            <td>flips bit three to give:</td>
+            <td class="code" data-sampleref="Toffoli2">|1101></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section" id="qft">
+    <h2>Quantum Fourier Transform</h2>
+    <ul class="code index">
+        <li>qft(targetBits)</li>
+    </ul>
+    <p>
+        The <code>qft</code> method is a convenience method for computing the quantum fourier transform of a set of qubits.
+        It is implemented on top of other more primitive operators, such as the Hadarmard and phase shift.
+    </p>
+    <p>
+        <span class="code" id="qftSample">jsqbits("|100>").qft([1,2])</span> will result in
+        <span class="code" data-sampleref="qftSample">0.5 |000> - 0.5 |010> + 0.5 |100> - 0.5 |110></span>.
+    </p>
+</div>
+
+<div class='section' id='applyFunction'>
+    <h2>applyFunction</h2>
+    <ul class="code index">
+        <li>applyFunction(inputBits, targetBits, functionToApply)</li>
+    </ul>
+    <p>
+        The <code>applyFunction</code> method takes
+        an input bit specification,
+        an output bit specification,
+        and a function to apply.
+        The input and output bit specifications must either be single bit indexes
+        or bit ranges using "from" and "to" properties.
+        <em>Note that currently they cannot be arrays.</em>
+        The value of the bits specified by the input bit index (or range)
+        is fed to the function, and the result is
+        applied to the output bit (or range).
+        For example,
+    </p>
+    <code class="block" id="applyFunctionSample">
+jsqbits("|10110>")
+    .applyFunction(
+        {from:3, to:4},
+        {from:0, to:2},
+        function(x){return x+1;})
+    </code>
+    <p>
+        In the example, the function is passed the top two bits (ie, the value 2) and so it returns 3.
+        This is to be applied to bits 0 to 2 and so the function's return value is
+        treated as the bit string "011" and xor'ed with the bottom three bits to give:
+        <span class="code" data-sampleref="applyFunctionSample">|10101></span>
+    </p>
+</div>
+
+<div class="section" id="kron">
+    <h2>Tensor Product</h2>
+    <ul class="code index">
+        <li>tensorProduct(otherState)</li>
+        <li>kron(otherState)</li>
+    </ul>
+    <p>
+        The <code>tensorProduct</code> method of QState returns the Kronecker (or tensor) product.
+        The <code>kron</code> method is an alias of <code>tensorProduct</code>.
+    </p>
+    <p>
+        For example, <span class="code" id="kronSample">jsqbits("|0110>").tensorProduct(jsqbits("|01>"))</span>
+        will result in <span class="code" data-sampleref="kronSample">|011001></span>.
+    </p>
+</div>
+
+<div class='section' id='amplitude'>
+    <h2>amplitude</h2>
+    <ul class="code index">
+        <li>amplitude(basisState)</li>
+    </ul>
+    <p>
+        The <code>amplitude</code> method can return the value of a specific amplitude.
+    </p>
+</div>
+
+<div class='section' id='roundToZero'>
+    <h2 class='index'>jsqbits.roundToZero</h2>
+    <p>
+        Note that, while the QState values are displayed to four decimal places, they are maintained to
+        the maximum precision provided by the JavaScript implementation of floating point numbers,
+        with the exception that numbers very close to zero are rounded off to zero.
+        The value used for determining this rounding to zero is the variable <code>jsqbits.roundToZero</code>.
+    </p>
+</div>
+
+<div class='section' id='complex'>
+    <h2 class="index">Complex</h2>
+    <p>
+        Given that the amplitudes of a quantum state are complex numbers,
+        jsqbits has a Complex class.  The easiest way to create a complex number is using
+        the method: <code>jsqbits.complex(real, imaginary)</code>.
+        If the number has no imaginary component, then the <code>jsqbits.real(value)</code>
+        method is a convenient abbreviation of <code>jsqbits.complex(value, 0)</code>.
+    </p>
+    <table class="samples">
+        <tbody>
+        <tr>
+            <td class="code" id="complexSample">jsqbits.complex(3, 4)</td>
+            <td>=</td>
+            <td class="code" data-sampleref="complexSample">3+4i</td>
+        </tr>
+        <tr>
+            <td class="code" id="realSample">jsqbits.real(3)</td>
+            <td>=</td>
+            <td class="code" data-sampleref="realSample">3</td>
+        </tr>
+        <tr>
+            <td class="code" id="complex-add">jsqbits.complex(3, 4).add(jsqbits.complex(10, 20))</td>
+            <td>=</td>
+            <td class="code" data-sampleref="complex-add">13+24i</td>
+        </tr>
+        <tr>
+            <td class="code" id="complex-addreal">jsqbits.complex(3, 4).add(7)</td>
+            <td>=</td>
+            <td class="code" data-sampleref="complex-addreal">10+4i</td>
+        </tr>
+        <tr>
+            <td class="code" id="complex-subtract">jsqbits.complex(3, 4).subtract(jsqbits.complex(10, 20))</td>
+            <td>=</td>
+            <td class="code" data-sampleref="complex-subtract">-7-16i</td>
+        </tr>
+        <tr>
+            <td class="code" id="complex-subtractreal">jsqbits.complex(3, 4).subtract(7)</td>
+            <td>=</td>
+            <td class="code" data-sampleref="complex-subtractreal">-4+4i</td>
+        </tr>
+        <tr>
+            <td class="code" id="complex-multiply">jsqbits.complex(3, 4).multiply(jsqbits.complex(10, 20))</td>
+            <td>=</td>
+            <td class="code" data-sampleref="complex-multiply">-50+100i</td>
+        </tr>
+        <tr>
+            <td class="code" id="complex-multiplyreal">jsqbits.complex(3, 4).multiply(10)</td>
+            <td>=</td>
+            <td class="code" data-sampleref="complex-multiplyreal">30+40i</td>
+        </tr>
+        <tr>
+            <td class="code" id="complex-negate">jsqbits.complex(3, 4).negate()</td>
+            <td>=</td>
+            <td class="code" data-sampleref="complex-negate">-3-4i</td>
+        </tr>
+        <tr>
+            <td class="code" id="complex-magnitude">jsqbits.complex(3, 4).magnitude()</td>
+            <td>=</td>
+            <td class="code" data-sampleref="complex-magnitude">5</td>
+        </tr>
+        <tr>
+            <td class="code" id="complex-conjugate">jsqbits.complex(3, 4).conjugate()</td>
+            <td>=</td>
+            <td class="code" data-sampleref="complex-conjugate">3-4i</td>
+        </tr>
+        <tr>
+            <td class="code" id="complex-format">jsqbits.complex(-1.235959, 3.423523).format({decimalPlaces: 3})</td>
+            <td>=</td>
+            <td class="code" data-sampleref="complex-format">-1.236+3.424i</td>
+        </tr>
+        <tr>
+            <td class="code" id="complex-zero">jsqbits.ZERO</td>
+            <td>=</td>
+            <td class="code" data-sampleref="complex-zero">0</td>
+        </tr>
+        <tr>
+            <td class="code" id="complex-one">jsqbits.ONE</td>
+            <td>=</td>
+            <td class="code" data-sampleref="complex-one">1</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<p>
+    <button id='validateCodeSamplesButton'>Validate code samples</button>
+    <span id="codeValidationFailure" class="error validationMessage" style="display: none;">
+        Automatic error checking of code samples has picked up some errors (highlighted in red).
+    </span>
+    <span id="codeValidationInProgress" class="warning validationMessage" style="display: none;">
+        Unexpected error occurred: Unable to validate code!
+    </span>
+    <span id="codeValidationSuccess" class="success validationMessage" style="display: none;">
+        Code samples validated and found to be OK.
+    </span>
+</p>
+<p>
+<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">jsqbits User Manual</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/davidbkemp" property="cc:attributionName" rel="cc:attributionURL">David Kemp</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
+</p>
+</body>
+</html>
