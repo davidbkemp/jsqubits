@@ -10,12 +10,12 @@
 
 (function () {
     "use strict";
-    var jsqbits = require(__dirname + '/../lib/index').jsqbits;
+    var jsqubits = require(__dirname + '/../lib/index').jsqubits;
 
     var deutschJozsa = exports.deutschJozsa = function (f) {
         var inputBits = {from: 1, to: 3};
-        var result = jsqbits('|0001>')
-                .hadamard(jsqbits.ALL)
+        var result = jsqubits('|0001>')
+                .hadamard(jsqubits.ALL)
                 .applyFunction(inputBits, 0, f)
                 .hadamard(inputBits)
                 .measure(inputBits)

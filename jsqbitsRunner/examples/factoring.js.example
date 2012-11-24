@@ -12,13 +12,13 @@ function computeOrder(a, n, numOutBits, callback) {
     var inputBits = {from: numOutBits, to: numOutBits + numInBits - 1};
     var attempts = 0;
     var bestSoFar = 1;
-    var f = function(x) { return jsqbitsmath.powerMod(a, x, n); }
+    var f = function(x) { return jsqubitsmath.powerMod(a, x, n); }
     var f0 = f(0);
 
     // This function contains the actual quantum computation part of the algorithm.
     // It returns either the frequency of the function f or some integer multiple (where "frequency" is the number of times the period of f will fit into 2^numInputBits)
     function determineFrequency(f) {
-        var qstate = new jsqbits.QState(numInBits + numOutBits).hadamard(inputBits);
+        var qstate = new jsqubits.QState(numInBits + numOutBits).hadamard(inputBits);
         qstate = qstate.applyFunction(inputBits, outBits, f);
         // We do not need to measure the outBits, but it does speed up the simulation.
         qstate = qstate.measure(outBits).newState;
@@ -45,7 +45,7 @@ function computeOrder(a, n, numOutBits, callback) {
         
         // Each "sample" has a high probability of being approximately equal to some integer multiple of (inputRange/r) rounded to the nearest integer.
         // So we use a continued fraction function to find r (or a divisor of r).
-        var continuedFraction = jsqbitsmath.continuedFraction(sample/inputRange, accuracyRequiredForContinuedFraction);
+        var continuedFraction = jsqubitsmath.continuedFraction(sample/inputRange, accuracyRequiredForContinuedFraction);
         // The denominator is a "candidate" for being r or a divisor of r (hence we need to find the least common multiple of several of these).
         var candidate = continuedFraction.denominator;
         log("Candidate period from quantum fourier transform: " + candidate);
@@ -55,7 +55,7 @@ function computeOrder(a, n, numOutBits, callback) {
         } else if (f(candidate) === f0) {
             bestSoFar = candidate;
         } else {
-            var lcm = jsqbitsmath.lcm(candidate, bestSoFar);
+            var lcm = jsqubitsmath.lcm(candidate, bestSoFar);
             log("Least common multiple of new candidate and best LCM so far: " + lcm);
             if (lcm > outputRange) {
                 log("Ignoring this candidate as the LCM is too large!")
@@ -85,7 +85,7 @@ function factor(n, callback) {
         }
         var randomChoice = 2 + Math.floor(Math.random() * (n - 2));
         log("Step 1: chose random number between 2 and " + n + ".  Chosen: "  + randomChoice);
-        var gcd = jsqbitsmath.gcd(randomChoice, n);
+        var gcd = jsqubitsmath.gcd(randomChoice, n);
         if(gcd > 1) {
             log("Lucky guess.  " + n + " and randomly chosen " + randomChoice + " have a common factor = " + gcd);
             callback(gcd);
@@ -96,8 +96,8 @@ function factor(n, callback) {
             if (r !== "failed" && r % 2 !== 0) {
                 log('Need a period with an even number.  Sadly, ' + r + ' is not even.');
             } else if (r !== "failed" && r % 2 === 0) {
-                var powerMod = jsqbitsmath.powerMod(randomChoice, r/2, n);
-                var candidateFactor = jsqbitsmath.gcd(powerMod - 1, n);
+                var powerMod = jsqubitsmath.powerMod(randomChoice, r/2, n);
+                var candidateFactor = jsqubitsmath.gcd(powerMod - 1, n);
                 log("Candidate Factor computed from period = " + candidateFactor);
                 if(candidateFactor > 1 && n % candidateFactor === 0) {
                     callback(candidateFactor);
@@ -117,7 +117,7 @@ function factor(n, callback) {
         return;
     }
 
-    var powerFactor = jsqbitsmath.powerFactor(n);
+    var powerFactor = jsqubitsmath.powerFactor(n);
     if (powerFactor > 1) {
         log("Is a power factor.  No need for anything quantum!")
         callback(powerFactor);

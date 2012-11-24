@@ -1,10 +1,10 @@
 {
-  "name": "jsqbits",
-  "version": "1.10.2",
-  "author": "David Kemp <david@jsqbits.org>",
+  "name": "jsqubits",
+  "version": "0.0.1",
+  "author": "David Kemp <david@jsqubits.org>",
   "description": "a quantum computation simulation library",
   "scripts": {
-    "test": "jshint lib && jshint examples && jshint resources/js/jsqbitsManual.js && jshint resources/js/jsqbitsRunner.js && jasmine-node spec"
+    "test": "jshint lib && jshint examples && jshint resources/js/jsqubitsManual.js && jshint resources/js/jsqubitsRunner.js && jasmine-node spec"
   },
   "main": "./lib/index.js",
   "keywords": [

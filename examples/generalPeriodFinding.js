@@ -13,8 +13,8 @@
 (function () {
     "use strict";
 
-    var jsqbits = require(__dirname + '/../lib/index').jsqbits;
-    var jsqbitsmath = require(__dirname + '/../lib/index').jsqbitsmath;
+    var jsqubits = require(__dirname + '/../lib/index').jsqubits;
+    var jsqubitsmath = require(__dirname + '/../lib/index').jsqubitsmath;
 
 
     var findPeriod = exports.findPeriod = function(f, upperLimit) {
@@ -36,7 +36,7 @@
         // This function contains the actual quantum computation part of the algorithm.
         // It returns either the frequency of the function f or some integer multiple (where "frequency" is the number of times the period of f will fit into 2^numInputBits)
         function determineFrequency(f) {
-            var qstate = new jsqbits.QState(numInBits + numOutBits).hadamard(inputBits);
+            var qstate = new jsqubits.QState(numInBits + numOutBits).hadamard(inputBits);
             qstate = qstate.applyFunction(inputBits, outBits, f);
             // We do not need to measure the outBits, but it does speed up the simulation.
             qstate = qstate.measure(outBits).newState;
@@ -53,14 +53,14 @@
 
             // Each "sample" has a high probability of being approximately equal to some integer multiple of (inputRange/r) rounded to the nearest integer.
             // So we use a continued fraction function to find r (or a divisor of r).
-            var continuedFraction = jsqbitsmath.continuedFraction(sample/inputRange, accuracyRequiredForContinuedFraction);
+            var continuedFraction = jsqubitsmath.continuedFraction(sample/inputRange, accuracyRequiredForContinuedFraction);
             // The denominator is a "candidate" for being r or a divisor of r (hence we need to find the least common multiple of several of these).
             var candidateDivisor = continuedFraction.denominator;
             console.log("Candidate divisor of r: " + candidateDivisor);
             // Reduce the chances of getting the wrong answer by ignoring obviously wrong results!
             if (candidateDivisor <= outputRange && candidateDivisor > 1) {
                 // The period r should be the least common multiple of all of our candidate values (each is of the form k*r for random integer k).
-                var lcm = jsqbitsmath.lcm(candidateDivisor, bestSoFar);
+                var lcm = jsqubitsmath.lcm(candidateDivisor, bestSoFar);
                 if (lcm <= outputRange) {
                     console.log("This is a good candidate.");
                     bestSoFar = lcm;

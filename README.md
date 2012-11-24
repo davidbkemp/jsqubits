@@ -1,32 +1,34 @@
-jsqbits
+jsqubits
 ========
 
 A JavaScript library for quantum computation simulation.
 
 Website:
-http://davidbkemp.github.com/jsqbits/
+http://davidbkemp.github.com/jsqubits/
 
 The user manual:
-http://davidbkemp.github.com/jsqbits/jsqbitsManual.html
+http://davidbkemp.github.com/jsqubits/jsqubitsManual.html
 
-Try it out online using the jsqbits runner:
-http://davidbkemp.github.com/jsqbits/jsqbitsRunner.html
+Try it out online using the jsqubits runner:
+http://davidbkemp.github.com/jsqubits/jsqubitsRunner.html
 
 Wiki (with examples):
-https://github.com/davidbkemp/jsqbits/wiki
+https://github.com/davidbkemp/jsqubits/wiki
 
 You can use it to implement quantum algorithms using JavaScript like this:
 
-    jsqbits('|01>')
-        .hadamard(jsqbits.ALL)
+    jsqubits('|01>')
+        .hadamard(jsqubits.ALL)
         .cnot(1, 0)
-        .hadamard(jsqbits.ALL)
+        .hadamard(jsqubits.ALL)
         .measure(1)
         .result
 
 If you are new to quantum programming, then it is highly recommended that you try reading
 [John Watrous' Quantum Information and Computation Lecture Notes](http://www.cs.uwaterloo.ca/~watrous/lecture-notes.html).
-You may also wish to try reading the (work in progress) [Introduction to Quantum Programming using jsqbits](http://davidbkemp.github.com/jsqbits/jsqbitsTutorial.html).
+You may also wish to try reading the (work in progress) [Introduction to Quantum Programming using jsqubits](http://davidbkemp.github.com/jsqubits/jsqubitsTutorial.html).
+
+NOTE: This library has only recently been renamed from jsqbits to jsqubits to reflect the more conventional spelling of qubit.
 
 TODO
 -----

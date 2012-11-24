@@ -9,8 +9,8 @@
 
 (function () {
     "use strict";
-    var jsqbits = require(__dirname + '/../lib/index').jsqbits;
-    var jsqbitsmath = require(__dirname + '/../lib/index').jsqbitsmath;
+    var jsqubits = require(__dirname + '/../lib/index').jsqubits;
+    var jsqubitsmath = require(__dirname + '/../lib/index').jsqubitsmath;
 
 
     var findPeriod = exports.findPeriod = function(f, upperLimit) {
@@ -28,7 +28,7 @@
         // This function contains the actual quantum computation part of the algorithm.
         // It returns either the frequency of the function f or some integer multiple (where "frequency" is the number of times the period of f will fit into 2^numInputBits)
         function determineFrequency(f) {
-            var qstate = new jsqbits.QState(numInBits + numOutBits).hadamard(inputBits);
+            var qstate = new jsqubits.QState(numInBits + numOutBits).hadamard(inputBits);
             qstate = qstate.applyFunction(inputBits, outBits, f);
             // We do not need to measure the outBits, but it does speed up the simulation.
             qstate = qstate.measure(outBits).newState;
@@ -37,7 +37,7 @@
 
     //        Do this multiple times and get the GCD.
         for (var i = 0; i < numOutBits; i ++) {
-            gcd = jsqbitsmath.gcd(gcd, determineFrequency(f));
+            gcd = jsqubitsmath.gcd(gcd, determineFrequency(f));
         }
         return Math.pow(2, numInBits)/gcd;
     };

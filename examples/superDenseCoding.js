@@ -9,10 +9,10 @@
 
 (function () {
     "use strict";
-    var jsqbits = require(__dirname + '/../lib/index').jsqbits;
+    var jsqubits = require(__dirname + '/../lib/index').jsqubits;
 
     var superDense = exports.superDense = function (input) {
-        var state = jsqbits('|00>').add(jsqbits('|11>')).normalize();
+        var state = jsqubits('|00>').add(jsqubits('|11>')).normalize();
 
         console.log("Initial Bell State: " + state);
 
@@ -31,7 +31,7 @@
         state = state.cnot(alice, bob).hadamard(alice);
 
         console.log("State after Bob receives Alice's qubit and 'decodes' it: " + state);
-        return state.measure(jsqbits.ALL).asBitString();
+        return state.measure(jsqubits.ALL).asBitString();
     };
 
 //    var input = prompt("Two bit string to send", "10");

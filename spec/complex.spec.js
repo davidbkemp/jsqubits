@@ -1,9 +1,9 @@
-var jsqbits = require('../lib/index').jsqbits;
-var jsqbitsJasmineMatchers = require('./matchers');
+var jsqubits = require('../lib/index').jsqubits;
+var jsqubitsJasmineMatchers = require('./matchers');
 
 describe('Complex', function() {
     var complex = function(real, imaginary) {
-        return new jsqbits.Complex(real, imaginary);
+        return new jsqubits.Complex(real, imaginary);
     };
 
     var w;
@@ -13,7 +13,7 @@ describe('Complex', function() {
         w = complex(-4, 3);
         x = complex(1, 3);
         y = complex(10, 30);
-        this.addMatchers(jsqbitsJasmineMatchers);
+        this.addMatchers(jsqubitsJasmineMatchers);
     });
 
     describe("construction", function() {
@@ -82,7 +82,7 @@ describe('Complex', function() {
 
     describe("#real", function(){
         it("should create a complex number", function(){
-            expect(jsqbits.real(3)).toBeApprox(complex(3, 0));
+            expect(jsqubits.real(3)).toBeApprox(complex(3, 0));
         });
     });
 

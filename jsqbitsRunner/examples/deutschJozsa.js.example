@@ -7,7 +7,7 @@
 
 function deutschJozsa(f) {
     var inputBits = {from: 1, to: 3};
-    var result = jsqbits('|0001>')
+    var result = jsqubits('|0001>')
             .hadamard(ALL)
             .applyFunction(inputBits, 0, f)
             .hadamard(inputBits)

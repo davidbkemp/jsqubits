@@ -5,7 +5,7 @@
 function dqc1(f, n) {
     var real = traceReal(f, n);
     var imaginary = traceImaginary(f, n);
-    return jsqbits.complex(real, imaginary);
+    return jsqubits.complex(real, imaginary);
 }
 
 function traceReal(f, n) {
@@ -23,8 +23,8 @@ function traceComponent(f, n, rotation) {
     var sum = 0;
     for (var i = 0; i < numberOfSamples; i++) {
         var amplitudes = {};
-        amplitudes[Math.floor(Math.random() * numberOfMixedStates)] = jsqbits.complex(1,0);
-        var state = new jsqbits.QState(n+1, amplitudes).hadamard(n);
+        amplitudes[Math.floor(Math.random() * numberOfMixedStates)] = jsqubits.complex(1,0);
+        var state = new jsqubits.QState(n+1, amplitudes).hadamard(n);
         state = f(state);
         sum += rotation(state).measure(n).result * -2 + 1;
     }

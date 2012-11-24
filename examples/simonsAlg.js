@@ -8,13 +8,13 @@
 
 (function () {
     "use strict";
-    var jsqbits = require(__dirname + '/../lib/index').jsqbits;
-    var jsqbitsmath = require(__dirname + '/../lib/index').jsqbitsmath;
+    var jsqubits = require(__dirname + '/../lib/index').jsqubits;
+    var jsqubitsmath = require(__dirname + '/../lib/index').jsqubitsmath;
 
     function singleRunOfSimonsCircuit(f, numbits) {
         var inputBits = {from: numbits, to: 2 * numbits - 1};
         var targetBits = {from: 0, to: numbits - 1};
-        var qbits = new jsqbits.QState(2 * numbits)
+        var qbits = new jsqubits.QState(2 * numbits)
                 .hadamard(inputBits)
                 .applyFunction(inputBits, targetBits, f)
                 .hadamard(inputBits);
@@ -31,7 +31,7 @@
                 results.push(result);
                 estimatedNumberOfIndependentSolutions++;
                 if (estimatedNumberOfIndependentSolutions === numBits - 1) {
-                    nullSpace = jsqbitsmath.findNullSpaceMod2(results, numBits);
+                    nullSpace = jsqubitsmath.findNullSpaceMod2(results, numBits);
                     if (nullSpace.length === 1) break;
                     estimatedNumberOfIndependentSolutions = numBits - nullSpace.length;
                 }

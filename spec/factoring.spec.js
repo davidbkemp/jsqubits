@@ -1,5 +1,5 @@
-var jsqbits = require('../lib/index').jsqbits;
-var jsqbitsmath = require('../lib/index').jsqbitsmath;
+var jsqubits = require('../lib/index').jsqubits;
+var jsqubitsmath = require('../lib/index').jsqubitsmath;
 
 describe("Shor's algorithm", function() {
 
@@ -14,13 +14,13 @@ describe("Shor's algorithm", function() {
             var accuracyRequiredForContinuedFraction = 1/(2 * outputRange * outputRange);
             var outBits = {from: 0, to: numOutBits - 1};
             var inputBits = {from: numOutBits, to: numOutBits + numInBits - 1};
-            var f = function(x) { return jsqbitsmath.powerMod(a, x, n); }
+            var f = function(x) { return jsqubitsmath.powerMod(a, x, n); }
             var f0 = f(0);
 
             // This function contains the actual quantum computation part of the algorithm.
             // It returns either the frequency of the function f or some integer multiple (where "frequency" is the number of times the period of f will fit into 2^numInputBits)
             function determineFrequency(f) {
-                var qstate = new jsqbits.QState(numInBits + numOutBits).hadamard(inputBits);
+                var qstate = new jsqubits.QState(numInBits + numOutBits).hadamard(inputBits);
                 qstate = qstate.applyFunction(inputBits, outBits, f);
                 // We do not need to measure the outBits, but it does speed up the simulation.
                 qstate = qstate.measure(outBits).newState;
@@ -41,7 +41,7 @@ describe("Shor's algorithm", function() {
 
                     // Each "sample" has a high probability of being approximately equal to some integer multiple of (inputRange/r) rounded to the nearest integer.
                     // So we use a continued fraction function to find r (or a divisor of r).
-                    var continuedFraction = jsqbitsmath.continuedFraction(sample/inputRange, accuracyRequiredForContinuedFraction);
+                    var continuedFraction = jsqubitsmath.continuedFraction(sample/inputRange, accuracyRequiredForContinuedFraction);
                     // The denominator is a "candidate" for being r or a divisor of r (hence we need to find the least common multiple of several of these).
                     var candidate = continuedFraction.denominator;
                     // Reduce the chances of getting the wrong answer by ignoring obviously wrong results!
@@ -49,7 +49,7 @@ describe("Shor's algorithm", function() {
                         if (f(candidate) === f0) {
                             bestSoFar = candidate;
                         } else {
-                            var lcm = jsqbitsmath.lcm(candidate, bestSoFar);
+                            var lcm = jsqubitsmath.lcm(candidate, bestSoFar);
                             if (lcm <= outputRange) {
                                 bestSoFar = lcm;
                             }
@@ -70,7 +70,7 @@ describe("Shor's algorithm", function() {
                 return 2;
             }
 
-            var powerFactor = jsqbitsmath.powerFactor(n);
+            var powerFactor = jsqubitsmath.powerFactor(n);
             if (powerFactor > 1) {
                 // Is a power factor.  No need for anything quantum!
                 return powerFactor;
@@ -79,7 +79,7 @@ describe("Shor's algorithm", function() {
             for(var attempts = 0; attempts < 8; attempts++) {
                 // Step 1: chose random number between 2 and n
                 var randomChoice = 2 + Math.floor(Math.random() * (n - 2));
-                var gcd = jsqbitsmath.gcd(randomChoice, n);
+                var gcd = jsqubitsmath.gcd(randomChoice, n);
                 if(gcd > 1) {
                     // Lucky guess. n  and randomly chosen randomChoice  have a common factor = gcd
                     return gcd;
@@ -87,8 +87,8 @@ describe("Shor's algorithm", function() {
 
                 var r = computeOrder(randomChoice, n);
                 if (r !== "failed" && r % 2 === 0) {
-                    var powerMod = jsqbitsmath.powerMod(randomChoice, r/2, n);
-                    var candidateFactor = jsqbitsmath.gcd(powerMod - 1, n);
+                    var powerMod = jsqubitsmath.powerMod(randomChoice, r/2, n);
+                    var candidateFactor = jsqubitsmath.gcd(powerMod - 1, n);
                     if(candidateFactor > 1 && n % candidateFactor === 0) {
                         return candidateFactor;
                     }

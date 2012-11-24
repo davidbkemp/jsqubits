@@ -10,12 +10,12 @@
 (function () {
     "use strict";
 
-    var jsqbits = require(__dirname + '/../lib/index').jsqbits;
+    var jsqubits = require(__dirname + '/../lib/index').jsqubits;
 
     var bernsteinVazirani = exports.bernsteinVazirani = function (f, numbits) {
         //  Create a |-> state as the target qubit.
-        var targetQubit = jsqbits("|0>").subtract(jsqbits("|1>")).normalize();
-        var inputQubits = new jsqbits.QState(numbits);
+        var targetQubit = jsqubits("|0>").subtract(jsqubits("|1>")).normalize();
+        var inputQubits = new jsqubits.QState(numbits);
         var initialState = inputQubits.tensorProduct(targetQubit);
 
         var inputBits = {from: 1, to: numbits};

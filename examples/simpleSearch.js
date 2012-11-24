@@ -9,12 +9,12 @@
 
 (function () {
     "use strict";
-    var jsqbits = require(__dirname + '/../lib/index').jsqbits;
+    var jsqubits = require(__dirname + '/../lib/index').jsqubits;
 
     var simpleSearch = exports.simpleSearch = function(f) {
         var inputBits = {from: 1, to: 2};
-        return jsqbits('|001>')
-                .hadamard(jsqbits.ALL)
+        return jsqubits('|001>')
+                .hadamard(jsqubits.ALL)
                 .applyFunction(inputBits, 0, f)
                 .hadamard(inputBits)
                 .z(inputBits)

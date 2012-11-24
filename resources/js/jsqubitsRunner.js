@@ -15,17 +15,17 @@
  */
 
 /**
- * For documentation, and the latest version, see http://www.jsqbits.org/
+ * For documentation, and the latest version, see http://www.jsqubits.org/
  */
 
 /*jshint evil:true, eqnull:true, eqeqeq:true, forin:true, immed:true, latedef:true, newcap:true, noarg:true, nonew:true, regexp:true, undef:true, unused:true, strict:true, trailing:true */
-/*global jQuery, jsqbits, prompt, alert  */
+/*global jQuery, jsqubits, prompt, alert  */
 
 
 (function (global, $) {
     "use strict";
 
-    global.ALL = jsqbits.ALL;
+    global.ALL = jsqubits.ALL;
 
     global.log = function (str) {
         jQuery("#console").append(jQuery("<div>").text(str));

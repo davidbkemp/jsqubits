@@ -8,10 +8,10 @@
 
 (function () {
     "use strict";
-    var jsqbits = require(__dirname + '/../lib/index').jsqbits;
+    var jsqubits = require(__dirname + '/../lib/index').jsqubits;
 
     var deutsch = exports.deutsch = function(f) {
-       return jsqbits('|01>').hadamard(jsqbits.ALL).applyFunction(1, 0, f).hadamard(jsqbits.ALL).measure(1).result;
+       return jsqubits('|01>').hadamard(jsqubits.ALL).applyFunction(1, 0, f).hadamard(jsqubits.ALL).measure(1).result;
     };
 
     var f = function(x) {return (x + 1) % 2;};

@@ -9,7 +9,7 @@
 
 (function () {
     "use strict";
-    var jsqbits = require(__dirname + '/../lib/index').jsqbits;
+    var jsqubits = require(__dirname + '/../lib/index').jsqubits;
 
     var applyTeleportation = exports.applyTeleportation = function(state) {
         var alicesMeasurement = state.cnot(2, 1).hadamard(2).measure({from: 1, to: 2});
@@ -26,8 +26,8 @@
     // The state of the qubit to be transmitted consists of the amplitude of |0> and the amplitude of |1>
     // Any two complex values can be chosen here so long as the sum of their magnitudes adds up to 1.
     // For this example, we choose to transmit the state: 0.5+0.5i |0> + 0.7071i |1>
-    var stateToBeTransmitted0 = jsqbits("|0>").multiply(jsqbits.complex(0.5, 0.5));
-    var stateToBeTransmitted1 = jsqbits("|1>").multiply(jsqbits.complex(0, Math.sqrt(0.5)));
+    var stateToBeTransmitted0 = jsqubits("|0>").multiply(jsqubits.complex(0.5, 0.5));
+    var stateToBeTransmitted1 = jsqubits("|1>").multiply(jsqubits.complex(0, Math.sqrt(0.5)));
     var stateToBeTransmitted = stateToBeTransmitted0.add(stateToBeTransmitted1);
 
     console.log("State to be transmitted: " + stateToBeTransmitted);
@@ -35,7 +35,7 @@
     // The quantum computer is initialized as a three qubit system with bits 0 and 1 being the bell state qbits shared by Alice and Bob
     // and bit 2 being the qubit to be transmitted.
 
-    var bellState = jsqbits('|00>').add(jsqbits('|11>')).normalize();
+    var bellState = jsqubits('|00>').add(jsqubits('|11>')).normalize();
     var initialState = stateToBeTransmitted.tensorProduct(bellState);
 
     // Now apply the Teleportation algorithm
