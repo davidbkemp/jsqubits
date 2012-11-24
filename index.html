@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jsqbits</title>
+    <meta name="keywords" content="quantum, quantum programming, quantum computer, simulator">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="resources-1.10/css/jsqbits.css" />
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-29684858-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</head>
+<body>
+<h1>jsqbits: JavaScript quantum computer simulator</h1>
+<p>jsqbits is a JavaScript library for quantum computation simulation.</p>
+
+<h2>Useful Links</h2>
+<ul>
+    <li><a href="http://davidbkemp.github.com/jsqbits/jsqbitsManual.html">User manual</a></li>
+    <li><a href="https://github.com/davidbkemp/jsqbits">GitHub Repository</a></li>
+    <li><a href="https://github.com/davidbkemp/jsqbits/wiki">Wiki</a> (contains examples)</li>
+    <li>The online <a href="http://davidbkemp.github.com/jsqbits/jsqbitsRunner.html">jsqbits runner</a></li>
+</ul>
+
+<h2>About jsqbits</h2>
+<p>
+    Try the online
+    <a href="http://davidbkemp.github.com/jsqbits/jsqbitsRunner.html">jsqbits runner</a>.
+    Alternatively, you can download and use the JavaScript jsqbits.js library from the
+    <a href="https://github.com/davidbkemp/jsqbits">jsqbits github repository</a>.
+    It is fully self contained: no third party libraries are required.
+    You can use it to implement quantum algorithms using JavaScript like this:
+</p>
+
+<code class="block">
+jsqbits('|01>')
+    .hadamard(jsqbits.ALL)
+    .cnot(1, 0)
+    .hadamard(jsqbits.ALL)
+    .measure(1)
+    .result
+</code>
+
+<p>
+Why JavaScript? Simply because it can run in almost all web browsers
+without having to install anything.
+You can even use the online
+<a href="http://davidbkemp.github.com/jsqbits/jsqbitsRunner.html">jsqbits runner</a>
+on a smart phone!
+</p>
+
+<p>
+Being JavaScript, you will not get great performance,
+and will probably find it fails to handle more than one or two dozen qubits,
+but it is the sort of tool I wish was around when I first started
+learning about quantum computing.
+</p>
+
+<p>
+    If you are new to quantum programming, then it is highly recommended that you try reading
+    <a href="http://www.cs.uwaterloo.ca/~watrous/lecture-notes.html">John Watrous' Quantum Information and Computation Lecture Notes</a>.
+    You may also wish to try reading the partially finished
+    <a href="http://davidbkemp.github.com/jsqbits/jsqbitsTutorial.html">Introduction to Quantum Programming using jsqbits</a>.
+</p>
+</body>
+</html>
