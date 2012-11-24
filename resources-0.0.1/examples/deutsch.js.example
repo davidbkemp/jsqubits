@@ -4,7 +4,7 @@
  */
 
 function deutsch(f) {
-   return jsqbits('|01>').hadamard(jsqbits.ALL).applyFunction(1, 0, f).hadamard(jsqbits.ALL).measure(1).result;
+   return jsqubits('|01>').hadamard(jsqubits.ALL).applyFunction(1, 0, f).hadamard(jsqubits.ALL).measure(1).result;
 };
 
 

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>An Introduction to Quantum Programming using jsqbits</title>
+    <title>An Introduction to Quantum Programming using jsqubits</title>
     <meta name="keywords" content="quantum, tutorial, quantum programming, quantum computer, simulator">
-    <link rel="stylesheet" type="text/css" href="resources-1.10/css/jsqbits.css" />
-    <script type="text/javascript">
+    <link rel="stylesheet" type="text/css" href="resources-0.0.1/css/jsqubits.css" />
+<script type="text/javascript">
 
       var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-29684858-1']);
+      _gaq.push(['_setAccount', 'UA-36548750-1']);
       _gaq.push(['_trackPageview']);
 
       (function() {
@@ -16,19 +16,19 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
 
-    </script>
+</script>
 </head>
 <body>
-<h1 class='withAuthor'>An Introduction to Quantum Programming using jsqbits</h1>
+<h1 class='withAuthor'>An Introduction to Quantum Programming using jsqubits</h1>
 <div class="author">
-    by David Kemp (kemp@jsqbits.org)
+    by David Kemp (kemp@jsqubits.org)
 </div>
 <p>
     A quantum program makes use of quantum phenomenon for some of its instructions.
     For a limited set of problems, this can result in a significant asymptotic speed up over conventional programs.
     The purpose of this tutorial is to introduce you to the basic concepts of quantum programming
     using examples that you can try out on
-    the online <a href="http://davidbkemp.github.com/jsqbits/jsqbitsRunner.html">jsqbits runner</a>.
+    the online <a href="http://davidbkemp.github.com/jsqubits/jsqubitsRunner.html">jsqubits runner</a>.
     I try to assume as little knowledge of quantum physics as possible
     and minimize the amount mathematics required.
 </p>
@@ -169,50 +169,50 @@
     state of the system back to <code>|1></code>.
 </p>
 
-<h2>jsqbits</h2>
+<h2>jsqubits</h2>
 <p>
-    <a href="http://jsqbits.org">jsqbits</a> is a JavaScript library for quantum computation simulation.
+    <a href="http://jsqubits.org">jsqubits</a> is a JavaScript library for quantum computation simulation.
     For this tutorial, I will use examples that you can try out
     using the online
-    <a href="http://davidbkemp.github.com/jsqbits/jsqbitsRunner.html">jsqbits runner</a>.
+    <a href="http://davidbkemp.github.com/jsqubits/jsqubitsRunner.html">jsqubits runner</a>.
 </p>
 
 <p>
-    Using jsqbits, the easiest way to create an initial state is using the <code>jsqbits</code> function.
+    Using jsqubits, the easiest way to create an initial state is using the <code>jsqubits</code> function.
     It takes a binary string and returns a <code>QState</code> object representing the state of your quantum computer.
     For example,
-    <code>jsqbits("|0101>")</code> creates a 4 qubit quantum state of <code>|0101></code>.
+    <code>jsqubits("|0101>")</code> creates a 4 qubit quantum state of <code>|0101></code>.
 </p>
 <p>
     QState objects have a number of methods including the <code>hadamard()</code> method.
     You must specify the index of the bit to be operated on, with the right most bit being bit 0,
     and the left most bit being bit n-1 for an n bit state.
     Try entering the following text into the text field of the
-    <a href="http://davidbkemp.github.com/jsqbits/jsqbitsRunner.html">jsqbits runner</a>
+    <a href="http://davidbkemp.github.com/jsqubits/jsqubitsRunner.html">jsqubits runner</a>
     and pressing the "run" button.
 </p>
 
 <code class="block">
-jsqbits('|001>').hadamard(0)
+jsqubits('|001>').hadamard(0)
 </code>
 
 <p>
     You should find you get <code>0.7071 |000> - 0.7071 |001></code>
 </p>
 <p>
-    And if you try <code>jsqbits("|001>").hadamard(0).hadamard(0)</code>,
+    And if you try <code>jsqubits("|001>").hadamard(0).hadamard(0)</code>,
     you should find you get back your original state of <code>|001></code>
 </p>
 
 <p>
     As a convenience, you can also specify a range of bits using an object with "from" and "to" properties,
     and the operator will be applied to each of the bits in that range (inclusive).
-    The constant <code>jsqbits.ALL</code> can be used to apply the operator to all the bits.
+    The constant <code>jsqubits.ALL</code> can be used to apply the operator to all the bits.
     For most operators (except where indicated), you may also use an array of bit indexes.
     Try the following:
 </p>
 <code class="block">
-jsqbits("|00>").hadamard(jsqbits.ALL)
+jsqubits("|00>").hadamard(jsqubits.ALL)
 </code>
 <p>
     You will get <code>0.5 |00> + 0.5 |01> + 0.5 |10> + 0.5 |11></code>
@@ -254,7 +254,7 @@ jsqbits("|00>").hadamard(jsqbits.ALL)
 <p>
     When in this state,
     the two qubits are either both 0 or both 1.
-    The easiest way to simulate this in jsqbits is to
+    The easiest way to simulate this in jsqubits is to
     start with the two qubits in the state <code>|00></code>,
     apply a Hadamard operation to one of them,
     and then apply what is called a "controlled-not" (or cnot) operator
@@ -264,23 +264,23 @@ jsqbits("|00>").hadamard(jsqbits.ALL)
 </p>
 <p>
     The "not" operator simply flips a qubit (just like its classical equivalent).
-    In jsqbits, QState objects have a "not" method that takes the index of the bit to be flipped.
-    For, example, <code>jsqbits('|00>').not(1)</code> results in <code>|10></code>.
+    In jsqubits, QState objects have a "not" method that takes the index of the bit to be flipped.
+    For, example, <code>jsqubits('|00>').not(1)</code> results in <code>|10></code>.
 </p>
 <p>
     The controlled-not or "cnot" operator requires both a target bit and a control bit.
     It will flip the target bit if, and only if, the control bit has a value of 1.
-    In jsqbits, the cnot operator takes the control bit as its first argument
+    In jsqubits, the cnot operator takes the control bit as its first argument
     and the targit bit as its second.
-    For example, <code>jsqbits('|00>').cnot(1,0)</code> leaves the state unchanged as <code>|00></code>,
-    but <code>jsqbits('|10>').cnot(1,0)</code> results in <code>|11></code>
+    For example, <code>jsqubits('|00>').cnot(1,0)</code> leaves the state unchanged as <code>|00></code>,
+    but <code>jsqubits('|10>').cnot(1,0)</code> results in <code>|11></code>
 </p>
 <p>
     So, to prepare two qubits in the state
     <code>&#x221a;(1/2)|00> + &#x221a;(1/2)|11></code>,
-    you can do the following in jsqbits:
+    you can do the following in jsqubits:
 </p>
-<code>jsqbits('|00>').hadamard(1).cnot(1,0)</code>
+<code>jsqubits('|00>').hadamard(1).cnot(1,0)</code>
 
 <h3>Encoding two classical bits into one qubit</h3>
 <p>
@@ -289,16 +289,16 @@ jsqbits("|00>").hadamard(jsqbits.ALL)
     There are three Pauli operators, X, Y and Z.
     The X operator is just another name for the "not" operator.
     i.e. it just flips the bit of the qubit to which it is applied.
-    In jsqbits, the <code>x()</code> and <code>controlledX()</code> methods
+    In jsqubits, the <code>x()</code> and <code>controlledX()</code> methods
     are aliases for <code>not()</code> and <code>cnot()</code> respectively.
 </p>
 <p>
     Instead of flipping the qubit to which it is applied,
     the Z operator flips the sign of the amplitude of the <code>|1></code> component of the qubit,
     and leaves the amplitude of the <code>|0></code> component untouched.
-    So, in jsqbits, <code>jsqbits('|0>').z(0)</code>
+    So, in jsqubits, <code>jsqubits('|0>').z(0)</code>
     leaves the state as <code>|0></code>,
-    and <code>jsqbits('|1>').z(0)</code>
+    and <code>jsqubits('|1>').z(0)</code>
     results in the state <code>-1 |1></code>
     (i.e. it is still in a <code>|1></code> state, but its amplitude is -1).
 </p>
@@ -312,7 +312,7 @@ jsqbits("|00>").hadamard(jsqbits.ALL)
     <code>&#x221a;(1/2)|0> - &#x221a;(1/2)|1></code> and,
     finally, after applying a Hadamard again, you will get:
     <code>|1></code>.
-    i.e. <code>jsqbits('|0>').hadamard(0).z(0).hadamard(0)</code> gives <code>|1></code>.
+    i.e. <code>jsqubits('|0>').hadamard(0).z(0).hadamard(0)</code> gives <code>|1></code>.
 </p>
 <p>
     The <code>controlledZ()</code> method, like the <code>cnot</code> method, requires
@@ -326,9 +326,9 @@ jsqbits("|00>").hadamard(jsqbits.ALL)
     The Y operator is quite tricky to describe.
     It is equivalent to applying the Z operator, then the X operator, and then multiplying the amplitudes
     by the imaginary number i.
-    So, in jsqbits, <code>jsqbits('|0>').y(0)</code>
+    So, in jsqubits, <code>jsqubits('|0>').y(0)</code>
     leaves the state as <code>i |1></code>,
-    and <code>jsqbits('|1>').y(0)</code>
+    and <code>jsqubits('|1>').y(0)</code>
     results in the state <code>-i |0></code>.
 </p>
 <p>
@@ -342,14 +342,14 @@ jsqbits("|00>").hadamard(jsqbits.ALL)
 </ol>
 <p>If both a and b are 1's, then Alice applies both the Z and the X operator to her qubit.</p>
 <p>
-    This can be simulated in jsqbits with the following code:
+    This can be simulated in jsqubits with the following code:
 </p>
 <code class="block">
 // The bits to be sent to Alice are set in the string called input:
 var input = "10";
 
 // First, create a pair of entangled qubits
-var state = jsqbits('|00>').hadamard(0).cnot(0,1);
+var state = jsqubits('|00>').hadamard(0).cnot(0,1);
 
 // Assume that qubit 0 is sent to Bob, and that qubit 1 is sent to Alice.
 
@@ -380,13 +380,13 @@ if (input.charAt(1) === '1') {
     At the end of these steps, the value measured for Alice's qubit will be the original value of "a",
     and the value measured for Bob's qubit will be the original value of "b".
 </p>
-<p>Here is the full algorithm in jsqbits (try it out in the jsqbits runner):</p>
+<p>Here is the full algorithm in jsqubits (try it out in the jsqubits runner):</p>
 <code class="block">
 // The bits to be sent to Alice are set in the string called input:
 var input = "10";
 
 // First, create a pair of entangled qubits
-var state = jsqbits('|00>').hadamard(0).cnot(0,1);
+var state = jsqubits('|00>').hadamard(0).cnot(0,1);
 
 // Assume that qubit 0 is sent to Bob, and that qubit 1 is sent to Alice.
 
@@ -414,6 +414,6 @@ To be completed....
     I highly recommend reading
     <a href="http://www.cs.uwaterloo.ca/~watrous/lecture-notes.html">John Watrous' lecture notes</a>
 </p>
-<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">An Introduction to Quantum Programming using jsqbits</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/davidbkemp" property="cc:attributionName" rel="cc:attributionURL">David Kemp</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
+<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">An Introduction to Quantum Programming using jsqubits</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/davidbkemp" property="cc:attributionName" rel="cc:attributionURL">David Kemp</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
 </body>
 </html>

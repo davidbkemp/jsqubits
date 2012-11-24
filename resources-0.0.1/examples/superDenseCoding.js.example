@@ -5,7 +5,7 @@
  */
 
 function superDense(input) {
-    var state = jsqbits('|00>').add(jsqbits('|11>')).normalize();
+    var state = jsqubits('|00>').add(jsqubits('|11>')).normalize();
 
     log("Initial Bell State: " + state);
 

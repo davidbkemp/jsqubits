@@ -17,7 +17,7 @@ function search(f, callBack) {
     }
     attempts++;
     
-    var qstate = new jsqbits.QState(numBits).tensorProduct(jsqbits("|1>")).hadamard(jsqbits.ALL);
+    var qstate = new jsqubits.QState(numBits).tensorProduct(jsqubits("|1>")).hadamard(jsqubits.ALL);
     var amplications = 0;
 
     function amplify() {
