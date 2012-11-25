@@ -1,4 +1,4 @@
-var jsqubits = require('../lib/index').jsqubits;
+var jsqubits = require('../index').jsqubits;
 var jsqubitsJasmineMatchers = require('./matchers');
 
 

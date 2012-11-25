@@ -1,5 +1,5 @@
-var jsqubits = require('../lib/index').jsqubits;
-var jsqubitsmath = require('../lib/index').jsqubitsmath;
+var jsqubits = require('../index').jsqubits;
+var jsqubitsmath = require('../index').jsqubitsmath;
 
 describe("Shor's algorithm", function() {
 

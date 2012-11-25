@@ -1,4 +1,4 @@
-var jsqubitsmath = require('../lib/index').jsqubitsmath;
+var jsqubitsmath = require('../index').jsqubitsmath;
 var jsqubitsJasmineMatchers = require('./matchers');
 
 describe("jsqubitsmath", function() {

@@ -9,7 +9,7 @@
 
 (function () {
     "use strict";
-    var jsqubits = require(__dirname + '/../lib/index').jsqubits;
+    var jsqubits = require(__dirname + '/../index').jsqubits;
 
     var superDense = exports.superDense = function (input) {
         var state = jsqubits('|00>').add(jsqubits('|11>')).normalize();

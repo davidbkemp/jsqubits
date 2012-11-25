@@ -10,7 +10,7 @@
 
 (function () {
     "use strict";
-    var jsqubits = require(__dirname + '/../lib/index').jsqubits;
+    var jsqubits = require(__dirname + '/../index').jsqubits;
 
     var deutschJozsa = exports.deutschJozsa = function (f) {
         var inputBits = {from: 1, to: 3};

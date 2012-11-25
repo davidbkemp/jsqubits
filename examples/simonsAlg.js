@@ -8,8 +8,8 @@
 
 (function () {
     "use strict";
-    var jsqubits = require(__dirname + '/../lib/index').jsqubits;
-    var jsqubitsmath = require(__dirname + '/../lib/index').jsqubitsmath;
+    var jsqubits = require(__dirname + '/../index').jsqubits;
+    var jsqubitsmath = require(__dirname + '/../index').jsqubitsmath;
 
     function singleRunOfSimonsCircuit(f, numbits) {
         var inputBits = {from: numbits, to: 2 * numbits - 1};

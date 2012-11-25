@@ -9,8 +9,8 @@
 (function () {
     "use strict";
 
-    var jsqubits = require(__dirname + '/../lib/index').jsqubits;
-    var jsqubitsmath = require(__dirname + '/../lib/index').jsqubitsmath;
+    var jsqubits = require(__dirname + '/../index').jsqubits;
+    var jsqubitsmath = require(__dirname + '/../index').jsqubitsmath;
 
     function computeOrder(a, n) {
         var numOutBits = Math.ceil(Math.log(n)/Math.log(2));

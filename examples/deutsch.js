@@ -8,7 +8,7 @@
 
 (function () {
     "use strict";
-    var jsqubits = require(__dirname + '/../lib/index').jsqubits;
+    var jsqubits = require(__dirname + '/../index').jsqubits;
 
     var deutsch = exports.deutsch = function(f) {
        return jsqubits('|01>').hadamard(jsqubits.ALL).applyFunction(1, 0, f).hadamard(jsqubits.ALL).measure(1).result;
