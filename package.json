@@ -1,6 +1,6 @@
 {
   "name": "jsqubits",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Quantum computation simulation JavaScript library",
   "keywords": ["quantum"],
   "author": "David Kemp <davidbkemp@gmail.com>",
