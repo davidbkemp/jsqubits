@@ -2,7 +2,7 @@
 *.iml
 docs
 examples
-jsqbitsRunner
+jsqubitsRunner
 resources
 spec
 *.sock
