@@ -1,4 +1,8 @@
-support
-test
+.idea
+*.iml
+docs
 examples
+jsqbitsRunner
+resources
+spec
 *.sock
