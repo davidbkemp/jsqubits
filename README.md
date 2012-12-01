@@ -15,6 +15,12 @@ http://davidbkemp.github.com/jsqubits/jsqubitsRunner.html
 Wiki (with examples):
 https://github.com/davidbkemp/jsqubits/wiki
 
+GitHub:
+https://github.com/davidbkemp/jsqubits
+
+Node npm module:
+https://npmjs.org/package/jsqubits
+
 You can use it to implement quantum algorithms using JavaScript like this:
 
     jsqubits('|01>')
@@ -30,22 +36,30 @@ You may also wish to try reading the (work in progress) [Introduction to Quantum
 
 NOTE: This library has only recently been renamed from jsqbits to jsqubits to reflect the more conventional spelling of qubit.
 
-TODO
+Usage
 -----
-* Support easy creation of |+> and |-> states.
-* Document QState.each()
-* Fix exceptions to follow a more standard pattern
-* Allow array of bits anywhere we currently allow a bit range (measure() and applyFunction())
-* Include a 'remainingQbits' field on measurement outcomes.
-* Mermin-Peres magic square
+Try it out online using the jsqubits runner:
+http://davidbkemp.github.com/jsqubits/jsqubitsRunner.html
 
-DEVELOPMENT
+Use it in your own web application by including the JavaScript files available from GitHub:
+https://github.com/davidbkemp/jsqubits/tree/master/lib
+(jsqubits.js is the core library, while jsqubitsmath.js has some maths functions that are useful in some of the well known quantum algorithms).
+
+Use it in a Node application (see http://nodejs.org) :
+
+    $ npm install jsqubits
+    $ node
+    > qubits = require('jsqubits').jsqubits
+    > qubits('|0101>').hadamard(qubits.ALL).toString()
+
+Development
 -----------
 To run the Jasmine specs, you will need to install Node.js (http://nodejs.org).
 Then use 'npm install' to install the testing dependencies (Jasmine) and 'npm test' to run the specs.
 NOTE: The Jasmine specs include an example of factoring using Shor's faction algorithm.  This is non-deterministic and can take a fraction of a second or several seconds to complete.
 
-## License 
+License
+-------
 
 (The MIT License)
 
