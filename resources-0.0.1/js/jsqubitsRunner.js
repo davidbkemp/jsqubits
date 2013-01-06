@@ -3,12 +3,11 @@
 //     (c) 2012 David Kemp
 //     jsqubits may be freely distributed under the MIT license.
 
-/*jshint evil:true, eqnull:true, eqeqeq:true, forin:true, immed:true, latedef:true, newcap:true, noarg:true, nonew:true, regexp:true, undef:true, unused:true, strict:true, trailing:true */
+/*jshint evil:true, eqnull:true, eqeqeq:true, forin:true, immed:true, latedef:true, newcap:true, noarg:true, nonew:true, regexp:true, undef:true, unused:true, trailing:true */
 /*global jQuery, jsqubits, prompt, alert  */
 
 
 (function (global, $) {
-    "use strict";
 
     global.ALL = jsqubits.ALL;
 
