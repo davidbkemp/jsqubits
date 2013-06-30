@@ -18,6 +18,7 @@
                     var jscode = $('#' + id).text();
                     var result = eval(jscode).toString();
                     var expected = $(this).text();
+                    if ($(this).attr('data-eval') === 'true') expected = eval(expected);
                     if ($.trim(expected) !== $.trim(result)) throw "no match";
                 } catch (e) {
                     $(this).addClass('error');

@@ -65,6 +65,37 @@ describe('Complex', function() {
         });
     });
 
+    describe('#phase', function() {
+        it('returns the correct phase for 1', function() {
+            expect(complex(1, 0).phase()).toBeCloseTo(0);
+        });
+        it('returns the correct phase for i', function() {
+            expect(complex(0, 1).phase()).toBeCloseTo(Math.PI / 2);
+        });
+
+        it('returns the correct phase for -1', function() {
+            expect(complex(-1, 0).phase()).toBeCloseTo(Math.PI);
+        });
+        it('returns the correct phase for -i', function() {
+            expect(complex(0, -1).phase()).toBeCloseTo(-Math.PI / 2);
+        });
+        it('returns the correct phase for 0', function() {
+            expect(complex(0, 0).phase()).toBeCloseTo(0);
+        });
+        it('returns the correct phase for 1+i', function() {
+            expect(complex(1, 1).phase()).toBeCloseTo(Math.PI / 4);
+        });
+        it('returns the correct phase for -1+i', function() {
+            expect(complex(-1, 1).phase()).toBeCloseTo(3 * Math.PI / 4);
+        });
+        it('returns the correct phase for -1-i', function() {
+            expect(complex(-1, -1).phase()).toBeCloseTo(-3 * Math.PI / 4);
+        });
+        it('returns the correct phase for 1-i', function() {
+            expect(complex(1, -1).phase()).toBeCloseTo(-Math.PI / 4);
+        });
+    });
+
     describe('#subtract', function() {
         it('subtracts real numbers', function(){
             expect(y.subtract(2)).toEql(complex(8, 30));
