@@ -51,7 +51,7 @@ jsqubits('|01>')
     If you are new to quantum programming, then it is highly recommended that you try reading
     <a href="http://www.cs.uwaterloo.ca/~watrous/lecture-notes.html">John Watrous' Quantum Information and Computation Lecture Notes</a>.
     You may also wish to try reading the partially finished
-    <a href="jsqubitsTutorial.html">Introduction to Quantum Programming using jsqubits</a>.
+    <a href="http://davidbkemp.github.io/jsqubits/jsqubitsTutorial.html">Introduction to Quantum Programming using jsqubits</a>.
 </p>
 
 <div class='section'  id='jsqubits'>
@@ -76,12 +76,12 @@ jsqubits('|01>')
         <tbody>
         <tr>
             <td class="code" id="jsqubits1">jsqubits("0101")</td>
-            <td>creates a 4 qbit QState in the simple basis state of</td>
+            <td>creates a 4 qubit QState in the simple basis state of</td>
             <td class="code" data-sampleref="jsqubits1">|0101></td>
         </tr>
         <tr>
             <td class="code" id="jsqubits2">jsqubits("|0101>")</td>
-            <td>also creates a 4 qbit QState of</td>
+            <td>also creates a 4 qubit QState of</td>
             <td class="code" data-sampleref="jsqubits2">|0101></td>
         </tr>
         </tbody>
@@ -119,20 +119,23 @@ jsqubits('|00>')
 var a = []; a[0] = a[1] = a[4] = a[5] = jsqubits.complex(0.5, 0);
 new jsqubits.QState(4, a)
     </code>
-    <p>creates the following 4 qbit QState:</p>
+    <p>creates the following 4 qubit QState:</p>
     <code class="block"  data-sampleref="QState">
 0.5 |0000> + 0.5 |0001> + 0.5 |0100> + 0.5 |0101>
     </code>
 
     <p>
-        WARNING: Currently, instead of copying the supplied amplitude array, a reference to it is used,
-        and so any subsequent modifications will affect the QState object.
+        WARNINGS:
+        <ul>
+            <li>Currently, instead of copying the supplied amplitude array, a reference to it is used, and so any subsequent modifications will affect the QState object.</li>
+            <li>All QState operators return new QState objects; they do <b>NOT</b> modify the existing QState object.</li>
+        </ul>
     </p>
 
 </div>
 
 <div class='section' id='singleQbitOperators'>
-    <h2>Single qbit operators</h2>
+    <h2>Single qubit operators</h2>
     <ul class="code index">
         <li>x(targetBits)</li>
         <li>y(targetBits)</li>
