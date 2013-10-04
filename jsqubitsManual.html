@@ -4,10 +4,10 @@
     <title>jsqubits User Manual</title>
     <meta name="keywords" content="quantum, quantum programming, quantum computer, simulator">
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="resources-0.0.1/css/jsqubits.css" />
-    <script src="resources-0.0.1/js/jquery-1.7.1.min.js"></script>
-    <script src="resources-0.0.1/js/jsqubits.js"></script>
-    <script src="resources-0.0.1/js/jsqubitsManual.js"></script>
+    <link rel="stylesheet" type="text/css" href="resources-0.0.5/css/jsqubits.css" />
+    <script src="resources-0.0.5/js/jquery-1.7.1.min.js"></script>
+    <script src="resources-0.0.5/js/jsqubits.js"></script>
+    <script src="resources-0.0.5/js/jsqubitsManual.js"></script>
     <script type="text/javascript">
 
       var _gaq = _gaq || [];
@@ -32,7 +32,7 @@
 <p>
     <a href="http://jsqubits.org">jsqubits</a> is a JavaScript library for quantum computation simulation.
     Try the online
-    <a href="http://davidbkemp.github.com/jsqubits/jsqubitsRunner.html">jsqubits runner</a>.
+    <a href="http://davidbkemp.github.io/jsqubits/jsqubitsRunner.html">jsqubits runner</a>.
     Alternatively, you can download and use the JavaScript jsqubits.js library from the
     <a href="https://github.com/davidbkemp/jsqubits">jsqubits github repository</a>.
     It is fully self contained: no third party libraries are required.
@@ -69,7 +69,7 @@ jsqubits('|01>')
         You create one by either calling its constructor or using the convenient <code>jsqubits(bitString)</code> function.
     </p>
     <p>
-        The jsqubits function takes a string zeros and ones representing the state of its qbits.
+        The jsqubits function takes a string zeros and ones representing the state of its qubits.
         The string may optionally be a "ket" in the Dirac or "bra-ket" notation.
     </p>
     <table class="samples">
@@ -112,7 +112,7 @@ jsqubits('|00>')
 
     <p>
         Another way to create an initial super-position of states is to use the QState constructor directly,
-        passing it the number of qbits, and a (sparse) array of complex number amplitudes.  For example
+        passing it the number of qubits, and a (sparse) array of complex number amplitudes.  For example
     </p>
 
     <code class="block" id="QState">
@@ -250,7 +250,7 @@ var state2 = state1.x(1);
             <td>gives</td>
             <td class="code" data-sampleref="not1">|00></td>
         </tr>
-        </tr>
+        <tr>
             <td class="code" id="hadamard0">jsqubits("|00>").hadamard(0)</td>
             <td>gives</td>
             <td class="code" data-sampleref="hadamard0">0.7071 |00> + 0.7071 |01></td>
@@ -471,7 +471,7 @@ var state2 = state1.x(1);
         <li>measure(targetBits)</li>
     </ul>
     <p>
-        The measurement operator is intended to simulate the act of measuring one or more of the qbits.
+        The measurement operator is intended to simulate the act of measuring one or more of the qubits.
         You may specify a single bit index, a range of bits using an object with "from" and "to" properties,
         or the constant <code>jsqubits.ALL</code>.
         Note that currently you cannot supply an array of bit indexes.
@@ -505,7 +505,7 @@ var state2 = state1.x(1);
     </table>
 
     <p>
-        Measurement objects have a convenient <code>asBitString()</code> method that returns the state of the measured qbits as a string of 0's and 1's.
+        Measurement objects have a convenient <code>asBitString()</code> method that returns the state of the measured qubits as a string of 0's and 1's.
         So, for example, <span class="code" id="MeasurementAsBitString">jsqubits("|0110>").measure({from:1, to: 3}).asBitString()</span> will result in
         the string <span class="code" data-sampleref="MeasurementAsBitString">011</span>.
     </p>
@@ -700,6 +700,16 @@ jsqubits("|10110>")
             <td class="code" id="complex-magnitude">jsqubits.complex(3, 4).magnitude()</td>
             <td>=</td>
             <td class="code" data-sampleref="complex-magnitude">5</td>
+        </tr>
+        <tr>
+            <td class="code" id="complex-phase">jsqubits.complex(1, 1).phase()</td>
+            <td>=</td>
+            <td class="code" data-sampleref="complex-phase" data-eval='true'>Math.PI/4</td>
+        </tr>
+        <tr>
+            <td class="code" id="complex-phase2">jsqubits.complex(1, -1).phase()</td>
+            <td>=</td>
+            <td class="code" data-sampleref="complex-phase2" data-eval='true'>-Math.PI/4</td>
         </tr>
         <tr>
             <td class="code" id="complex-conjugate">jsqubits.complex(3, 4).conjugate()</td>
