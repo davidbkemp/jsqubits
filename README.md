@@ -4,13 +4,13 @@
   Quantum computation simulation JavaScript library
 
 Website:
-http://davidbkemp.github.com/jsqubits/
+http://davidbkemp.github.io/jsqubits/
 
 The user manual:
-http://davidbkemp.github.com/jsqubits/jsqubitsManual.html
+http://davidbkemp.github.io/jsqubits/jsqubitsManual.html
 
 Try it out online using the jsqubits runner:
-http://davidbkemp.github.com/jsqubits/jsqubitsRunner.html
+http://davidbkemp.github.io/jsqubits/jsqubitsRunner.html
 
 Wiki (with examples):
 https://github.com/davidbkemp/jsqubits/wiki
@@ -30,16 +30,16 @@ You can use it to implement quantum algorithms using JavaScript like this:
         .measure(1)
         .result
 
+WARNING: jsqubits operators return new instances of the quantum state and they do NOT modify the existing object.
+
 If you are new to quantum programming, then it is highly recommended that you try reading
 [John Watrous' Quantum Information and Computation Lecture Notes](http://www.cs.uwaterloo.ca/~watrous/lecture-notes.html).
-You may also wish to try reading the (work in progress) [Introduction to Quantum Programming using jsqubits](http://davidbkemp.github.com/jsqubits/jsqubitsTutorial.html).
-
-NOTE: This library has only recently been renamed from jsqbits to jsqubits to reflect the more conventional spelling of qubit.
+You may also wish to try reading the (work in progress) [Introduction to Quantum Programming using jsqubits](http://davidbkemp.github.io/jsqubits/jsqubitsTutorial.html).
 
 Usage
 -----
 Try it out online using the jsqubits runner:
-http://davidbkemp.github.com/jsqubits/jsqubitsRunner.html
+http://davidbkemp.github.io/jsqubits/jsqubitsRunner.html
 
 Use it in your own web application by including the JavaScript files available from GitHub:
 https://github.com/davidbkemp/jsqubits/tree/master/lib
@@ -51,6 +51,8 @@ Use it in a Node application (see http://nodejs.org) :
     $ node
     > qubits = require('jsqubits').jsqubits
     > qubits('|0101>').hadamard(qubits.ALL).toString()
+
+REMEMBER: jsqubits operators return new instances of the quantum state and they do NOT modify the existing object.
 
 Development
 -----------
