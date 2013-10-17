@@ -31,6 +31,37 @@ describe('QState', function() {
             expect(x.toString()).toEqual('|000>');
         });
     });
+    
+    describe('#eql', function () {
+        it("will be true for equal states", function () {
+            var state1 = jsqubits('|010>').hadamard(1);
+            var state2 = jsqubits('|010>').hadamard(1);
+            expect(state1).toEql(state2);
+        });
+        
+        it("will be false when the amplitudes differ", function () {
+            var state1 = jsqubits('|01>').hadamard(0);
+            var state2 = jsqubits('|00>').hadamard(0);
+            expect(state1).not.toEql(state2);
+        });
+        
+        it("will be false when the states differ", function () {
+            expect(jsqubits('|01>')).not.toEql(jsqubits('|10>'));
+        });
+        
+        it("will be false when the number of qubits differ", function () {
+            var state1 = jsqubits('|0>').hadamard(0);
+            var state2 = jsqubits('|00>').hadamard(0);
+            expect(state1).not.toEql(state2);
+        });
+        
+        it("will be false when one state has more non-zero amplitudes than the other", function () {
+            // Note: these obscure cases occur when the states are not normalized.
+            expect(jsqubits('|00>').add(jsqubits('|01>'))).not.toEql(jsqubits('|00>'));
+            expect(jsqubits('|00>')).not.toEql(jsqubits('|00>').add(jsqubits('|01>')));
+        });
+        
+    });
 
     describe('#controlledApplicatinOfqBitOperator', function(){
         it("does nothing when the control bit is zero (one target)", function() {
