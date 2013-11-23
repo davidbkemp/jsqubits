@@ -4,7 +4,6 @@
  * For any function where f(x) = f(x + r) such that r is a power of two, this algorithm will find r.
  */
 
-/*jshint eqnull:true, eqeqeq:true, forin:true, immed:true, latedef:true, newcap:true, noarg:true, nonew:true, regexp:true, undef:true, unused:true, strict:true, trailing:true */
 /*global require:true, console:true, exports:true, __dirname:true */
 
 (function () {

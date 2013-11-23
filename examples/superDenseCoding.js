@@ -4,7 +4,6 @@
  * send it to Bob, and Bob can decode it with the help of his entangled qubit.
  */
 
-/*jshint eqnull:true, eqeqeq:true, forin:true, immed:true, latedef:true, newcap:true, noarg:true, nonew:true, regexp:true, undef:true, unused:true, strict:true, trailing:true */
 /*global require:true, console:true, exports:true, __dirname:true */
 
 (function () {
