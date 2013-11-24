@@ -8,7 +8,7 @@
 
 (function () {
     "use strict";
-    var jsqubits = require(__dirname + '/../index').jsqubits;
+    var jsqubits = require(__dirname + '/../../index').jsqubits;
 
     var simpleSearch = exports.simpleSearch = function(f) {
         var inputBits = {from: 1, to: 2};

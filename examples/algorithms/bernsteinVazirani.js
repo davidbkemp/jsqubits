@@ -9,7 +9,7 @@
 (function () {
     "use strict";
 
-    var jsqubits = require(__dirname + '/../index').jsqubits;
+    var jsqubits = require(__dirname + '/../../index').jsqubits;
 
     var bernsteinVazirani = exports.bernsteinVazirani = function (f, numbits) {
         //  Create a |-> state as the target qubit.

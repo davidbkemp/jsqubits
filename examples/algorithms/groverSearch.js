@@ -8,7 +8,7 @@
 (function () {
     "use strict";
 
-    var jsqubits = require(__dirname + '/../index').jsqubits;
+    var jsqubits = require(__dirname + '/../../index').jsqubits;
 
     function amplifyTargetAmplitude(qstate, f, inputBits) {
         // This is the core of Grover's algorithm. It amplifies the amplitude of the state for which f(x) = 1

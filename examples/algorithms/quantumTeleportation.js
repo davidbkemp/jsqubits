@@ -8,7 +8,7 @@
 
 (function () {
     "use strict";
-    var jsqubits = require(__dirname + '/../index').jsqubits;
+    var jsqubits = require(__dirname + '/../../index').jsqubits;
 
     var applyTeleportation = exports.applyTeleportation = function(state) {
         var alicesMeasurement = state.cnot(2, 1).hadamard(2).measure({from: 1, to: 2});

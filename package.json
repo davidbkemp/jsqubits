@@ -10,7 +10,8 @@
     "jshint": "2.1.x"
   },
   "scripts": {
-      "test": "jshint --config jshintConfig.json lib examples resources/js/jsqubitsManual.js resources/js/jsqubitsRunner.js && jasmine-node spec"
+      "test": "jshint --config jshintConfig.json lib examples resources/js/jsqubitsManual.js resources/js/jsqubitsRunner.js && jasmine-node spec",
+      "clean": "rm -r node_modules"
     },
   "main": "index",
   "repository": "git://github.com/davidbkemp/jsqubits.git",

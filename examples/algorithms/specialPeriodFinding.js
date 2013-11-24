@@ -8,8 +8,8 @@
 
 (function () {
     "use strict";
-    var jsqubits = require(__dirname + '/../index').jsqubits;
-    var jsqubitsmath = require(__dirname + '/../index').jsqubitsmath;
+    var jsqubits = require(__dirname + '/../../index').jsqubits;
+    var jsqubitsmath = require(__dirname + '/../../index').jsqubitsmath;
 
 
     var findPeriod = exports.findPeriod = function(f, upperLimit) {
