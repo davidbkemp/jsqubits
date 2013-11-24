@@ -44,6 +44,7 @@ http://davidbkemp.github.io/jsqubits/jsqubitsRunner.html
 Use it in your own web application by including the JavaScript files available from GitHub:
 https://github.com/davidbkemp/jsqubits/tree/master/lib
 (jsqubits.js is the core library, while jsqubitsmath.js has some maths functions that are useful in some of the well known quantum algorithms).
+They have optional support for being loaded via require.js (see the simple web page examples in the examples directory).
 
 Use it in a Node application (see http://nodejs.org) :
 
