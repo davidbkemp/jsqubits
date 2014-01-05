@@ -1,19 +1,21 @@
 {
   "name": "jsqubits",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Quantum computation simulation JavaScript library",
-  "keywords": ["quantum"],
+  "keywords": [
+    "quantum"
+  ],
   "author": "David Kemp <davidbkemp@gmail.com>",
   "dependencies": {},
   "devDependencies": {
-    "jasmine-node"    :  "1.10.x",
-    "jshint": "2.1.x"
+    "jasmine-node": "~1.12.0",
+    "jshint": "~2.4.1"
   },
   "scripts": {
-      "test": "jshint --config jshintConfig.json lib examples resources/js/jsqubitsManual.js resources/js/jsqubitsRunner.js && jasmine-node spec",
-      "clean": "rm -r node_modules"
-    },
+    "test": "jshint --config jshintConfig.json lib examples resources/js/jsqubitsManual.js resources/js/jsqubitsRunner.js && jasmine-node spec",
+    "clean": "rm -r node_modules"
+  },
   "main": "index",
   "repository": "git://github.com/davidbkemp/jsqubits.git",
-  "homepage" : "http://davidbkemp.github.io/jsqubits/"
+  "homepage": "http://davidbkemp.github.io/jsqubits/"
 }

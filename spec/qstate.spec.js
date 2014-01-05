@@ -705,6 +705,18 @@ describe('QState', function() {
             expect(newState.amplitude('|1100>')).toBe(jsqubits.ZERO);
             expect(newState.amplitude('|1101>')).toBe(jsqubits.ZERO);
         });
+        
+        it("Can measure selected bits", function () {
+            stateToMeasure.random = function() {return 0.51};
+            var measurement = stateToMeasure.measure([0,3]);
+            var newState = measurement.newState;
+            expect(newState.numBits()).toBe(4);
+            expect(measurement.result).toBe(2);
+            expect(newState.amplitude('|1000>')).toBeApprox(real(1 / Math.sqrt(2)));
+            expect(newState.amplitude('|1001>')).toBe(jsqubits.ZERO);
+            expect(newState.amplitude('|1100>')).toBeApprox(real(1 / Math.sqrt(2)));
+            expect(newState.amplitude('|1101>')).toBe(jsqubits.ZERO);
+        });
 
         it ("actually calls Math.random", function() {
             var measurement = stateToMeasure.measure(3);

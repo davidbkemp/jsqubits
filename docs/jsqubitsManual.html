@@ -462,12 +462,15 @@ var state2 = state1.x(1);
     </ul>
     <p>
         The measurement operator is intended to simulate the act of measuring one or more of the qubits.
-        You may specify a single bit index, a range of bits using an object with "from" and "to" properties,
+        As usual, you may specify a single bit index,
+        a range of bits using an object with "from" and "to" properties,
+        an array of bit indexes,
         or the constant <code>jsqubits.ALL</code>.
-        Note that currently you cannot supply an array of bit indexes.
         As with all QState functions, the meaurement() function does not actually modify the object,
-        but instead returns a Measurement object with a "result" field containing the integer value of the result,
-        and a "newState" field containing the new quantum state (as a new QState object).
+        but instead returns a Measurement object with
+        a "newState" field containing the new quantum state (as a new QState object),
+        and a "result" field containing the integer value of the resulting measurement
+        (ie., the integer consisting of only the measured bits).
     </p>
     <table class="samples">
         <tbody>
@@ -490,6 +493,11 @@ var state2 = state1.x(1);
             <td class="code" id="measurement4">jsqubits("|00>").hadamard(0).measure(1)</td>
             <td>gives</td>
             <td class="code" data-sampleref="measurement4">{result: 0, newState: 0.7071 |00> + 0.7071 |01>}</td>
+        </tr>
+        <tr>
+            <td class="code" id="measurement5">jsqubits("|0110>").measure([1,3])</td>
+            <td>gives</td>
+            <td class="code" data-sampleref="measurement5">{result: 1, newState: |0110>}</td>
         </tr>
         </tbody>
     </table>

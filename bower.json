@@ -1,7 +1,7 @@
 {
   "name": "jsqubits",
   "main": ["lib/jsqubits.js", "lib/jsqubitsmath.js"],
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "http://davidbkemp.github.io/jsqubits/",
   "authors": [
     "David Kemp <davidbkemp@gmail.com>"
