@@ -6,12 +6,12 @@
     <meta name="keywords" content="quantum, quantum programming, quantum computer, simulator">
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     <link rel="canonical" href="http://davidbkemp.github.io/jsqubits/jsqubitsRunner.html">
-    <link rel="stylesheet" type="text/css" href="resources-0.0.5/css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="resources-0.0.5/css/runner.css" />
-    <script type="text/javascript" src="resources-0.0.5/js/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="resources-0.0.5/js/jsqubits.js"></script>
-    <script type="text/javascript" src="resources-0.0.5/js/jsqubitsmath.js"></script>
-    <script type="text/javascript" src="resources-0.0.5/js/jsqubitsRunner.js"></script>
+    <link rel="stylesheet" type="text/css" href="resources-0.2.0/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="resources-0.2.0/css/runner.css" />
+    <script type="text/javascript" src="resources-0.2.0/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="resources-0.2.0/js/jsqubits.js"></script>
+    <script type="text/javascript" src="resources-0.2.0/js/jsqubitsmath.js"></script>
+    <script type="text/javascript" src="resources-0.2.0/js/jsqubitsRunner.js"></script>
     <script type="text/javascript">
 
       var _gaq = _gaq || [];
@@ -117,8 +117,7 @@
         arrays of numbers,
         bit ranges (e.g. <code>{from: 5, to:15}</code>,
         or the constant <code>jsqubits.ALL</code>.
-        Exceptions to this include <code>measure</code> and <code>applyFunction</code> as these
-        cannot currently take arrays.
+        Curently, the exception to this is <code>applyFunction</code> as this cannot take arrays.
         Also, while the <code>controlledSwap</code> method is
         able to take the various types of bit specifiers as control bits,
         it (and the <swap>swap</swap>) operator can only take single numbers for the two bits to be swapped.
@@ -129,7 +128,7 @@
     <a href="http://davidbkemp.github.io/jsqubits/jsqubitsManual.html">jsqubits user manual</a>.
 </p>
 <small>
-    Copyright 2012 David Kemp. Licensed under
+    Copyright 2012-2014 David Kemp. Licensed under
     <a href="https://github.com/davidbkemp/jsqubits/blob/master/MIT-LICENSE">the MIT license</a>.
 </small>
 </body>

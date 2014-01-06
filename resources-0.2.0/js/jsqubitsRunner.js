@@ -61,7 +61,7 @@
             var selectedExample = $(this).attr('value');
             if (selectedExample === 'none') return;
 
-        $.get("resources-0.0.5/examples/" + selectedExample + ".js.example", function(data) {
+        $.get("resources-0.2.0/examples/" + selectedExample + ".js.example", function(data) {
                 clearAll();
                 $('#code').val(data);
               })

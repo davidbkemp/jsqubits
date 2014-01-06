@@ -1,20 +1,14 @@
 //     jsqubits
 //     http://jsqubits.org
-//     (c) 2012 David Kemp
+//     (c) 2012-2014 David Kemp
 //     jsqubits may be freely distributed under the MIT license.
 
-/*jshint eqnull:true, eqeqeq:true, forin:true, immed:true, latedef:true, newcap:true, noarg:true, nonew:true, regexp:true, undef:true, unused:true, strict:true, trailing:true */
-/*global module:true */
+/*global module, define */
 
-var jsqubitsmath = jsqubitsmath || {};
-
-/* Allow this module to used within node and stand-alone. */
-if (typeof module !== 'undefined') {
-    module.exports = jsqubitsmath;
-}
-
-(function() {
+(function(globals) {
     "use strict";
+
+    var jsqubitsmath = {};
 
     /**
      * Return x^y mod m
@@ -219,4 +213,16 @@ if (typeof module !== 'undefined') {
         return result;
     }
 
-})();
+    /* Support AMD and CommonJS, with a fallback of using the global namespace */
+    if (typeof define !== 'undefined' && define.amd) {
+        define([], function() {
+            return jsqubitsmath;
+        });
+    } else if (typeof module !== 'undefined' && module.exports) {
+        module.exports = jsqubitsmath;
+    } else {
+        globals.jsqubitsmath = jsqubitsmath;
+    }
+
+
+})(this);
