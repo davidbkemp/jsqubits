@@ -136,19 +136,6 @@ describe('Complex', function() {
         it('should round off decimal places when requested', function() {
             expect(complex(-1.235959, 3.423523).format({decimalPlaces: 3})).toEqual('-1.236+3.424i');
         });
-
-        it ('should prefix with spaced sign when requested (positive real)', function() {
-            expect(complex(1.235959, -3.423523).format({decimalPlaces: 3, spacedSign: true})).toEqual(' + 1.236-3.424i');
-        });
-        it ('should prefix with spaced sign when requested (negative real)', function() {
-            expect(complex(-1.235959, 3.423523).format({decimalPlaces: 3, spacedSign: true})).toEqual(' - 1.236-3.424i');
-        });
-        it ('should prefix with spaced sign when requested (zero real, positive imaginary)', function() {
-            expect(complex(0, 3.423523).format({decimalPlaces: 3, spacedSign: true})).toEqual(' + 3.424i');
-        });
-        it ('should prefix with spaced sign when requested (zero real, negative imaginary)', function() {
-            expect(complex(0, -3.423523).format({decimalPlaces: 3, spacedSign: true})).toEqual(' - 3.424i');
-        });
     });
 });
 

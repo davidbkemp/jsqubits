@@ -18,49 +18,51 @@ describe('QState', function() {
     });
 
     describe('#toString', function() {
-       it('will round off long decimals', function() {
-           var x = jsqubits('|000>').hadamard(2);
-           expect(x.toString()).toEqual('0.7071 |000> + 0.7071 |100>');
+        it('will use parenthesis to avoid ambiguity', function() {
+            var a = []; a[0] = a[1] = jsqubits.complex(-0.5, -0.5);
+            var x = new jsqubits.QState(1, a);
+            expect(x.toString()).toEqual('(-0.5-0.5i)|0> + (-0.5-0.5i)|1>');
         });
-       it('will nicely display negated states as subtraction', function() {
-           var x = jsqubits('|100>').hadamard(2);
-           expect(x.toString()).toEqual('0.7071 |000> - 0.7071 |100>');
+        it('will round off long decimals', function() {
+            var a = []; a[0] = a[1] = jsqubits.complex(Math.SQRT1_2, 0);
+            var x = new jsqubits.QState(1, a);
+            expect(x.toString()).toEqual('(0.7071)|0> + (0.7071)|1>');
         });
         it('will omit the amplitude when it is close to one', function() {
             var x = jsqubits('|000>').rotateX(1, 0.1).rotateX(1, -0.1);
             expect(x.toString()).toEqual('|000>');
         });
     });
-    
+
     describe('#eql', function () {
         it("will be true for equal states", function () {
             var state1 = jsqubits('|010>').hadamard(1);
             var state2 = jsqubits('|010>').hadamard(1);
             expect(state1).toEql(state2);
         });
-        
+
         it("will be false when the amplitudes differ", function () {
             var state1 = jsqubits('|01>').hadamard(0);
             var state2 = jsqubits('|00>').hadamard(0);
             expect(state1).not.toEql(state2);
         });
-        
+
         it("will be false when the states differ", function () {
             expect(jsqubits('|01>')).not.toEql(jsqubits('|10>'));
         });
-        
+
         it("will be false when the number of qubits differ", function () {
             var state1 = jsqubits('|0>').hadamard(0);
             var state2 = jsqubits('|00>').hadamard(0);
             expect(state1).not.toEql(state2);
         });
-        
+
         it("will be false when one state has more non-zero amplitudes than the other", function () {
             // Note: these obscure cases occur when the states are not normalized.
             expect(jsqubits('|00>').add(jsqubits('|01>'))).not.toEql(jsqubits('|00>'));
             expect(jsqubits('|00>')).not.toEql(jsqubits('|00>').add(jsqubits('|01>')));
         });
-        
+
     });
 
     describe('#controlledApplicatinOfqBitOperator', function(){
@@ -309,7 +311,7 @@ describe('QState', function() {
             var x = jsqubits('|001>').controlledT(0, 2);
             expect(x).toEql(jsqubits('|001>'));
         });
-        
+
     });
 
     describe('#hadamard', function() {
@@ -477,7 +479,7 @@ describe('QState', function() {
        it("shifts the phase by e^(i angle) when the control bit is one", function() {
            var originalState = jsqubits('|100>').hadamard(0);
            var x = originalState.controlledR(2, 0, Math.PI/4);
-           expect(x.toString()).toBe("0.7071 |100> + 0.5+0.5i |101>");
+           expect(x.toString()).toBe("(0.7071)|100> + (0.5+0.5i)|101>");
        });
     });
 
@@ -486,7 +488,7 @@ describe('QState', function() {
        it("shifts the phase by the specified angle e^(i angle)", function() {
            var originalState = jsqubits('|0>').hadamard(0);
            var x = originalState.r(0, Math.PI/4);
-           expect(x.toString()).toBe("0.7071 |0> + 0.5+0.5i |1>");
+           expect(x.toString()).toBe("(0.7071)|0> + (0.5+0.5i)|1>");
        });
     });
 
@@ -705,7 +707,7 @@ describe('QState', function() {
             expect(newState.amplitude('|1100>')).toBe(jsqubits.ZERO);
             expect(newState.amplitude('|1101>')).toBe(jsqubits.ZERO);
         });
-        
+
         it("Can measure selected bits", function () {
             stateToMeasure.random = function() {return 0.51};
             var measurement = stateToMeasure.measure([0,3]);
@@ -789,7 +791,7 @@ describe('QState', function() {
         it("should subtract two quantum states together", function(){
 //            NOTE: You will need to normalize afterwards to get a sensible answer!
             var q = jsqubits('|01>').hadamard(0).add(jsqubits('|00>')).subtract(jsqubits('|01>'));
-            expect(q.toString()).toBe("1.7071 |00> - 1.7071 |01>");
+            expect(q.toString()).toBe("(1.7071)|00> + (-1.7071)|01>");
         });
     });
 
