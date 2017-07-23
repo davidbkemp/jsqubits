@@ -64,21 +64,7 @@
             imaginaryValue = Math.round(imaginaryValue * roundingMagnitude) /roundingMagnitude;
         }
         var objectToFormat = new jsqubits.Complex(realValue, imaginaryValue);
-        var prefix = '';
-        if (options && options.spacedSign) {
-            if (objectToFormat.real() > 0) {
-                prefix = ' + ';
-            } else if (objectToFormat.real() < 0) {
-                prefix = ' - ';
-                objectToFormat = objectToFormat.negate();
-            } else if (objectToFormat.imaginary() >= 0) {
-                prefix = ' + ';
-            } else {
-                prefix = ' - ';
-                objectToFormat = objectToFormat.negate();
-            }
-        }
-        return prefix + (objectToFormat.toString());
+        return objectToFormat.toString();
     };
 
     jsqubits.Complex.prototype.negate = function() {
@@ -123,7 +109,7 @@
     Complex.ZERO = complex(0,0);
     Complex.SQRT2 = real(Math.SQRT2);
     Complex.SQRT1_2 = real(Math.SQRT1_2);
-    
+
     jsqubits.ZERO = Complex.ZERO;
     jsqubits.ONE = complex(1, 0);
     jsqubits.ALL = 'ALL';
@@ -551,7 +537,7 @@
                 newAmplitudes[state] = stateWithAmplitude.amplitude;
             }
         });
-        
+
         // Measurement outcome is the "value" of the measured bits.
         // It probably only makes sense when the bits make an adjacent block.
         var measurementOutcome = 0;
@@ -598,7 +584,7 @@
     };
 
     jsqubits.QState.prototype.eql = function(other) {
-    
+
         function lhsAmplitudesHaveMatchingRhsAmplitudes(lhs, rhs) {
             var result = true;
             lhs.each(function(stateWithAmplitude) {
@@ -609,7 +595,7 @@
             });
             return result;
         }
-    
+
         if (!other) return false;
         if (!(other instanceof jsqubits.QState)) return false;
         if (this.numBits() !== other.numBits()) return false;
@@ -621,7 +607,7 @@
 
         function formatAmplitude(amplitude, formatFlags) {
             var amplitudeString = amplitude.format(formatFlags);
-            return amplitudeString === '1' ? '' : amplitudeString + " ";
+            return amplitudeString === '1' ? '' : '(' + amplitudeString + ')';
         }
 
         function compareStatesWithAmplitudes(a, b)
@@ -644,7 +630,7 @@
             formatFlags = {decimalPlaces: 4};
             nonZeroStates = sortedNonZeroStates(this);
             for (i = 0; i < nonZeroStates.length; i++) {
-                if (result !== '') formatFlags.spacedSign = true;
+                if (result !== '') result = result + " + ";
                 stateWithAmplitude = nonZeroStates[i];
                 result = result + formatAmplitude(stateWithAmplitude.amplitude, formatFlags) + "|" + stateWithAmplitude.asBitString() + ">";
             }
@@ -710,7 +696,7 @@
             }
         }
     }
-    
+
     function chooseRandomBasisState(qState) {
         var randomNumber = qState.random();
         var randomStateString;
