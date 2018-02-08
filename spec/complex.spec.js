@@ -3,14 +3,12 @@ import jsqubits from '../lib'
 const {expect} = chai
 
 describe('Complex', () => {
-  const complex = function (real, imaginary) {
-    return new jsqubits.Complex(real, imaginary);
-  };
+  const complex = jsqubits.complex
 
   let w;
   let x;
   let y;
-  beforeEach(function () {
+  beforeEach(() => {
     w = complex(-4, 3);
     x = complex(1, 3);
     y = complex(10, 30)
@@ -19,43 +17,43 @@ describe('Complex', () => {
   describe('construction', () => {
     it('should use a default imaginary value of zero', () => {
       const z = complex(3);
-      expect(z.real()).to.equal(3);
-      expect(z.imaginary()).to.equal(0);
+      expect(z.real).to.equal(3);
+      expect(z.imaginary).to.equal(0);
     });
   });
 
   describe('#add', () => {
     it('adds complex numbers', () => {
       const z = x.add(y);
-      expect(z.real()).to.equal(11);
-      expect(z.imaginary()).to.equal(33);
+      expect(z.real).to.equal(11);
+      expect(z.imaginary).to.equal(33);
     });
 
     it('adds real numbers', () => {
       const z = x.add(5);
-      expect(z.real()).to.equal(6);
-      expect(z.imaginary()).to.equal(x.imaginary());
+      expect(z.real).to.equal(6);
+      expect(z.imaginary).to.equal(x.imaginary);
     });
   });
 
   describe('#multiply', () => {
     it('multiplies complex numbers', () => {
       const z = x.multiply(y);
-      expect(z.real()).to.equal(10 - 90);
-      expect(z.imaginary()).to.equal(60);
+      expect(z.real).to.equal(10 - 90);
+      expect(z.imaginary).to.equal(60);
     });
     it('multiplies real numbers', () => {
       const z = y.multiply(5);
-      expect(z.real()).to.equal(50);
-      expect(z.imaginary()).to.equal(150);
+      expect(z.real).to.equal(50);
+      expect(z.imaginary).to.equal(150);
     });
   });
 
   describe('#negate', () => {
     it('negates complex numbers', () => {
       const z = x.negate();
-      expect(z.real()).to.equal(-1);
-      expect(z.imaginary()).to.equal(-3);
+      expect(z.real).to.equal(-1);
+      expect(z.imaginary).to.equal(-3);
     });
   });
 
