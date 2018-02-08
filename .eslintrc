@@ -22,12 +22,14 @@
     "import/no-unresolved": 0,
     "import/no-named-as-default": 2,
     "import/no-extraneous-dependencies": 0,
-    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-plusplus": 0,
     "no-underscore-dangle": "off",
+    "no-restricted-properties": 0,
     "comma-dangle": 0,  // not sure why airbnb turned this on. gross!
     "indent": [2, 2, {"SwitchCase": 1}],
     "no-case-declarations": 0,
     "object-curly-spacing": 0,
+    "prefer-rest-params": 0,
     "no-console": 0,
     "no-alert": 0
   },
