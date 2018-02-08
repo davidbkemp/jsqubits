@@ -585,7 +585,6 @@ describe('QState', () => {
     it('restricts flipping of target bits to those specified', () => {
       const f = function (x) { return 0b1101; };
       const x = jsqubits('|1011>').applyFunction(3, {from: 0, to: 2}, f);
-      console.log(583, x)
       expect(x.equal(jsqubits('|1110>'))).to.be.true;
     });
     it('throws exception when target and control bits overlap', () => {

@@ -31,7 +31,7 @@
     "prebuild:commonjs": "rimraf dist/commonjs",
     "prebuild:es": "rimraf dist/es",
     "prepublish": "cross-env NODE_ENV=production npm run build",
-    "test": "mocha $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill --reporter spec spec/qstate.spec.js",
+    "test": "mocha $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill --reporter spec spec/*.spec.js",
     "example": "node $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill examples/algorithms/all.js",
     "clean": "rm -r node_modules"
   },
