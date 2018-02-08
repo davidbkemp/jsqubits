@@ -2,29 +2,25 @@
  * Load and run all the algorithms...
  */
 
-/*global require, console, __dirname, module */
+/* global require, console, __dirname, module */
 
 (function () {
-    "use strict";
+  const fs = require('fs');
+  const path = require('path');
+  const thisFile = path.basename(module.filename);
 
-    var fs = require('fs');
-    var path = require('path');
-    var thisFile = path.basename(module.filename);
+  const executeFiles = function executeFiles(err, files) {
+    if (err) throw err;
+    files.forEach((file) => {
+      if (file !== thisFile && file.match(/.*\.js/)) {
+        const moduleExpression = path.join(__dirname, file);
+        console.log(moduleExpression);
+        require(moduleExpression);
+      }
+    });
+    console.log('Finished!!!!!');
+  };
 
-    var executeFiles = function executeFiles(err, files) {
-        if (err) throw err;
-        files.forEach(function executeFile(file) {
-            if (file !== thisFile && file.match(/.*\.js/)) {
-                var moduleExpression = path.join(__dirname, file);
-                console.log(moduleExpression);
-                require(moduleExpression);
-            }
-        });
-        console.log('Finished!!!!!');
-    };
-
-    fs.readdir(__dirname, executeFiles);
-
-})();
-
+  fs.readdir(__dirname, executeFiles);
+}());
 
