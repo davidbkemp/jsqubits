@@ -8,11 +8,13 @@
   "author": "David Kemp <davidbkemp@gmail.com>",
   "dependencies": {},
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.1",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
+    "cross-env": "^5.1.3",
     "chai": "^4.1.2",
     "eslint": "^4.16.0",
     "eslint-config-airbnb": "^16.1.0",
@@ -23,10 +25,17 @@
     "sinon": "^4.2.2"
   },
   "scripts": {
+    "build": "npm run build:commonjs && npm run build:es ",
+    "build:commonjs": "babel lib -d dist/commonjs ",
+    "build:es": "cross-env BABEL_ENV=es babel lib -d dist/es",
+    "prebuild:commonjs": "rimraf dist/commonjs",
+    "prebuild:es": "rimraf dist/es",
+    "prepublish": "cross-env NODE_ENV=production npm run build",
     "test": "mocha $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill --reporter spec spec/qstate.spec.js",
+    "example": "node $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill examples/algorithms/all.js",
     "clean": "rm -r node_modules"
   },
-  "main": "index",
+  "main": "dist/commonjs/index.js",
   "repository": "git://github.com/davidbkemp/jsqubits.git",
   "homepage": "http://davidbkemp.github.io/jsqubits/"
 }

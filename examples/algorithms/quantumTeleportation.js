@@ -5,47 +5,55 @@
  */
 
 /* global require:true, console:true, exports:true, __dirname:true */
+import Q from '../../lib'
 
-(function () {
-  const jsqubits = require(`${__dirname}/../../index`).jsqubits;
+const jsqubits = Q
 
-  const applyTeleportation = exports.applyTeleportation = function (state) {
-    const alicesMeasurement = state.cnot(2, 1).hadamard(2).measure({from: 1, to: 2});
-    let resultingState = alicesMeasurement.newState;
-    if (alicesMeasurement.result & 1) {
-      resultingState = resultingState.x(0);
-    }
-    if (alicesMeasurement.result & 2) {
-      resultingState = resultingState.z(0);
-    }
-    return resultingState;
-  };
+const applyTeleportation = exports.applyTeleportation = function (state) {
+  const alicesMeasurement = state.cnot(2, 1)
+    .hadamard(2)
+    .measure({
+      from: 1,
+      to: 2
+    });
+  let resultingState = alicesMeasurement.newState;
+  if (alicesMeasurement.result & 1) {
+    resultingState = resultingState.x(0);
+  }
+  if (alicesMeasurement.result & 2) {
+    resultingState = resultingState.z(0);
+  }
+  return resultingState;
+};
 
-    // The state of the qubit to be transmitted consists of the amplitude of |0> and the amplitude of |1>
-    // Any two complex values can be chosen here so long as the sum of their magnitudes adds up to 1.
-    // For this example, we choose to transmit the state: 0.5+0.5i |0> + 0.7071i |1>
-  const stateToBeTransmitted0 = jsqubits('|0>').multiply(jsqubits.complex(0.5, 0.5));
-  const stateToBeTransmitted1 = jsqubits('|1>').multiply(jsqubits.complex(0, Math.sqrt(0.5)));
-  const stateToBeTransmitted = stateToBeTransmitted0.add(stateToBeTransmitted1);
+// The state of the qubit to be transmitted consists of the amplitude of |0> and the amplitude of |1>
+// Any two complex values can be chosen here so long as the sum of their magnitudes adds up to 1.
+// For this example, we choose to transmit the state: 0.5+0.5i |0> + 0.7071i |1>
+const stateToBeTransmitted0 = jsqubits('|0>')
+  .multiply(jsqubits.complex(0.5, 0.5));
+const stateToBeTransmitted1 = jsqubits('|1>')
+  .multiply(jsqubits.complex(0, Math.sqrt(0.5)));
+const stateToBeTransmitted = stateToBeTransmitted0.add(stateToBeTransmitted1);
 
-  console.log(`State to be transmitted: ${stateToBeTransmitted}`);
+console.log(`State to be transmitted: ${stateToBeTransmitted}`);
 
-  // The quantum computer is initialized as a three qubit system with bits 0 and 1 being the bell state qbits shared by Alice and Bob
-  // and bit 2 being the qubit to be transmitted.
+// The quantum computer is initialized as a three qubit system with bits 0 and 1 being the bell state qbits shared by Alice and Bob
+// and bit 2 being the qubit to be transmitted.
 
-  const bellState = jsqubits('|00>').add(jsqubits('|11>')).normalize();
-  const initialState = stateToBeTransmitted.tensorProduct(bellState);
+const bellState = jsqubits('|00>')
+  .add(jsqubits('|11>'))
+  .normalize();
+const initialState = stateToBeTransmitted.tensorProduct(bellState);
 
-  // Now apply the Teleportation algorithm
-  const finalState = applyTeleportation(initialState);
+// Now apply the Teleportation algorithm
+const finalState = applyTeleportation(initialState);
 
-  // By this stage, only bit zero has not been measured and it should have the same state the original state to be transmitted.
-  // The other two bits will have random values but will be in definite states.
-  // ie. finalState should be
-  // stateToBeTransmitted0 |xx0> + stateToBeTransmitted1 |xx1>
-  // where the bit values of bits 1 and 2 (xx) are identical in the two states.
-  // If we had some way of projecting onto bit 0, we would have
-  // stateToBeTransmitted0 |0> + stateToBeTransmitted1 |1>
+// By this stage, only bit zero has not been measured and it should have the same state the original state to be transmitted.
+// The other two bits will have random values but will be in definite states.
+// ie. finalState should be
+// stateToBeTransmitted0 |xx0> + stateToBeTransmitted1 |xx1>
+// where the bit values of bits 1 and 2 (xx) are identical in the two states.
+// If we had some way of projecting onto bit 0, we would have
+// stateToBeTransmitted0 |0> + stateToBeTransmitted1 |1>
 
-  console.log(`Final state: ${finalState}`);
-}());
+console.log(`Final state: ${finalState}`);

@@ -7,38 +7,49 @@
 
 /* global require:true, console:true, exports:true, __dirname:true */
 
-(function () {
-  const jsqubits = require(`${__dirname}/../../index`).jsqubits;
+import Q from '../../lib'
 
-  const deutschJozsa = exports.deutschJozsa = function (f) {
-    const inputBits = {from: 1, to: 3};
-    const result = jsqubits('|0001>')
-      .hadamard(jsqubits.ALL)
-      .applyFunction(inputBits, 0, f)
-      .hadamard(inputBits)
-      .measure(inputBits)
-      .result;
-    return result === 0;
+const jsqubits = Q
+
+export function deutschJozsa(f) {
+  const inputBits = {
+    from: 1,
+    to: 3
   };
+  const result = jsqubits('|0001>')
+    .hadamard(jsqubits.ALL)
+    .applyFunction(inputBits, 0, f)
+    .hadamard(inputBits)
+    .measure(inputBits)
+    .result;
+  return result === 0;
+};
 
-  function shuffle(a) {
-    for (let i = 0; i < a.length; i++) {
-      const j = Math.floor(Math.random() * a.length);
-      const x = a[i];
-      a[i] = a[j];
-      a[j] = x;
-    }
+function shuffle(a) {
+  for (let i = 0; i < a.length; i++) {
+    const j = Math.floor(Math.random() * a.length);
+    const x = a[i];
+    a[i] = a[j];
+    a[j] = x;
   }
+}
 
-  const createBalancedFunction = exports.createBalancedFunction = function () {
-    // Return 0 for exactly half the possible inputs and 1 for the rest.
-    const nums = [0, 1, 2, 3, 4, 5, 6, 7];
-    shuffle(nums);
-    return function (x) { return nums[x] < 4 ? 0 : 1; };
+export function createBalancedFunction() {
+  // Return 0 for exactly half the possible inputs and 1 for the rest.
+  const nums = [0, 1, 2, 3, 4, 5, 6, 7];
+  shuffle(nums);
+  return function (x) {
+    return nums[x] < 4 ? 0 : 1;
   };
+};
 
-  console.log(`deutschJozsa(function(x) { return 0; }) equals ${deutschJozsa(() => { return 0; })}`);
-  console.log(`deutschJozsa(function(x) { return 1; }) equals ${deutschJozsa(() => { return 1; })}`);
-  console.log(`deutschJozsa(function(x) { return x; }) equals ${deutschJozsa((x) => { return x; })}`);
-  console.log(`deutschJozsa(balancedFunction) equals ${deutschJozsa(createBalancedFunction())}`);
-}());
+console.log(`deutschJozsa(function(x) { return 0; }) equals ${deutschJozsa(() => {
+  return 0;
+})}`);
+console.log(`deutschJozsa(function(x) { return 1; }) equals ${deutschJozsa(() => {
+  return 1;
+})}`);
+console.log(`deutschJozsa(function(x) { return x; }) equals ${deutschJozsa((x) => {
+  return x;
+})}`);
+console.log(`deutschJozsa(balancedFunction) equals ${deutschJozsa(createBalancedFunction())}`);
