@@ -1,57 +1,52 @@
-/*jshint evil:true */
-/*global jQuery */
+/* jshint evil:true */
+/* global jQuery */
 
-(function($) {
-    "use strict";
+(function ($) {
+  //    Find code samples and compare the actual output with the stated output.
+  $(() => {
+    const validateCodeSamples = function () {
+      let totalErrors = 0;
 
-//    Find code samples and compare the actual output with the stated output.
-    $(function() {
-
-        var validateCodeSamples = function() {
-            var totalErrors = 0;
-
-            $('.validationMessage').hide();
-            $('#codeValidationInProgress').show();
-            $('*[data-sampleref]').each(function() {
-                try {
-                    var id = $(this).attr('data-sampleref');
-                    var jscode = $('#' + id).text();
-                    var result = eval(jscode).toString();
-                    var expected = $(this).text();
-                    if ($(this).attr('data-eval') === 'true') expected = eval(expected);
-                    if ($.trim(expected) !== $.trim(result)) throw "no match";
-                } catch (e) {
-                    $(this).addClass('error');
-                    totalErrors++;
-                }
-            });
-
-            $('#codeValidationInProgress').hide();
-            if (totalErrors > 0) {
-                $('#codeValidationFailure').show();
-            } else {
-                $('#codeValidationSuccess').show();
-            }
-        };
-
-        $('#validateCodeSamplesButton').on('click', validateCodeSamples);
-
-        var indexItems = [];
-        var indexMap = [];
-        $('ul.index li, h2.index').map(function() {
-            var indexItem = $(this).text().split('(', 1)[0];
-            indexItems.push(indexItem);
-            indexMap[indexItem] = $(this).closest('.section').attr('id');
-        });
-        indexItems.sort();
-        for (var i in indexItems) {
-            if (indexItems.hasOwnProperty(i)) {
-                var indexItem = indexItems[i];
-                var element = $('<a>').attr('href', '#' + indexMap[indexItem]).text(indexItem + ' ');
-                $('#tableOfContents').append(element);
-            }
+      $('.validationMessage').hide();
+      $('#codeValidationInProgress').show();
+      $('*[data-sampleref]').each(function () {
+        try {
+          const id = $(this).attr('data-sampleref');
+          const jscode = $(`#${id}`).text();
+          const result = eval(jscode).toString();
+          let expected = $(this).text();
+          if ($(this).attr('data-eval') === 'true') expected = eval(expected);
+          if ($.trim(expected) !== $.trim(result)) throw 'no match';
+        } catch (e) {
+          $(this).addClass('error');
+          totalErrors++;
         }
+      });
 
+      $('#codeValidationInProgress').hide();
+      if (totalErrors > 0) {
+        $('#codeValidationFailure').show();
+      } else {
+        $('#codeValidationSuccess').show();
+      }
+    };
 
+    $('#validateCodeSamplesButton').on('click', validateCodeSamples);
+
+    const indexItems = [];
+    const indexMap = [];
+    $('ul.index li, h2.index').map(function () {
+      const indexItem = $(this).text().split('(', 1)[0];
+      indexItems.push(indexItem);
+      indexMap[indexItem] = $(this).closest('.section').attr('id');
     });
-})(jQuery);
+    indexItems.sort();
+    for (const i in indexItems) {
+      if (indexItems.hasOwnProperty(i)) {
+        const indexItem = indexItems[i];
+        const element = $('<a>').attr('href', `#${indexMap[indexItem]}`).text(`${indexItem} `);
+        $('#tableOfContents').append(element);
+      }
+    }
+  });
+}(jQuery));

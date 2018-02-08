@@ -5,41 +5,40 @@
  * Returns true if the function is constant.
  */
 
-/*global require:true, console:true, exports:true, __dirname:true */
+/* global require:true, console:true, exports:true, __dirname:true */
 
 (function () {
-    "use strict";
-    var jsqubits = require(__dirname + '/../../index').jsqubits;
+  const jsqubits = require(`${__dirname}/../../index`).jsqubits;
 
-    var deutschJozsa = exports.deutschJozsa = function (f) {
-        var inputBits = {from: 1, to: 3};
-        var result = jsqubits('|0001>')
-                .hadamard(jsqubits.ALL)
-                .applyFunction(inputBits, 0, f)
-                .hadamard(inputBits)
-                .measure(inputBits)
-                .result;
-        return result === 0;
-    };
+  const deutschJozsa = exports.deutschJozsa = function (f) {
+    const inputBits = {from: 1, to: 3};
+    const result = jsqubits('|0001>')
+      .hadamard(jsqubits.ALL)
+      .applyFunction(inputBits, 0, f)
+      .hadamard(inputBits)
+      .measure(inputBits)
+      .result;
+    return result === 0;
+  };
 
-    function shuffle(a) {
-        for (var i = 0; i < a.length; i++) {
-            var j = Math.floor(Math.random() * a.length);
-            var x = a[i];
-            a[i] = a[j];
-            a[j] = x;
-        }
+  function shuffle(a) {
+    for (let i = 0; i < a.length; i++) {
+      const j = Math.floor(Math.random() * a.length);
+      const x = a[i];
+      a[i] = a[j];
+      a[j] = x;
     }
+  }
 
-    var createBalancedFunction = exports.createBalancedFunction = function() {
-        // Return 0 for exactly half the possible inputs and 1 for the rest.
-        var nums = [0,1,2,3,4,5,6,7];
-        shuffle(nums);
-        return function(x) { return nums[x] < 4 ? 0 : 1; };
-    };
+  const createBalancedFunction = exports.createBalancedFunction = function () {
+    // Return 0 for exactly half the possible inputs and 1 for the rest.
+    const nums = [0, 1, 2, 3, 4, 5, 6, 7];
+    shuffle(nums);
+    return function (x) { return nums[x] < 4 ? 0 : 1; };
+  };
 
-    console.log("deutschJozsa(function(x) { return 0; }) equals " + deutschJozsa(function() { return 0; }));
-    console.log("deutschJozsa(function(x) { return 1; }) equals " + deutschJozsa(function() { return 1; }));
-    console.log("deutschJozsa(function(x) { return x; }) equals " + deutschJozsa(function(x) { return x; }));
-    console.log("deutschJozsa(balancedFunction) equals " + deutschJozsa(createBalancedFunction()));
-})();
+  console.log(`deutschJozsa(function(x) { return 0; }) equals ${deutschJozsa(() => { return 0; })}`);
+  console.log(`deutschJozsa(function(x) { return 1; }) equals ${deutschJozsa(() => { return 1; })}`);
+  console.log(`deutschJozsa(function(x) { return x; }) equals ${deutschJozsa((x) => { return x; })}`);
+  console.log(`deutschJozsa(balancedFunction) equals ${deutschJozsa(createBalancedFunction())}`);
+}());

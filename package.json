@@ -8,11 +8,22 @@
   "author": "David Kemp <davidbkemp@gmail.com>",
   "dependencies": {},
   "devDependencies": {
-    "jasmine-node": "~1.12.0",
-    "jshint": "~2.4.1"
+    "babel-eslint": "^8.2.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.6.1",
+    "mocha": "^5.0.0",
+    "sinon": "^4.2.2"
   },
   "scripts": {
-    "test": "jshint --config jshintConfig.json lib examples resources/js/jsqubitsManual.js resources/js/jsqubitsRunner.js && jasmine-node spec",
+    "test": "mocha $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill --reporter spec spec/qstate.spec.js",
     "clean": "rm -r node_modules"
   },
   "main": "index",
