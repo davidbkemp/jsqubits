@@ -1,9 +1,9 @@
 import chai from 'chai'
-import jsqubits from '../lib'
+import Q from '../lib'
 const {expect} = chai
 
 describe('Complex', () => {
-  const complex = jsqubits.complex
+  const complex = Q.complex
 
   let w;
   let x;
@@ -66,33 +66,32 @@ describe('Complex', () => {
   describe('#phase', () => {
     it('returns the correct phase for 1', () => {
       const p = complex(1, 0).phase()
-      console.log(72, p)
-      expect(p).to.be.closeTo(0, jsqubits.roundToZero);
+      expect(p).to.be.closeTo(0, Q.roundToZero);
     });
     it('returns the correct phase for i', () => {
-      expect(complex(0, 1).phase()).to.be.closeTo(Math.PI / 2, jsqubits.roundToZero);
+      expect(complex(0, 1).phase()).to.be.closeTo(Math.PI / 2, Q.roundToZero);
     });
 
     it('returns the correct phase for -1', () => {
-      expect(complex(-1, 0).phase()).to.be.closeTo(Math.PI, jsqubits.roundToZero);
+      expect(complex(-1, 0).phase()).to.be.closeTo(Math.PI, Q.roundToZero);
     });
     it('returns the correct phase for -i', () => {
-      expect(complex(0, -1).phase()).to.be.closeTo(-Math.PI / 2, jsqubits.roundToZero);
+      expect(complex(0, -1).phase()).to.be.closeTo(-Math.PI / 2, Q.roundToZero);
     });
     it('returns the correct phase for 0', () => {
-      expect(complex(0, 0).phase()).to.be.closeTo(0, jsqubits.roundToZero);
+      expect(complex(0, 0).phase()).to.be.closeTo(0, Q.roundToZero);
     });
     it('returns the correct phase for 1+i', () => {
-      expect(complex(1, 1).phase()).to.be.closeTo(Math.PI / 4, jsqubits.roundToZero);
+      expect(complex(1, 1).phase()).to.be.closeTo(Math.PI / 4, Q.roundToZero);
     });
     it('returns the correct phase for -1+i', () => {
-      expect(complex(-1, 1).phase()).to.be.closeTo(3 * Math.PI / 4, jsqubits.roundToZero);
+      expect(complex(-1, 1).phase()).to.be.closeTo(3 * Math.PI / 4, Q.roundToZero);
     });
     it('returns the correct phase for -1-i', () => {
-      expect(complex(-1, -1).phase()).to.be.closeTo(-3 * Math.PI / 4, jsqubits.roundToZero);
+      expect(complex(-1, -1).phase()).to.be.closeTo(-3 * Math.PI / 4, Q.roundToZero);
     });
     it('returns the correct phase for 1-i', () => {
-      expect(complex(1, -1).phase()).to.be.closeTo(-Math.PI / 4, jsqubits.roundToZero);
+      expect(complex(1, -1).phase()).to.be.closeTo(-Math.PI / 4, Q.roundToZero);
     });
   });
 
@@ -113,7 +112,7 @@ describe('Complex', () => {
 
   describe('#real', () => {
     it('should create a complex number', () => {
-      expect(jsqubits.real(3).closeTo(complex(3, 0))).to.be.true;
+      expect(Q.real(3).closeTo(complex(3, 0))).to.be.true;
     });
   });
 
