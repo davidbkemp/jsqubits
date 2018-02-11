@@ -2,8 +2,6 @@
 <html>
 <head>
     <title>jsqubits example</title>
-    <script src="../../lib/jsqubits.js"></script>
-    <script src="../../lib/jsqubitsmath.js"></script>
 </head>
 <body>
     <h1>jsqubits sample</h1>
@@ -13,10 +11,17 @@
     <p>
         234<sup>756</sup> mod 15 = <span id='powerModResult'></span>
     </p>
-    <script>
-        var qstate = jsqubits('|0>').hadamard(0).T(0);
+    <script type="text/javascript" src="../../resources/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/cajon.js"></script>
+    <script type="text/javascript">
+      require(['../../dist/commonjs/index.js'], function(module) {
+        const Q = module.default;
+        const jsqubits = Q;
+        const jsqubitsmath = Q.QMath;
+        const qstate = jsqubits('|0>').hadamard(0).T(0);
         document.getElementById("jsqubitsResult").innerHTML = qstate.toString();
         document.getElementById("powerModResult").innerHTML = jsqubitsmath.powerMod(234, 756, 15).toString();
+      })
     </script>
 </body>
 </html>

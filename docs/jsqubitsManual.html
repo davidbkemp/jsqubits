@@ -5,9 +5,17 @@
     <meta name="keywords" content="quantum, quantum programming, quantum computer, simulator">
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../resources/css/jsqubits.css" />
-    <script src="../resources/js/jquery-1.7.1.min.js"></script>
-    <script src="../lib/jsqubits.js"></script>
-    <script src="../resources/js/jsqubitsManual.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="../resources/js/cajon.js"></script>
+    <script type="text/javascript">
+      require(['../dist/commonjs/index.js'], function(module) {
+        const Q = module.default;
+        window.jsqubits = Q;
+        window.jsqubitsmath = Q.QMath;
+      })
+    </script>
+
+    <script type="text/javascript" src="../resources/js/jsqubitsManual.js"></script>
 </head>
 <body>
 <h1>jsqubits User Manual</h1>
