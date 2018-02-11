@@ -28,5 +28,5 @@ function superDense(input) {
 };
 
 var input = prompt("Two bit string to send", "10");
-var result = superDense(input);
-log("Decoded string is: " + result);
+var transmittedState = superDense(input);
+log("Decoded string is: " + transmittedState);
