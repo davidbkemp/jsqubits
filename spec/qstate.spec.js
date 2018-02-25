@@ -3,13 +3,17 @@ import sinon from 'sinon'
 import assert from 'assert'
 import Q from '../lib'
 
-const jsqubitsmath = Q.QMath
 const {QState, Complex} = Q
 const {expect} = chai
 
 describe('QState', () => {
   const complex = Q.complex;
   const real = Q.real;
+
+  const hadamardMatrix = [
+    [Complex.SQRT1_2, Complex.SQRT1_2],
+    [Complex.SQRT1_2, Complex.SQRT1_2.multiply(-1)]
+  ];
 
   describe('new', () => {
     it('will default amplitudes to the zero state |00...0>', () => {
@@ -65,114 +69,107 @@ describe('QState', () => {
     });
   });
 
-  describe('#controlledApplicatinOfqBitOperator', () => {
+  describe('#applyOperatorMatrix', () => {
+    const matrix = [
+      [new Complex(2), new Complex(3)],
+      [new Complex(4), new Complex(5)]
+    ];
+    const amplitude = new Complex(6);
+
+    it('applies the matrix to a 0 bit', () => {
+      const result = QState.applyOperatorMatrix(matrix, 0, amplitude);
+      expect(result[0].toString()).to.equal('12');
+      expect(result[1].toString()).to.equal('24');
+    });
+
+    it('applies the matrix to a 1 bit', () => {
+      const result = QState.applyOperatorMatrix(matrix, 1, amplitude);
+      expect(result[0].toString()).to.equal('18');
+      expect(result[1].toString()).to.equal('30');
+    });
+  });
+
+  describe('#applyToOneBit', () => {
+
+    it('does nothing when control bits are zero', () => {
+      const result = QState.applyToOneBit([1, 2], 0, hadamardMatrix, Q('|001>'))
+      expect(result.toString()).to.equal('|001>');
+    });
+
+    it('applies an operator to a qubit (when control bits always match)', () => {
+      // Initial state: (0.712)|101> - (0.712)|111>
+      const initialAmplitudes = [];
+      initialAmplitudes[5] = Complex.SQRT1_2;
+      initialAmplitudes[7] = Complex.SQRT1_2.multiply(-1);
+      const initialState = new QState(3, initialAmplitudes);
+
+      const result = QState.applyToOneBit([0, 2], 1, hadamardMatrix, initialState);
+      expect(result.toString()).to.equal('|111>')
+    });
+
+    it('applies an operator to a qubit (when control bits match only for some states)', () => {
+      // Initial state: (0.712)|101> - (0.712)|111>
+      const initialAmplitudes = [];
+      initialAmplitudes[5] = Complex.SQRT1_2;
+      initialAmplitudes[7] = Complex.SQRT1_2.multiply(-1);
+      const initialState = new QState(3, initialAmplitudes);
+
+      const result = QState.applyToOneBit([1, 2], 0, hadamardMatrix, initialState);
+      expect(result.toString()).to.equal('(0.7071)|101> + (-0.5)|110> + (0.5)|111>')
+    });
+  });
+
+  describe('#controlledApplicationOfqBitOperator', () => {
     it('does nothing when the control bit is zero (one target)', () => {
-      const qbitFunction = sinon.spy();
-      const x = Q('|001>').controlledApplicatinOfqBitOperator(2, 0, qbitFunction);
-      assert.equal(qbitFunction.callCount, 0);
-      expect(x.equal(Q('|001>'))).to.be.true;
+      const x = Q('|001>').controlledApplicationOfqBitOperator(2, 0, hadamardMatrix);
+      expect(x.toString()).to.equal('|001>');
     });
     it('does nothing when the control bit is zero (target range)', () => {
-      const qbitFunction = sinon.spy();
       const targetBits = {from: 0, to: 1};
-      const x = Q('|001>').controlledApplicatinOfqBitOperator(2, targetBits, qbitFunction);
-      assert.equal(qbitFunction.callCount, 0);
-      expect(x.equal(Q('|001>'))).to.be.true;
+      const x = Q('|001>').controlledApplicationOfqBitOperator(2, targetBits, hadamardMatrix);
+      expect(x.toString()).to.equal('|001>');
     });
     it('does nothing when the control bit is zero (target array)', () => {
-      const qbitFunction = sinon.spy();
-      const x = Q('|0001>').controlledApplicatinOfqBitOperator(3, [0, 2], qbitFunction);
-      assert.equal(qbitFunction.callCount, 0);
-      expect(x.equal(Q('|0001>'))).to.be.true;
+      const x = Q('|0001>').controlledApplicationOfqBitOperator(3, [0, 2], hadamardMatrix);
+      expect(x.toString()).to.equal('|0001>');
     });
     it('invokes the qbitFunction when the control bit is one', () => {
-      const f = () => ({amplitudeOf0: real(0.2), amplitudeOf1: real(0.3)})
-      const qbitFunction = sinon.spy(f);
-      const x = Q('|100>').controlledApplicatinOfqBitOperator(2, 0, qbitFunction);
-      assert.deepEqual(qbitFunction.getCall(0).args, [Q.ONE, Q.ZERO]);
-      expect(x.amplitude('|100>').closeTo(real(0.2))).to.be.true;
-      expect(x.amplitude('|101>').closeTo(real(0.3))).to.be.true;
+      const x = Q('|100>').controlledApplicationOfqBitOperator(2, 0, hadamardMatrix);
+      expect(x.toString()).to.equal('(0.7071)|100> + (0.7071)|101>');
     });
-    it('flips the target bit when the control bit specifier is null', () => {
-      const f = () => ({amplitudeOf0: real(0.2), amplitudeOf1: real(0.3)})
-      const qbitFunction = sinon.spy(f);
-      const x = Q('|000>').controlledApplicatinOfqBitOperator(null, 0, qbitFunction);
-      assert.deepEqual(qbitFunction.getCall(0).args, [Q.ONE, Q.ZERO]);
-      expect(x.amplitude('|000>').closeTo(real(0.2))).to.be.true;
-      expect(x.amplitude('|001>').closeTo(real(0.3))).to.be.true;
+    it('invokes the qbitFunction when the control bit specifier is null', () => {
+      const x = Q('|000>').controlledApplicationOfqBitOperator(null, 0, hadamardMatrix);
+      expect(x.toString()).to.equal('(0.7071)|000> + (0.7071)|001>');
     });
-    it('flips the target bits when the control bit is one (target bit range)', () => {
+    it('invokes the qbitFunction on a range of target bits', () => {
       const targetBits = {from: 0, to: 1};
-      const f = () => ({amplitudeOf0: real(0.2), amplitudeOf1: real(0.3)})
-      const qbitFunction = sinon.spy(f)
-      const x = Q('|101>').controlledApplicatinOfqBitOperator(2, targetBits, qbitFunction);
-      expect(qbitFunction.called).to.be.true;
-      let ar = qbitFunction.getCall(0).args
-      let result = [Q.ZERO, Q.ONE]
-      assert.deepEqual(ar, result);
-      ar = qbitFunction.getCall(1).args
-      result = [real(0.2), Q.ZERO]
-      assert.equal(ar[0].equal(result[0]) && ar[1].equal(result[1]), true);
-      ar = qbitFunction.getCall(2).args
-      result = [real(0.3), Q.ZERO]
-      assert.equal(ar[0].equal(result[0]) && ar[1].equal(result[1]), true);
-      expect(x.amplitude('|100>').closeTo(real(0.2))).to.be.true;
-      expect(x.amplitude('|101>').closeTo(real(0.2))).to.be.true;
-      expect(x.amplitude('|110>').closeTo(real(0.3))).to.be.true;
-      expect(x.amplitude('|111>').closeTo(real(0.3))).to.be.true;
-    });
-    it('flips the target bits when the control bit is one (target bit array)', () => {
-      const qbitFunction = sinon.spy(() => ({amplitudeOf0: real(0.2), amplitudeOf1: real(0.3)}))
-      const x = Q('|1001>').controlledApplicatinOfqBitOperator(3, [0, 2], qbitFunction);
-      expect(qbitFunction.called).to.be.true;
-      assert.deepEqual(qbitFunction.getCall(0).args, [Q.ZERO, Q.ONE]);
-      let ar = qbitFunction.getCall(1).args
-      let result = [real(0.2), Q.ZERO]
-      assert.equal(ar[0].equal(result[0]) && ar[1].equal(result[1]), true);
-
-      ar = qbitFunction.getCall(2).args
-      result = [real(0.3), Q.ZERO]
-      assert.equal(ar[0].equal(result[0]) && ar[1].equal(result[1]), true);
-      expect(x.amplitude('|1000>').closeTo(real(0.2))).to.be.true;
-      expect(x.amplitude('|1001>').closeTo(real(0.2))).to.be.true;
-      expect(x.amplitude('|1100>').closeTo(real(0.3))).to.be.true;
-      expect(x.amplitude('|1101>').closeTo(real(0.3))).to.be.true;
+      const x = Q('|101>').controlledApplicationOfqBitOperator(2, targetBits, hadamardMatrix);
+      expect(x.toString()).to.equal('(0.5)|100> + (-0.5)|101> + (0.5)|110> + (-0.5)|111>');
     });
     it('does nothing when any of the control bits are zero (control bit range)', () => {
-      const qbitFunction = sinon.spy();
       const controlBits = {from: 1, to: 2};
-      const x = Q('|101>').controlledApplicatinOfqBitOperator(controlBits, 0, qbitFunction);
-      expect(qbitFunction.called).not.to.be.true;
-      expect(x.equal(Q('|101>'))).to.be.true;
+      const x = Q('|101>').controlledApplicationOfqBitOperator(controlBits, 0, hadamardMatrix);
+      expect(x.toString()).to.equal('|101>');
+
     });
     it('does nothing when any of the control bits are zero (control bit array)', () => {
-      const qbitFunction = sinon.spy();
       const controlBits = [1, 2];
-      const x = Q('|101>').controlledApplicatinOfqBitOperator(controlBits, 0, qbitFunction);
-      expect(qbitFunction.called).not.to.be.true;
-      expect(x.equal(Q('|101>'))).to.be.true;
+      const x = Q('|101>').controlledApplicationOfqBitOperator(controlBits, 0, hadamardMatrix);
+      expect(x.toString()).to.equal('|101>');
     });
     it('invokes the qbitFunction when the control bits are all one (control bit range)', () => {
-      const qbitFunction = sinon.spy(() => ({amplitudeOf0: real(0.2), amplitudeOf1: real(0.3)}))
       const controlBits = {from: 1, to: 2};
-      const x = Q('|110>').controlledApplicatinOfqBitOperator(controlBits, 0, qbitFunction);
-      assert.deepEqual(qbitFunction.getCall(0).args, [Q.ONE, Q.ZERO]);
-      expect(x.amplitude('|110>').closeTo(real(0.2))).to.be.true;
-      expect(x.amplitude('|111>').closeTo(real(0.3))).to.be.true;
+      const x = Q('|110>').controlledApplicationOfqBitOperator(controlBits, 0, hadamardMatrix);
+      expect(x.toString()).to.equal('(0.7071)|110> + (0.7071)|111>');
     });
     it('invokes the qbitFunction when the control bits are all one (control bit array)', () => {
-      const qbitFunction = sinon.spy(() => ({amplitudeOf0: real(0.2), amplitudeOf1: real(0.3)}))
       const controlBits = [1, 3];
-      const x = Q('|1010>').controlledApplicatinOfqBitOperator(controlBits, 0, qbitFunction);
-      const args = qbitFunction.getCall(0).args
-      assert.deepEqual(args, [Q.ONE, Q.ZERO]);
-      expect(x.amplitude('|1010>').closeTo(real(0.2))).to.be.true;
-      expect(x.amplitude('|1011>').closeTo(real(0.3))).to.be.true;
+      const x = Q('|1010>').controlledApplicationOfqBitOperator(controlBits, 0, hadamardMatrix);
+      expect(x.toString()).to.equal('(0.7071)|1010> + (0.7071)|1011>');
     });
     it('throws an error when the control and target bits overlap', () => {
-      const testFunction = function () { return {amplitudeOf0: real(0), amplitudeOf1: real(0)} };
       const badFunctionInvocation = function () {
-        Q('0000').controlledApplicatinOfqBitOperator({from: 0, to: 2}, {from: 2, to: 3}, testFunction);
+        Q('0000').controlledApplicationOfqBitOperator({from: 0, to: 2}, {from: 2, to: 3}, hadamardMatrix);
       };
       expect(badFunctionInvocation).to.throw('control and target bits must not be the same nor overlap');
     });
@@ -370,12 +367,11 @@ describe('QState', () => {
   describe('#controlledHadamard', () => {
     it('does nothing when the control bit is zero', () => {
       const x = Q('|001>').controlledHadamard(2, 0);
-      expect(x.equal(Q('|001>'))).to.be.true;
+      expect(x.toString()).to.equal('|001>');
     });
     it('applies the Hadamard operator when the control bits are one', () => {
       const x = Q('|111>').controlledHadamard({from: 1, to: 2}, 0);
-      expect(x.amplitude('|110>').closeTo(real(1 / Math.sqrt(2)))).to.be.true;
-      expect(x.amplitude('|111>').closeTo(real(-1 / Math.sqrt(2)))).to.be.true;
+      expect(x.toString()).to.equal('(0.7071)|110> + (-0.7071)|111>');
     });
   });
 
@@ -438,12 +434,11 @@ describe('QState', () => {
   describe('#controlledYRotation', () => {
     it('does nothing when the control bit is zero', () => {
       const x = Q('|001>').controlledYRotation(2, 0, Math.PI / 4);
-      expect(x.equal(Q('|001>'))).to.be.true;
+      expect(x.toString()).to.equal('|001>');
     });
     it('rotates around the y axis when the control bit is one', () => {
       const x = Q('|100>').controlledYRotation(2, 0, Math.PI / 4);
-      expect(x.amplitude('|100>').closeTo(real(Math.cos(Math.PI / 8)))).to.be.true;
-      expect(x.amplitude('|101>').closeTo(real(Math.sin(Math.PI / 8)))).to.be.true;
+      expect(x.toString()).to.equal('(0.9239)|100> + (0.3827)|101>');
     });
   });
 

@@ -59,8 +59,8 @@ describe('QState.qft (Quantum Fourier Transform)', () => {
     const inputBits = {from: 2, to: 4};
     const outBits = {from: 0, to: 1};
     let gcd = 0;
-    //        Do this 10 times since it is random :-)
-    for (let i = 0; i < 10; i++) {
+    //        Do this 100 times since it is random and sometimes takes a long time :-)
+    for (let i = 0; i < 100; i++) {
       let qstate = Q('|00000>').hadamard(inputBits);
       qstate = qstate.applyFunction(inputBits, outBits, (x) => { return x % 4 });
       const result = qstate.qft(inputBits).measure(inputBits).result;
