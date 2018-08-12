@@ -25,14 +25,17 @@
     "sinon": "^4.2.2"
   },
   "scripts": {
+    "lint": "eslint ./lib",
     "build": "npm run build:commonjs && npm run build:es ",
     "build:commonjs": "babel lib -d dist/commonjs ",
     "build:es": "cross-env BABEL_ENV=es babel lib -d dist/es",
     "prebuild:commonjs": "rimraf dist/commonjs",
     "prebuild:es": "rimraf dist/es",
     "prepublish": "cross-env NODE_ENV=production npm run build",
-    "test": "mocha $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill --reporter spec spec/*.spec.js",
-    "example": "node $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill examples/algorithms/all.js",
+    "test": "npm run lint && npm run test-only",
+    "test-only": "mocha $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill --reporter spec spec/*.spec.js",
+    "example": "node $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill",
+    "all-examples": "node $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill examples/algorithms/all.js",
     "clean": "rm -r node_modules"
   },
   "main": "dist/commonjs/index.js",
