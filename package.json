@@ -5,6 +5,7 @@
   "keywords": [
     "quantum"
   ],
+  "license": "MIT",
   "author": "David Kemp <davidbkemp@gmail.com>",
   "dependencies": {},
   "devDependencies": {
@@ -36,7 +37,7 @@
     "test-only": "mocha $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill --reporter spec spec/*.spec.js",
     "example": "node $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill",
     "all-examples": "node $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill examples/algorithms/all.js",
-    "clean": "rm -r node_modules"
+    "clean": "rm -rf node_modules dist bower_components"
   },
   "main": "dist/commonjs/index.js",
   "repository": "git://github.com/davidbkemp/jsqubits.git",

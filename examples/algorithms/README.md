@@ -1,10 +1,14 @@
-To run an algorithm, simply use node:
+To run an algorithm, use `npm`:
 
-eg.
+eg (note that the path is relative to the location of `package.json`).
 
-    $ node deutsch.js
+    $ npm run-script example examples/algorithms/deutsch.js
 
 Or, to run them all:
 
-    $ node all.js
+    $ npm run-script all-examples
 
+You can of course run them directly using `node`,
+but you will need to pre-load `babel-core/register`:
+
+    $ node --require babel-core/register ./deutsch.js

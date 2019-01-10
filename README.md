@@ -55,6 +55,17 @@ Use it in a Node application (see http://nodejs.org) :
 
 REMEMBER: jsqubits operators return new instances of the quantum state and they do NOT modify the existing object.
 
+NOTE: If you clone the github repository, or download a release,
+you will need to run the following from within the root of the repository.
+I am not sure why you need the `.default` on the end of the `require` statement
+– it all got a bit more complicated after the migration to ES6.
+
+    $ npm install
+    $ node
+    > qubits = require('./dist/es/index.js').default
+    > qubits('|0101>').hadamard(qubits.ALL).toString()
+
+
 Development
 -----------
 To run the Jasmine specs, you will need to install Node.js (http://nodejs.org).
