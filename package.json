@@ -34,7 +34,7 @@
     "prebuild:es": "rimraf dist/es",
     "prepublish": "cross-env NODE_ENV=production npm run build",
     "test": "npm run lint && npm run test-only",
-    "test-only": "mocha $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill --reporter spec spec/*.spec.js",
+    "test-only": "mocha $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill --reporter spec \"spec/**/*.spec.js\"",
     "example": "node $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill",
     "all-examples": "node $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill examples/algorithms/all.js",
     "clean": "rm -rf node_modules dist bower_components"
