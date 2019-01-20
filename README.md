@@ -57,12 +57,10 @@ REMEMBER: jsqubits operators return new instances of the quantum state and they 
 
 NOTE: If you clone the github repository, or download a release,
 you will need to run the following from within the root of the repository.
-I am not sure why you need the `.default` on the end of the `require` statement
-– it all got a bit more complicated after the migration to ES6.
 
     $ npm install
     $ node
-    > qubits = require('./dist/es/index.js').default
+    > qubits = require('./dist/es/index.js').jsqubits
     > qubits('|0101>').hadamard(qubits.ALL).toString()
 
 
@@ -77,7 +75,7 @@ License
 
 (The MIT License)
 
-Copyright (c) 2012 David Kemp &lt;davidbkemp@gmail.com&gt;
+Copyright (c) 2012-2019 David Kemp &lt;davidbkemp@gmail.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
