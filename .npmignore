@@ -8,3 +8,4 @@ spec
 *.sock
 .babelrc
 .eslintrc
+.travis.yml
