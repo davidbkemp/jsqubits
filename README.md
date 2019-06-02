@@ -56,8 +56,11 @@ Use it in a Node application (see http://nodejs.org) :
 REMEMBER: jsqubits operators return new instances of the quantum state and they do NOT modify the existing object.
 
 NOTE: If you clone the github repository, or download a release,
-you will need to run the following from within the root of the repository.
+you will need to run `npm install` from within the root of the repository.
+e.g.
 
+    $ git clone https://github.com/davidbkemp/jsqubits.git
+    $ cd jsqubits
     $ npm install
     $ node
     > qubits = require('./dist/es/index.js').jsqubits
