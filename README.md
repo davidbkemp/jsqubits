@@ -66,6 +66,13 @@ e.g.
     > qubits = require('./dist/es/index.js').jsqubits
     > qubits('|0101>').hadamard(qubits.ALL).toString()
 
+TypeScript type definitions
+---------------------------
+TypeScript type definitions for jsqubits are available:
+
+- Node npm module: https://www.npmjs.com/package/@types/jsqubits
+- Github: https://github.com/qramana/jsqubits.d.ts
+
 
 Development
 -----------
