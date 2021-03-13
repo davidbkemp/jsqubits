@@ -7,9 +7,7 @@
  *  function(x) {return (x % 17) == 0 ? 1 : 0;} // NOTE: This often fails!
  */
 
-/* global require:true, console:true, exports:true, __dirname:true */
-
-import Q from '../../lib'
+import Q from '../../lib/index.js'
 
 const jsqubits = Q
 const jsqubitsmath = Q.QMath

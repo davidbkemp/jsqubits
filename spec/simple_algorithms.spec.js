@@ -1,5 +1,5 @@
 import chai from 'chai'
-import jsqubits from '../lib'
+import jsqubits from '../lib/index.js'
 const jsqubitsmath = jsqubits.QMath
 const {expect} = chai
 

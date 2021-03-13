@@ -4,12 +4,11 @@
  * by sending just two classical bits.
  */
 
-/* global require:true, console:true, exports:true, __dirname:true */
-import Q from '../../lib'
+import Q from '../../lib/index.js'
 
 const jsqubits = Q
 
-const applyTeleportation = exports.applyTeleportation = function (state) {
+const applyTeleportation = function (state) {
   const alicesMeasurement = state.cnot(2, 1)
     .hadamard(2)
     .measure({

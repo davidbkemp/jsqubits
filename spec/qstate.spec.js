@@ -1,7 +1,6 @@
 import chai from 'chai'
 import sinon from 'sinon'
-import assert from 'assert'
-import Q from '../lib'
+import Q from '../lib/index.js'
 
 const {QState, Complex} = Q
 const {expect} = chai

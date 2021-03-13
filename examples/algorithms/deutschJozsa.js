@@ -5,9 +5,7 @@
  * Returns true if the function is constant.
  */
 
-/* global require:true, console:true, exports:true, __dirname:true */
-
-import Q from '../../lib'
+import Q from '../../lib/index.js'
 
 const jsqubits = Q
 

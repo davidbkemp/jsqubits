@@ -3,8 +3,7 @@
  * See http://en.wikipedia.org/wiki/Simon's_algorithm
  */
 
-/* global require:true, console:true, exports:true, __dirname:true */
-import Q from '../../lib'
+import Q from '../../lib/index.js'
 
 const jsqubits = Q
 const jsqubitsmath = Q.QMath
@@ -45,7 +44,7 @@ function findPotentialSolution(f, numBits) {
   return nullSpace[0];
 }
 
-const simonsAlgorithm = exports.simonsAlgorithm = function (f, numBits) {
+const simonsAlgorithm = function (f, numBits) {
   if (arguments.length !== 2) throw new Error('Must supply a function and number of bits');
   const solution = findPotentialSolution(f, numBits);
   return (f(0) === f(solution)) ? solution : 0;

@@ -1,5 +1,5 @@
 import chai from 'chai'
-import Q from '../lib'
+import Q from '../lib/index.js'
 const {expect} = chai
 
 describe('Complex', () => {

@@ -50,8 +50,12 @@ Use it in a Node application (see http://nodejs.org) :
 
     $ npm install jsqubits
     $ node
-    > qubits = require('jsqubits').jsqubits
-    > qubits('|0101>').hadamard(qubits.ALL).toString()
+    import('jsqubits').then((module) => {
+        const jsqubits = module.jsqubits;
+        const result = jsqubits('|0101>').hadamard(jsqubits.ALL);
+        console.log(result.toString());
+    });
+
 
 REMEMBER: jsqubits operators return new instances of the quantum state and they do NOT modify the existing object.
 
@@ -63,8 +67,11 @@ e.g.
     $ cd jsqubits
     $ npm install
     $ node
-    > qubits = require('./dist/es/index.js').jsqubits
-    > qubits('|0101>').hadamard(qubits.ALL).toString()
+    import('./lib/index.js').then((module) => {
+        const jsqubits = module.jsqubits;
+        const result = jsqubits('|0101>').hadamard(jsqubits.ALL);
+        console.log(result.toString());
+    });
 
 TypeScript type definitions
 ---------------------------
@@ -85,7 +92,7 @@ License
 
 (The MIT License)
 
-Copyright (c) 2012-2019 David Kemp &lt;davidbkemp@gmail.com&gt;
+Copyright (c) 2012-2021 David Kemp &lt;davidbkemp@gmail.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

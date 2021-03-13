@@ -4,8 +4,7 @@
  * the simple search function can determine which it is with only a single invocation.
  */
 
-/* global require:true, console:true, exports:true, __dirname:true */
-import Q from '../../lib'
+import Q from '../../lib/index.js'
 
 const jsqubits = Q
 
