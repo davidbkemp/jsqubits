@@ -3,12 +3,8 @@
 //     (c) 2012 David Kemp
 //     jsqubits may be freely distributed under the MIT license.
 
-/* jshint evil:true */
-/* global jQuery, jsqubits, prompt, alert  */
-
-
 (function (global, $) {
-  global.ALL = jsqubits.ALL;
+  global.ALL = 'ALL';
 
   global.log = function (str) {
     jQuery('#console').append(jQuery('<div>').text(str));

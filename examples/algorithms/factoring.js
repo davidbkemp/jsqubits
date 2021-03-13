@@ -3,8 +3,7 @@
  * See https://cs.uwaterloo.ca/~watrous/lecture-notes/519/11.pdf
  */
 
-/*global require:true, console:true, exports:true, __dirname:true */
-import Q from '../../lib'
+import Q from '../../lib/index.js'
 
 const jsqubits = Q
 const jsqubitsmath = Q.QMath
@@ -81,7 +80,7 @@ function computeOrder(a, n) {
   return findPeriod();
 }
 
-var factor = exports.factor = function (n) {
+const factor = function (n) {
 
   if (n % 2 === 0) {
     // Is even.  No need for any quantum computing!

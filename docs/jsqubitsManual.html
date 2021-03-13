@@ -6,13 +6,10 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../resources/css/jsqubits.css" />
     <script type="text/javascript" src="../resources/js/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="../resources/js/cajon.js"></script>
-    <script type="text/javascript">
-      require(['../dist/commonjs/index.js'], function(module) {
-        const Q = module.default;
-        window.jsqubits = Q;
-        window.jsqubitsmath = Q.QMath;
-      })
+    <script type="module">
+      import Q from '../lib/index.js'
+      window.jsqubits = Q;
+      window.jsqubitsmath = Q.QMath;
     </script>
 
     <script type="text/javascript" src="../resources/js/jsqubitsManual.js"></script>

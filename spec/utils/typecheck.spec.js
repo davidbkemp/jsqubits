@@ -1,5 +1,5 @@
 import chai from 'chai'
-import typecheck from '../../lib/utils/typecheck';
+import typecheck from '../../lib/utils/typecheck.js';
 
 const { expect } = chai;
 

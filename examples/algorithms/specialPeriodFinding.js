@@ -3,8 +3,7 @@
  * For any function where f(x) = f(x + r) such that r is a power of two, this algorithm will find r.
  */
 
-/* global require:true, console:true, exports:true, __dirname:true */
-import Q from '../../lib'
+import Q from '../../lib/index.js'
 
 const jsqubits = Q
 const jsqubitsmath = Q.QMath

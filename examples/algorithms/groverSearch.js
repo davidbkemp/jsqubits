@@ -3,9 +3,7 @@
  * See http://en.wikipedia.org/wiki/Grover's_algorithm
  */
 
-/*global require:true, console:true, __dirname:true */
-
-import Q from '../../lib'
+import Q from '../../lib/index.js'
 
 const jsqubits = Q
 
