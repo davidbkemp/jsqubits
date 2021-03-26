@@ -83,9 +83,9 @@ TypeScript type definitions for jsqubits are available:
 
 Development
 -----------
-To run the Jasmine specs, you will need to install Node.js (http://nodejs.org).
-Then use 'npm install' to install the testing dependencies (Jasmine) and 'npm test' to run the specs.
-NOTE: The Jasmine specs include an example of factoring using Shor's faction algorithm.  This is non-deterministic and can take a fraction of a second or several seconds to complete.
+To run the tests, you will need to install Node.js (http://nodejs.org).
+Then use 'npm install' to install the testing dependencies and 'npm test' to run the specs.
+NOTE: The tests include an example of factoring using Shor's faction algorithm.  This is non-deterministic and can take a fraction of a second or several seconds to complete.
 
 License
 -------
