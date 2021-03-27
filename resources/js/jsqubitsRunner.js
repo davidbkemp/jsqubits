@@ -1,5 +1,5 @@
 //     jsqubits
-//     http://jsqubits.org
+//     https://davidbkemp.github.io/jsqubits/
 //     (c) 2012 David Kemp
 //     jsqubits may be freely distributed under the MIT license.
 
@@ -7,7 +7,7 @@
   global.ALL = 'ALL';
 
   global.log = function (str) {
-    jQuery('#console').append(jQuery('<div>').text(str));
+    $('#console').append($('<div>').text(str));
   };
 
   global.promptForFunction = function (message, example) {
@@ -52,14 +52,14 @@
     });
 
     $('#example').change(function () {
-      const selectedExample = $(this).attr('value');
+      const selectedExample = $(this).val();
       if (selectedExample === 'none') return;
 
       $.get(`examples/${selectedExample}.js.example`, (data) => {
         clearAll();
         $('#code').val(data);
       })
-        .error(() => { alert('Sorry. Something went wrong.'); });
+        .fail(() => { alert('Sorry. Something went wrong.'); });
     });
   });
 }(this, jQuery));

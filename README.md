@@ -4,13 +4,13 @@
 [![Build Status](https://travis-ci.org/davidbkemp/jsqubits.png)](https://travis-ci.org/davidbkemp/jsqubits)
 
 Website:
-http://davidbkemp.github.io/jsqubits/
+https://davidbkemp.github.io/jsqubits/
 
 The user manual:
-http://davidbkemp.github.io/jsqubits/jsqubitsManual.html
+https://davidbkemp.github.io/jsqubits/jsqubitsManual.html
 
 Try it out online using the jsqubits runner:
-http://davidbkemp.github.io/jsqubits/jsqubitsRunner.html
+https://davidbkemp.github.io/jsqubits/jsqubitsRunner.html
 
 Wiki (with examples):
 https://github.com/davidbkemp/jsqubits/wiki
@@ -33,45 +33,47 @@ You can use it to implement quantum algorithms using JavaScript like this:
 WARNING: jsqubits operators return new instances of the quantum state and they do NOT modify the existing object.
 
 If you are new to quantum programming, then it is highly recommended that you try reading
-[John Watrous' Quantum Information and Computation Lecture Notes](http://www.cs.uwaterloo.ca/~watrous/lecture-notes.html).
-You may also wish to try reading the (work in progress) [Introduction to Quantum Programming using jsqubits](http://davidbkemp.github.io/jsqubits/jsqubitsTutorial.html).
+[John Watrous' Quantum Information and Computation Lecture Notes](https://cs.uwaterloo.ca/~watrous/QC-notes/).
+You may also wish to try reading the (work in progress) [Introduction to Quantum Programming using jsqubits](https://davidbkemp.github.io/jsqubits/jsqubitsTutorial.html).
 
 Usage
 -----
 Try it out online using the jsqubits runner:
-http://davidbkemp.github.io/jsqubits/jsqubitsRunner.html
+https://davidbkemp.github.io/jsqubits/jsqubitsRunner.html
 
 Use it in your own web application by including the JavaScript files available from GitHub:
 https://github.com/davidbkemp/jsqubits/tree/master/lib
 (jsqubits.js is the core library, while jsqubitsmath.js has some maths functions that are useful in some of the well known quantum algorithms).
-They have optional support for being loaded via require.js (see the simple web page examples in the examples directory).
+See the simple web page examples in the examples directory.
 
-Use it in a Node application (see http://nodejs.org) :
+Use it in a Node application (see https://nodejs.org).
+**WARNING: Use at least version 15 of Node**:
 
     $ npm install jsqubits
     $ node
-    import('jsqubits').then((module) => {
-        const jsqubits = module.jsqubits;
+    import('jsqubits').then(({jsqubits}) => {
         const result = jsqubits('|0101>').hadamard(jsqubits.ALL);
         console.log(result.toString());
     });
 
 
-REMEMBER: jsqubits operators return new instances of the quantum state and they do NOT modify the existing object.
+NOTE:
 
-NOTE: If you clone the github repository, or download a release,
+- jsqubits operators return new instances of the quantum state and they do NOT modify the existing object.
+- If you clone the github repository, or download a release,
 you will need to run `npm install` from within the root of the repository.
 e.g.
 
+```shell
     $ git clone https://github.com/davidbkemp/jsqubits.git
     $ cd jsqubits
     $ npm install
     $ node
-    import('./lib/index.js').then((module) => {
-        const jsqubits = module.jsqubits;
+    import('./lib/index.js').then(({jsqubits}) => {
         const result = jsqubits('|0101>').hadamard(jsqubits.ALL);
         console.log(result.toString());
     });
+```
 
 TypeScript type definitions
 ---------------------------
@@ -83,8 +85,8 @@ TypeScript type definitions for jsqubits are available:
 
 Development
 -----------
-To run the tests, you will need to install Node.js (http://nodejs.org).
-Then use 'npm install' to install the testing dependencies and 'npm test' to run the specs.
+To run the tests, you will need to install version 15 or later of Node.js (https://nodejs.org).
+Then use `npm install` to install the testing dependencies and `npm test` to run the specs.
 NOTE: The tests include an example of factoring using Shor's faction algorithm.  This is non-deterministic and can take a fraction of a second or several seconds to complete.
 
 License
@@ -92,7 +94,7 @@ License
 
 (The MIT License)
 
-Copyright (c) 2012-2021 David Kemp &lt;davidbkemp@gmail.com&gt;
+Copyright (c) 2012 David Kemp &lt;davidbkemp@gmail.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
