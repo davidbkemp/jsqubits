@@ -1,6 +1,6 @@
 /*
  * Shor's factoring algorithm.
- * See https://cs.uwaterloo.ca/~watrous/lecture-notes/519/11.pdf
+ * See https://cs.uwaterloo.ca/~watrous/QC-notes/QC-notes.11.pdf
  */
 
 import Q from '../../lib/index.js'

@@ -1,6 +1,6 @@
 /**
  * Grover's search algorithm.
- * See http://en.wikipedia.org/wiki/Grover's_algorithm
+ * See https://en.wikipedia.org/wiki/Grover's_algorithm
  */
 
 import Q from '../../lib/index.js'
