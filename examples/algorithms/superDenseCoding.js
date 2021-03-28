@@ -4,9 +4,7 @@
  * send it to Bob, and Bob can decode it with the help of his entangled qubit.
  */
 
-import Q from '../../lib/index.js'
-
-const jsqubits = Q
+import jsqubits from '../../lib/index.js'
 
 export function superDense(input) {
   let state = jsqubits('|00>')

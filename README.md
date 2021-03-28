@@ -41,21 +41,21 @@ Usage
 Try it out online using the jsqubits runner:
 https://davidbkemp.github.io/jsqubits/jsqubitsRunner.html
 
-Use it in your own web application by including the JavaScript files available from GitHub:
-https://github.com/davidbkemp/jsqubits/tree/master/lib
-(jsqubits.js is the core library, while jsqubitsmath.js has some maths functions that are useful in some of the well known quantum algorithms).
-See the simple web page examples in the examples directory.
-
 Use it in a Node application (see https://nodejs.org).
-**WARNING: Use at least version 15 of Node**:
+**WARNING: Use at least version 15 of Node.**
 
-    $ npm install jsqubits
-    $ node
-    import('jsqubits').then(({jsqubits}) => {
-        const result = jsqubits('|0101>').hadamard(jsqubits.ALL);
-        console.log(result.toString());
-    });
 
+```shell
+$ npm install jsqubits
+$ cat > myprogram.mjs << EOF
+
+import {jsqubits} from 'jsqubits'
+const result = jsqubits('|0101>').hadamard(jsqubits.ALL);
+console.log(result.toString());
+
+EOF
+$ node myprogram.mjs
+```
 
 NOTE:
 
@@ -74,6 +74,8 @@ e.g.
         console.log(result.toString());
     });
 ```
+
+TODO: Instructions on how to use it in a static web page.
 
 TypeScript type definitions
 ---------------------------

@@ -5,9 +5,7 @@
  * Returns true if the function is constant.
  */
 
-import Q from '../../lib/index.js'
-
-const jsqubits = Q
+import jsqubits from '../../lib/index.js'
 
 export function deutschJozsa(f) {
   const inputBits = {

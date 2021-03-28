@@ -3,9 +3,7 @@
  * Determine the value of (f(0) + f(1)) mod 2 with a single invocation of f (where f is a single bit function)
  */
 
-import Q from '../../lib/index.js'
-
-const jsqubits = Q
+import jsqubits from '../../lib/index.js'
 
 export function deutsch(f) {
   return jsqubits('|01>')

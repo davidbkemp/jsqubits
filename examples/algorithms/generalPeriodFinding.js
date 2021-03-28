@@ -7,10 +7,9 @@
  *  function(x) {return (x % 17) == 0 ? 1 : 0;} // NOTE: This often fails!
  */
 
-import Q from '../../lib/index.js'
+import jsqubits from '../../lib/index.js'
 
-const jsqubits = Q
-const jsqubitsmath = Q.QMath
+const jsqubitsmath = jsqubits.QMath
 
 export function findPeriod(f, upperLimit) {
   // The number of qubits in the quantum circuit used as "input" and "output" bits to f are numInBits and numOutBits respectively.
