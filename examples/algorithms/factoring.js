@@ -3,10 +3,9 @@
  * See https://cs.uwaterloo.ca/~watrous/QC-notes/QC-notes.11.pdf
  */
 
-import Q from '../../lib/index.js'
+import jsqubits from '../../lib/index.js'
 
-const jsqubits = Q
-const jsqubitsmath = Q.QMath
+const jsqubitsmath = jsqubits.QMath
 
 function computeOrder(a, n) {
   var numOutBits = Math.ceil(Math.log(n) / Math.log(2));

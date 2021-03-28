@@ -3,10 +3,9 @@
  * For any function where f(x) = f(x + r) such that r is a power of two, this algorithm will find r.
  */
 
-import Q from '../../lib/index.js'
+import jsqubits from '../../lib/index.js'
 
-const jsqubits = Q
-const jsqubitsmath = Q.QMath
+const jsqubitsmath = jsqubits.QMath
 
 export function findPeriod(f, upperLimit) {
   // The number of qubits in the quantum circuit used as "input" and "output" bits to f are numInBits and numOutBits respectively.

@@ -4,9 +4,7 @@
  * by sending just two classical bits.
  */
 
-import Q from '../../lib/index.js'
-
-const jsqubits = Q
+import jsqubits from '../../lib/index.js'
 
 const applyTeleportation = function (state) {
   const alicesMeasurement = state.cnot(2, 1)

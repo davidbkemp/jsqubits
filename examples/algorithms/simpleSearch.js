@@ -4,9 +4,7 @@
  * the simple search function can determine which it is with only a single invocation.
  */
 
-import Q from '../../lib/index.js'
-
-const jsqubits = Q
+import jsqubits from '../../lib/index.js'
 
 export function simpleSearch(f) {
   const inputBits = {

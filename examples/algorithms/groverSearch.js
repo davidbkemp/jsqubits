@@ -3,9 +3,7 @@
  * See https://en.wikipedia.org/wiki/Grover's_algorithm
  */
 
-import Q from '../../lib/index.js'
-
-const jsqubits = Q
+import jsqubits from '../../lib/index.js'
 
 function amplifyTargetAmplitude(qstate, f, inputBits) {
   // This is the core of Grover's algorithm. It amplifies the amplitude of the state for which f(x) = 1

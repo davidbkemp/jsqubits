@@ -3,8 +3,7 @@
  * Given f: f(x) = x.u, determine u.
  */
 
-import Q from '../../lib/index.js'
-const jsqubits = Q
+import jsqubits from '../../lib/index.js'
 
 export function bernsteinVazirani(f, numbits) {
   //  Create a |-> state as the target qubit.

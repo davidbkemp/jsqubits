@@ -3,10 +3,9 @@
  * See https://en.wikipedia.org/wiki/Simon's_algorithm
  */
 
-import Q from '../../lib/index.js'
+import jsqubits from '../../lib/index.js'
 
-const jsqubits = Q
-const jsqubitsmath = Q.QMath
+const jsqubitsmath = jsqubits.QMath
 
 function singleRunOfSimonsCircuit(f, numbits) {
   const inputBits = {
