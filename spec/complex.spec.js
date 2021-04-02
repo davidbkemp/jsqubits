@@ -1,9 +1,10 @@
-import chai from 'chai'
-import Q from '../lib/index.js'
-const {expect} = chai
+/* jshint -W030 */
+import chai from 'chai';
+import Q from '../lib/index.js';
+const {expect} = chai;
 
 describe('Complex', () => {
-  const complex = Q.complex
+  const complex = Q.complex;
 
   let w;
   let x;
@@ -11,7 +12,7 @@ describe('Complex', () => {
   beforeEach(() => {
     w = complex(-4, 3);
     x = complex(1, 3);
-    y = complex(10, 30)
+    y = complex(10, 30);
   });
 
   describe('construction', () => {
@@ -65,7 +66,7 @@ describe('Complex', () => {
 
   describe('#phase', () => {
     it('returns the correct phase for 1', () => {
-      const p = complex(1, 0).phase()
+      const p = complex(1, 0).phase();
       expect(p).to.be.closeTo(0, Q.roundToZero);
     });
     it('returns the correct phase for i', () => {

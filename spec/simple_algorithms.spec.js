@@ -1,10 +1,11 @@
-import chai from 'chai'
-import jsqubits from '../lib/index.js'
-const jsqubitsmath = jsqubits.QMath
-const {expect} = chai
+/* jshint -W030 */
+import chai from 'chai';
+import jsqubits from '../lib/index.js';
+const jsqubitsmath = jsqubits.QMath;
+const {expect} = chai;
 
 describe('Simple Quantum Algorithms', () => {
-  const ALL = jsqubits.ALL
+  const ALL = jsqubits.ALL;
 
   var shuffle = function (a) {
     for (let i = 0; i < a.length; i++) {
@@ -52,7 +53,7 @@ describe('Simple Quantum Algorithms', () => {
   });
 
   describe('Simple search', () => {
-    const createOracle = function (match) { return function (x) { return x == match ? 1 : 0 } };
+    const createOracle = function (match) { return function (x) { return x === match ? 1 : 0; }; };
 
     const simpleSearch = function (f) {
       const inputBits = {from: 1, to: 2};
@@ -161,7 +162,7 @@ describe('Simple Quantum Algorithms', () => {
       // Return 0 for exactly half the possible inputs and 1 for the rest.
       const nums = [0, 1, 2, 3, 4, 5, 6, 7];
       shuffle(nums);
-      return function (x) { return nums[x] < 4 ? 0 : 1 };
+      return function (x) { return nums[x] < 4 ? 0 : 1; };
     };
 
     it('should return true if function always returns zero', () => {
@@ -186,7 +187,7 @@ describe('Simple Quantum Algorithms', () => {
         .applyFunction(inputBits, targetBits, f)
         .hadamard(inputBits);
       return qbits.measure(inputBits).result;
-    }
+    };
 
     //      TODO: Make this a litte easier to read!
     const findPotentialSolution = function (f, numBits) {
@@ -207,7 +208,7 @@ describe('Simple Quantum Algorithms', () => {
       }
       if (nullSpace === null) throw 'Could not find a solution';
       return nullSpace[0];
-    }
+    };
 
     const simonsAlgorithm = function (f, numBits) {
       const solution = findPotentialSolution(f, numBits);
@@ -230,5 +231,5 @@ describe('Simple Quantum Algorithms', () => {
       };
       expect(simonsAlgorithm(permutation, 3)).to.equal(0);
     });
-  })
+  });
 });
