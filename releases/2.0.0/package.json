@@ -1,0 +1,45 @@
+{
+  "name": "jsqubits",
+  "version": "1.1.1",
+  "description": "Quantum computation simulation JavaScript library",
+  "keywords": [
+    "quantum"
+  ],
+  "license": "MIT",
+  "author": "David Kemp <davidbkemp@gmail.com>",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "cross-env": "^5.1.3",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.6.1",
+    "mocha": "^5.0.0",
+    "sinon": "^4.2.2"
+  },
+  "scripts": {
+    "lint": "eslint ./lib",
+    "build": "npm run build:commonjs && npm run build:es ",
+    "build:commonjs": "babel lib -d dist/commonjs ",
+    "build:es": "cross-env BABEL_ENV=es babel lib -d dist/es",
+    "prebuild:commonjs": "rimraf dist/commonjs",
+    "prebuild:es": "rimraf dist/es",
+    "prepublish": "cross-env NODE_ENV=production npm run build",
+    "test": "npm run lint && npm run test-only",
+    "test-only": "mocha $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill --reporter spec \"spec/**/*.spec.js\"",
+    "example": "node $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill",
+    "all-examples": "node $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill examples/algorithms/all.js",
+    "clean": "rm -rf node_modules dist bower_components"
+  },
+  "main": "dist/commonjs/index.js",
+  "repository": "git://github.com/davidbkemp/jsqubits.git",
+  "homepage": "http://davidbkemp.github.io/jsqubits/"
+}

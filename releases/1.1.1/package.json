@@ -1,0 +1,80 @@
+{
+  "_from": "jsqubits",
+  "_id": "jsqubits@1.1.1",
+  "_inBundle": false,
+  "_integrity": "sha512-GLoolciJiwV/GwPrytZHdrvEo/OKbe915yg/gxL8arfD5OAkQr4mdvvnRjesTx/JdaubGoEt8h3FzrpjpbvT+w==",
+  "_location": "/jsqubits",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "jsqubits",
+    "name": "jsqubits",
+    "escapedName": "jsqubits",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/jsqubits/-/jsqubits-1.1.1.tgz",
+  "_shasum": "0cd675f103f71d48bb51447b325374a6396dd245",
+  "_spec": "jsqubits",
+  "_where": "/Users/david.kemp/deleteme/1.0.0",
+  "author": {
+    "name": "David Kemp",
+    "email": "davidbkemp@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/davidbkemp/jsqubits/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {},
+  "deprecated": false,
+  "description": "Quantum computation simulation JavaScript library",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "cross-env": "^5.1.3",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.6.1",
+    "mocha": "^5.0.0",
+    "sinon": "^4.2.2"
+  },
+  "homepage": "http://davidbkemp.github.io/jsqubits/",
+  "keywords": [
+    "quantum"
+  ],
+  "license": "MIT",
+  "main": "dist/commonjs/index.js",
+  "name": "jsqubits",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/davidbkemp/jsqubits.git"
+  },
+  "scripts": {
+    "all-examples": "node $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill examples/algorithms/all.js",
+    "build": "npm run build:commonjs && npm run build:es ",
+    "build:commonjs": "babel lib -d dist/commonjs ",
+    "build:es": "cross-env BABEL_ENV=es babel lib -d dist/es",
+    "clean": "rm -rf node_modules dist bower_components",
+    "example": "node $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill",
+    "lint": "eslint ./lib",
+    "prebuild:commonjs": "rimraf dist/commonjs",
+    "prebuild:es": "rimraf dist/es",
+    "prepublish": "cross-env NODE_ENV=production npm run build",
+    "test": "npm run lint && npm run test-only",
+    "test-only": "mocha $NODE_DEBUG_OPTION --require babel-core/register --require babel-polyfill --reporter spec \"spec/**/*.spec.js\""
+  },
+  "version": "1.1.1"
+}

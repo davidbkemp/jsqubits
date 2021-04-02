@@ -1,0 +1,29 @@
+{
+  "name": "jsqubits",
+  "main": ["lib/index.js"],
+  "version": "1.1.0",
+  "homepage": "http://davidbkemp.github.io/jsqubits/",
+  "authors": [
+    "David Kemp <davidbkemp@gmail.com>"
+  ],
+  "description": "Quantum computation simulation JavaScript library",
+  "keywords": [
+    "quantum"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "docs",
+    "examples",
+    "jsqubitsRunner",
+    "resources",
+    "spec",
+    "index.js",
+    "jshintConfig.json",
+    "*.iml",
+    "package.json"
+  ]
+}
