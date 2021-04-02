@@ -1,12 +1,12 @@
-import chai from 'chai'
-import Q from '../lib/index.js'
-const {QMath, QState} = Q
-const {expect} = chai
+import chai from 'chai';
+import Q from '../lib/index.js';
+const {QMath, QState} = Q;
+const {expect} = chai;
 
 describe("Shor's algorithm", () => {
   // WARNING: This takes a random amount of time, but usually less than 10 seconds.
   it('should factor 35', function () {
-    this.timeout(10 * 1000)
+    this.timeout(10 * 1000);
     function computeOrder(a, n) {
       const numOutBits = Math.ceil(Math.log(n) / Math.log(2));
       const numInBits = 2 * numOutBits;
@@ -15,7 +15,7 @@ describe("Shor's algorithm", () => {
       const accuracyRequiredForContinuedFraction = 1 / (2 * outputRange * outputRange);
       const outBits = {from: 0, to: numOutBits - 1};
       const inputBits = {from: numOutBits, to: numOutBits + numInBits - 1};
-      const f = function (x) { return QMath.powerMod(a, x, n); }
+      const f = function (x) { return QMath.powerMod(a, x, n); };
       const f0 = f(0);
 
       // This function contains the actual quantum computation part of the algorithm.

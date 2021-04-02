@@ -1,7 +1,7 @@
-import chai from 'chai'
-import Q from '../lib/index.js'
-const {QMath} = Q
-const {expect} = chai
+import chai from 'chai';
+import Q from '../lib/index.js';
+const {QMath} = Q;
+const {expect} = chai;
 
 describe('jsqubitsmath', () => {
   describe('#powerMod', () => {

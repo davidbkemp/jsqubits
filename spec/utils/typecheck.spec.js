@@ -1,4 +1,5 @@
-import chai from 'chai'
+/* jshint -W010,-W009,-W053 */
+import chai from 'chai';
 import typecheck from '../../lib/utils/typecheck.js';
 
 const { expect } = chai;
@@ -13,23 +14,20 @@ describe('typecheck', () => {
   describe('isObject', () => {
     it('should return true if object passed', () => {
       expect(typecheck.isObject({})).to.equal(true);
-      /* eslint no-new-object: off */
       expect(typecheck.isObject(new Object())).to.equal(true);
     });
     it('should return false if array passed', () => {
       expect(typecheck.isObject([])).to.equal(false);
-      /* eslint no-array-constructor: off */
       expect(typecheck.isObject(new Array())).to.equal(false);
     });
     it('should return false if string passed', () => {
       expect(typecheck.isObject('jsqubit')).to.equal(false);
-      /* eslint no-new-wrappers: off */
       expect(typecheck.isObject(new String('jsqubit'))).to.equal(false);
     });
     it('should return false if number passed', () => {
       expect(typecheck.isObject(3)).to.equal(false);
       expect(typecheck.isObject(new Number(3))).to.equal(false);
-    })
+    });
     it('should return false if boolean passed', () => {
       expect(typecheck.isObject(true)).to.equal(false);
       expect(typecheck.isObject(new Boolean(true))).to.equal(false);
@@ -50,7 +48,6 @@ describe('typecheck', () => {
   describe('isArray', () => {
     it('should return true if array passed', () => {
       expect(typecheck.isArray([])).to.equal(true);
-      /* eslint no-array-constructor: off */
       expect(typecheck.isArray(new Array())).to.equal(true);
     });
   });
@@ -58,7 +55,6 @@ describe('typecheck', () => {
   describe('isString', () => {
     it('should return true if string passed', () => {
       expect(typecheck.isString('jsqubit')).to.equal(true);
-      /* eslint no-new-wrappers: off */
       expect(typecheck.isString(new String('jsqubit'))).to.equal(true);
     });
   });

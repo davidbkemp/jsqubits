@@ -1,17 +1,19 @@
-import chai from 'chai'
-import sinon from 'sinon'
-import Q from '../lib/index.js'
+/* jshint -W030 */
+import chai from 'chai';
+import sinon from 'sinon';
+import Q from '../lib/index.js';
+import Constants from '../lib/constants.js';
 
-const {QState, Complex} = Q
-const {expect} = chai
+const {QState, Complex} = Q;
+const {expect} = chai;
 
 describe('QState', () => {
   const complex = Q.complex;
   const real = Q.real;
 
   const hadamardMatrix = [
-    [Complex.SQRT1_2, Complex.SQRT1_2],
-    [Complex.SQRT1_2, Complex.SQRT1_2.multiply(-1)]
+    [Constants.SQRT1_2, Constants.SQRT1_2],
+    [Constants.SQRT1_2, Constants.SQRT1_2.multiply(-1)]
   ];
 
   describe('new', () => {
@@ -91,30 +93,30 @@ describe('QState', () => {
   describe('#applyToOneBit', () => {
 
     it('does nothing when control bits are zero', () => {
-      const result = QState.applyToOneBit([1, 2], 0, hadamardMatrix, Q('|001>'))
+      const result = QState.applyToOneBit([1, 2], 0, hadamardMatrix, Q('|001>'));
       expect(result.toString()).to.equal('|001>');
     });
 
     it('applies an operator to a qubit (when control bits always match)', () => {
       // Initial state: (0.712)|101> - (0.712)|111>
       const initialAmplitudes = [];
-      initialAmplitudes[5] = Complex.SQRT1_2;
-      initialAmplitudes[7] = Complex.SQRT1_2.multiply(-1);
+      initialAmplitudes[5] = Constants.SQRT1_2;
+      initialAmplitudes[7] = Constants.SQRT1_2.multiply(-1);
       const initialState = new QState(3, initialAmplitudes);
 
       const result = QState.applyToOneBit([0, 2], 1, hadamardMatrix, initialState);
-      expect(result.toString()).to.equal('|111>')
+      expect(result.toString()).to.equal('|111>');
     });
 
     it('applies an operator to a qubit (when control bits match only for some states)', () => {
       // Initial state: (0.712)|101> - (0.712)|111>
       const initialAmplitudes = [];
-      initialAmplitudes[5] = Complex.SQRT1_2;
-      initialAmplitudes[7] = Complex.SQRT1_2.multiply(-1);
+      initialAmplitudes[5] = Constants.SQRT1_2;
+      initialAmplitudes[7] = Constants.SQRT1_2.multiply(-1);
       const initialState = new QState(3, initialAmplitudes);
 
       const result = QState.applyToOneBit([1, 2], 0, hadamardMatrix, initialState);
-      expect(result.toString()).to.equal('(0.7071)|101> + (-0.5)|110> + (0.5)|111>')
+      expect(result.toString()).to.equal('(0.7071)|101> + (-0.5)|110> + (0.5)|111>');
     });
   });
 
@@ -634,7 +636,7 @@ describe('QState', () => {
     });
 
     it('should return the new states for outcome of 00 (random returns 0)', () => {
-      stateToMeasure.random = function () { return 0 };
+      stateToMeasure.random = function () { return 0; };
       const measurement = stateToMeasure.measure(bitRange);
       const newState = measurement.newState;
       expect(newState.numBits()).to.equal(4);
@@ -646,7 +648,7 @@ describe('QState', () => {
     });
 
     it('should return the new states for outcome of 00 (random returns 0.49)', () => {
-      stateToMeasure.random = function () { return 0.49 };
+      stateToMeasure.random = function () { return 0.49; };
       const measurement = stateToMeasure.measure(bitRange);
       const newState = measurement.newState;
       expect(newState.numBits()).to.equal(4);
@@ -658,7 +660,7 @@ describe('QState', () => {
     });
 
     it('should return the new states for outcome of 10 (random returns 0.51)', () => {
-      stateToMeasure.random = function () { return 0.51 };
+      stateToMeasure.random = function () { return 0.51; };
       const measurement = stateToMeasure.measure(bitRange);
       const newState = measurement.newState;
       expect(newState.numBits()).to.equal(4);
@@ -670,7 +672,7 @@ describe('QState', () => {
     });
 
     it('should return the new states for outcome of 10 (random returns 1.0)', () => {
-      stateToMeasure.random = function () { return 1.0 };
+      stateToMeasure.random = function () { return 1.0; };
       const measurement = stateToMeasure.measure(bitRange);
       const newState = measurement.newState;
       expect(newState.numBits()).to.equal(4);
@@ -682,7 +684,7 @@ describe('QState', () => {
     });
 
     it('Can measure bit zero', () => {
-      stateToMeasure.random = function () { return 1.0 };
+      stateToMeasure.random = function () { return 1.0; };
       const measurement = stateToMeasure.measure(0);
       const newState = measurement.newState;
       expect(newState.numBits()).to.equal(4);
@@ -694,7 +696,7 @@ describe('QState', () => {
     });
 
     it('Can measure all bits', () => {
-      stateToMeasure.random = function () { return 0.49 };
+      stateToMeasure.random = function () { return 0.49; };
       const measurement = stateToMeasure.measure(Q.ALL);
       const newState = measurement.newState;
       expect(newState.numBits()).to.equal(4);
@@ -706,7 +708,7 @@ describe('QState', () => {
     });
 
     it('Can measure selected bits', () => {
-      stateToMeasure.random = function () { return 0.51 };
+      stateToMeasure.random = function () { return 0.51; };
       const measurement = stateToMeasure.measure([0, 3]);
       const newState = measurement.newState;
       expect(newState.numBits()).to.equal(4);

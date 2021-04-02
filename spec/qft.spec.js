@@ -1,11 +1,9 @@
-import chai from 'chai'
-import Q from '../lib/index.js'
-const {QMath} = Q
-const {expect} = chai
+import chai from 'chai';
+import Q from '../lib/index.js';
+const {QMath} = Q;
+const {expect} = chai;
 
 describe('QState.qft (Quantum Fourier Transform)', () => {
-  const complex = Q.complex;
-  const real = Q.real;
 
   it('Should be a Hadamard when applied to one bit', () => {
     const initialState = Q('|0>').add(Q('|1>')).normalize();
@@ -62,7 +60,7 @@ describe('QState.qft (Quantum Fourier Transform)', () => {
     //        Do this 100 times since it is random and sometimes takes a long time :-)
     for (let i = 0; i < 100; i++) {
       let qstate = Q('|00000>').hadamard(inputBits);
-      qstate = qstate.applyFunction(inputBits, outBits, (x) => { return x % 4 });
+      qstate = qstate.applyFunction(inputBits, outBits, (x) => { return x % 4; });
       const result = qstate.qft(inputBits).measure(inputBits).result;
       gcd = QMath.gcd(gcd, result);
     }
