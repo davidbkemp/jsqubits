@@ -38,9 +38,12 @@ You may also wish to try reading the (work in progress) [Introduction to Quantum
 
 Usage
 -----
+
+## Online
 Try it out online using the jsqubits runner:
 https://davidbkemp.github.io/jsqubits/jsqubitsRunner.html
 
+## Node
 Use it in a Node application (see https://nodejs.org).
 **WARNING: Use at least version 15 of Node.**
 
@@ -75,7 +78,33 @@ e.g.
     });
 ```
 
-TODO: Instructions on how to use it in a static web page.
+## On your own website
+
+We are using [native ES modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules).
+Sadly, this complicates things when using jsqubits from within a web page:
+
+- The page will need to be served by a web server, not just loaded from your local file system.
+  Note: placing your web page on github pages is an option for this.
+- You will need a copy of the contents of the `lib` directory on your web server.
+- Your page will need to specify `type="module"` in the `script` tag used to load the jsqubits library.
+- The page will not work on old versions of web browsers.  It definitely won't work on Internet Explorer.
+I have successfully had jsqubits running on Chrome 89, Firefox 87, Safari 14, and Edge 89.
+
+e.g. assuming you have placed the contents of `lib` in a directory called `jsqubits` that sits next to your webpage,
+then you could create a simple web page like this:
+
+```html
+<html>
+<body><p id="result"></p></body>
+<script type="module">
+  import jsqubits from './jsqubits/index.js';
+  const qstate = jsqubits('|0>').hadamard(0).T(0);
+  document.getElementById("result").innerHTML = qstate.toString();
+</script>
+</html>
+```
+
+See other examples in the `examples` directory.
 
 TypeScript type definitions
 ---------------------------
