@@ -8,6 +8,7 @@
   ],
   "license": "MIT",
   "author": "David Kemp <davidbkemp@gmail.com>",
+  "files": ["lib"],
   "devDependencies": {
     "chai": "^4.3.3",
     "jshint": "^2.12.0",

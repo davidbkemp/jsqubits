@@ -30,7 +30,6 @@ You can use it to implement quantum algorithms using JavaScript like this:
         .measure(1)
         .result
 
-WARNING: jsqubits operators return new instances of the quantum state and they do NOT modify the existing object.
 
 If you are new to quantum programming, then it is highly recommended that you try reading
 [John Watrous' Quantum Information and Computation Lecture Notes](https://cs.uwaterloo.ca/~watrous/QC-notes/).
@@ -43,39 +42,52 @@ Usage
 Try it out online using the jsqubits runner:
 https://davidbkemp.github.io/jsqubits/jsqubitsRunner.html
 
-## Node
-Use it in a Node application (see https://nodejs.org).
-**WARNING: Use at least version 15 of Node.**
+## Install using npm
 
+You can use jsqubits in a Node application by installing jsqubits using npm.
 
-```shell
-$ npm install jsqubits
-$ cat > myprogram.mjs << EOF
+**First, make sure you have at least version 15 of Node installed.**
 
+Place the following code in `myprogram.mjs`.
+Note the `.mjs` extension is a way of informing Node that the program uses ES modules.
+
+```javascript
 import {jsqubits} from 'jsqubits'
 const result = jsqubits('|0101>').hadamard(jsqubits.ALL);
 console.log(result.toString());
+```
 
-EOF
+Run the following:
+```shell
+$ npm install jsqubits@2
 $ node myprogram.mjs
 ```
 
-NOTE:
+## Downloading from github
 
-- jsqubits operators return new instances of the quantum state and they do NOT modify the existing object.
-- If you clone the github repository, or download a release,
-you will need to run `npm install` from within the root of the repository.
-e.g.
+You could use jsqubits by cloning the github repository, or downloading a release from github.
+
+**First, make sure you have at least version 15 of Node installed.**
+
+Clone jsqubits
 
 ```shell
-    $ git clone https://github.com/davidbkemp/jsqubits.git
-    $ cd jsqubits
-    $ npm install
-    $ node
-    import('./lib/index.js').then(({jsqubits}) => {
-        const result = jsqubits('|0101>').hadamard(jsqubits.ALL);
-        console.log(result.toString());
-    });
+$ git clone https://github.com/davidbkemp/jsqubits.git
+```
+
+Place the following code in `myprogram.mjs`.
+Note the `.mjs` extension is a way of informing Node that the program uses ES modules.
+
+```javascript
+import {jsqubits} from './jsqubits/lib/index.js'
+const result = jsqubits('|0101>').hadamard(jsqubits.ALL);
+console.log(result.toString());
+```
+
+Run your program using Node:
+
+```shell
+$ node myprogram.mjs
 ```
 
 ## On your own website
