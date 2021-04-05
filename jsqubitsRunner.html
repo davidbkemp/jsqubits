@@ -5,36 +5,25 @@
     <meta charset="UTF-8">
     <meta name="keywords" content="quantum, quantum programming, quantum computer, simulator">
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    <link rel="canonical" href="http://davidbkemp.github.io/jsqubits/jsqubitsRunner.html">
-    <link rel="stylesheet" type="text/css" href="resources-1.0.0/css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="resources-1.0.0/css/runner.css" />
-    <script type="text/javascript" src="resources-1.0.0/js/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="resources-1.0.0/js/jsqubits.js"></script>
-    <script type="text/javascript" src="resources-1.0.0/js/jsqubitsmath.js"></script>
-    <script type="text/javascript" src="resources-1.0.0/js/jsqubitsRunner.js"></script>
-    <script type="text/javascript">
-
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-36548750-1']);
-      _gaq.push(['_trackPageview']);
-
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-
+    <link rel="stylesheet" type="text/css" href="./resources-2.0.0/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="./resources-2.0.0/css/runner.css" />
+    <script type="text/javascript" src="./resources-2.0.0/js/jquery-3.6.0.min.js"></script>
+    <script type="module">
+      import Q from './resources-2.0.0/jsqubits/index.js'
+      window.jsqubits = Q;
+      window.jsqubitsmath = Q.QMath;
     </script>
+    <script type="text/javascript" src="./resources-2.0.0/js/jsqubitsRunner.js"></script>
 </head>
 <body>
 <h1>jsqubits runner</h1>
 <h2>An online quantum computer simulator</h2>
 <p>
     This is a JavaScript runner preloaded with
-    the <a href="http://davidbkemp.github.io/jsqubits/">jsqubits library</a>.
+    the <a href="https://davidbkemp.github.io/jsqubits/">jsqubits library</a>.
     Enter arbitrary JavaScript in the text area below and press the "Run" button.
     For more information, see the
-    <a href="http://davidbkemp.github.io/jsqubits/jsqubitsManual.html">jsqubits user manual</a>.
+    <a href="https://davidbkemp.github.io/jsqubits/jsqubitsManual.html">jsqubits user manual</a>.
 </p>
 
 <textarea id="code" rows="15"></textarea>
@@ -117,7 +106,7 @@
         arrays of numbers,
         bit ranges (e.g. <code>{from: 5, to:15}</code>,
         or the constant <code>jsqubits.ALL</code>.
-        Curently, the exception to this is <code>applyFunction</code> as this cannot take arrays.
+        Currently, the exception to this is <code>applyFunction</code> as this cannot take arrays.
         Also, while the <code>controlledSwap</code> method is
         able to take the various types of bit specifiers as control bits,
         it (and the <swap>swap</swap>) operator can only take single numbers for the two bits to be swapped.
@@ -125,11 +114,11 @@
 </ul>
 <p>
     For more details, see the
-    <a href="http://davidbkemp.github.io/jsqubits/jsqubitsManual.html">jsqubits user manual</a>.
+    <a href="https://davidbkemp.github.io/jsqubits/jsqubitsManual.html">jsqubits user manual</a>.
 </p>
 <small>
-    Copyright 2012-2014 David Kemp. Licensed under
-    <a href="https://github.com/davidbkemp/jsqubits/blob/master/MIT-LICENSE">the MIT license</a>.
+    Copyright 2012 David Kemp. Licensed under
+    <a href="https://github.com/davidbkemp/jsqubits/blob/master/LICENSE">the MIT license</a>.
 </small>
 </body>
 </html>
