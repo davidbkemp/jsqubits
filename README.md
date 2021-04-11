@@ -1,7 +1,7 @@
 # jsqubits
   Quantum computation simulation JavaScript library
 
-[![Build Status](https://travis-ci.org/davidbkemp/jsqubits.png)](https://travis-ci.org/davidbkemp/jsqubits)
+[![Build Status](https://github.com/davidbkemp/jsqubits/actions/workflows/node.js.yml/badge.svg)](https://github.com/davidbkemp/jsqubits/actions/workflows/node.js.yml)
 
 Website:
 https://davidbkemp.github.io/jsqubits/

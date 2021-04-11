@@ -2,7 +2,6 @@
 import chai from 'chai';
 import sinon from 'sinon';
 import Q from '../lib/index.js';
-import Constants from '../lib/constants.js';
 
 const {QState, Complex} = Q;
 const {expect} = chai;
@@ -12,8 +11,8 @@ describe('QState', () => {
   const real = Q.real;
 
   const hadamardMatrix = [
-    [Constants.SQRT1_2, Constants.SQRT1_2],
-    [Constants.SQRT1_2, Constants.SQRT1_2.multiply(-1)]
+    [Complex.SQRT1_2, Complex.SQRT1_2],
+    [Complex.SQRT1_2, Complex.SQRT1_2.multiply(-1)]
   ];
 
   describe('new', () => {
@@ -100,8 +99,8 @@ describe('QState', () => {
     it('applies an operator to a qubit (when control bits always match)', () => {
       // Initial state: (0.712)|101> - (0.712)|111>
       const initialAmplitudes = [];
-      initialAmplitudes[5] = Constants.SQRT1_2;
-      initialAmplitudes[7] = Constants.SQRT1_2.multiply(-1);
+      initialAmplitudes[5] = Complex.SQRT1_2;
+      initialAmplitudes[7] = Complex.SQRT1_2.multiply(-1);
       const initialState = new QState(3, initialAmplitudes);
 
       const result = QState.applyToOneBit([0, 2], 1, hadamardMatrix, initialState);
@@ -111,8 +110,8 @@ describe('QState', () => {
     it('applies an operator to a qubit (when control bits match only for some states)', () => {
       // Initial state: (0.712)|101> - (0.712)|111>
       const initialAmplitudes = [];
-      initialAmplitudes[5] = Constants.SQRT1_2;
-      initialAmplitudes[7] = Constants.SQRT1_2.multiply(-1);
+      initialAmplitudes[5] = Complex.SQRT1_2;
+      initialAmplitudes[7] = Complex.SQRT1_2.multiply(-1);
       const initialState = new QState(3, initialAmplitudes);
 
       const result = QState.applyToOneBit([1, 2], 0, hadamardMatrix, initialState);
