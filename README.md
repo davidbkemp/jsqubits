@@ -46,7 +46,7 @@ https://davidbkemp.github.io/jsqubits/jsqubitsRunner.html
 
 You can use jsqubits in a Node application by installing jsqubits using npm.
 
-**First, make sure you have at least version 15 of Node installed.**
+**First, make sure you have at least version 16 of Node installed.**
 
 Place the following code in `myprogram.mjs`.
 Note the `.mjs` extension is a way of informing Node that the program uses ES modules.
@@ -67,7 +67,7 @@ $ node myprogram.mjs
 
 You could use jsqubits by cloning the github repository, or downloading a release from github.
 
-**First, make sure you have at least version 15 of Node installed.**
+**First, make sure you have at least version 16 of Node installed.**
 
 Clone jsqubits
 
@@ -128,7 +128,7 @@ TypeScript type definitions for jsqubits are available:
 
 Development
 -----------
-To run the tests, you will need to install version 15 or later of Node.js (https://nodejs.org).
+To run the tests, you will need to install version 16 or later of Node.js (https://nodejs.org).
 Then use `npm install` to install the testing dependencies and `npm test` to run the specs.
 NOTE: The tests include an example of factoring using Shor's faction algorithm.  This is non-deterministic and can take a fraction of a second or several seconds to complete.
 
