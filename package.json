@@ -15,6 +15,7 @@
     "chai": "^4.3.3",
     "jshint": "^2.12.0",
     "mocha": "^8.3.1",
+    "rollup": "^2.50.4",
     "sinon": "^9.2.4"
   },
   "scripts": {
@@ -23,7 +24,8 @@
     "test": "npm run lint && npm run test-only",
     "example": "node $NODE_DEBUG_OPTION",
     "all-examples": "node $NODE_DEBUG_OPTION examples/algorithms/all.js",
-    "clean": "rm -rf node_modules dist bower_components"
+    "clean": "rm -rf node_modules dist bower_components",
+    "rollup": "rollup --config rollup.config"
   },
   "main": "./lib/index.js",
   "repository": "git://github.com/davidbkemp/jsqubits.git",

@@ -52,7 +52,7 @@ Place the following code in `myprogram.mjs`.
 Note the `.mjs` extension is a way of informing Node that the program uses ES modules.
 
 ```javascript
-import {jsqubits} from 'jsqubits'
+import jsqubits from 'jsqubits'
 const result = jsqubits('|0101>').hadamard(jsqubits.ALL);
 console.log(result.toString());
 ```
@@ -79,7 +79,7 @@ Place the following code in `myprogram.mjs`.
 Note the `.mjs` extension is a way of informing Node that the program uses ES modules.
 
 ```javascript
-import {jsqubits} from './jsqubits/lib/index.js'
+import jsqubits from './jsqubits/lib/index.js'
 const result = jsqubits('|0101>').hadamard(jsqubits.ALL);
 console.log(result.toString());
 ```
