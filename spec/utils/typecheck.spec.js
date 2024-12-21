@@ -1,5 +1,5 @@
 /* jshint -W010,-W009,-W053 */
-import chai from 'chai';
+import * as chai from 'chai';
 import typecheck from '../../lib/utils/typecheck.js';
 
 const { expect } = chai;

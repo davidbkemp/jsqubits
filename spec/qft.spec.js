@@ -1,4 +1,4 @@
-import chai from 'chai';
+import * as chai from 'chai';
 import Q from '../lib/index.js';
 const {QMath} = Q;
 const {expect} = chai;

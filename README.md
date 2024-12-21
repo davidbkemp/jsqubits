@@ -67,7 +67,7 @@ $ node myprogram.mjs
 
 You could use jsqubits by cloning the github repository, or downloading a release from github.
 
-**First, make sure you have at least version 16 of Node installed.**
+**First, make sure you have at least version 22 of Node installed.**
 
 Clone jsqubits
 
