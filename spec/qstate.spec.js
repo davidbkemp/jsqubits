@@ -1,5 +1,5 @@
 /* jshint -W030 */
-import chai from 'chai';
+import * as chai from 'chai';
 import sinon from 'sinon';
 import Q from '../lib/index.js';
 

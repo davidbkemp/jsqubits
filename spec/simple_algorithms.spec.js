@@ -1,5 +1,5 @@
 /* jshint -W030 */
-import chai from 'chai';
+import * as chai from 'chai';
 import jsqubits from '../lib/index.js';
 const jsqubitsmath = jsqubits.QMath;
 const {expect} = chai;
