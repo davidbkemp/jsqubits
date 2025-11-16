@@ -12,10 +12,10 @@
     "lib"
   ],
   "devDependencies": {
-    "chai": "^5.1.2",
+    "chai": "^6.2.1",
     "jshint": "^2.13.6",
-    "mocha": "^11.0.1",
-    "sinon": "^19.0.2"
+    "mocha": "^11.7.5",
+    "sinon": "^21.0.0"
   },
   "scripts": {
     "lint": "jshint --verbose ./lib ./spec",
