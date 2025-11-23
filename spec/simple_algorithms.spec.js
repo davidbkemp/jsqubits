@@ -4,7 +4,7 @@ import jsqubits from '../lib/index.js';
 const jsqubitsmath = jsqubits.QMath;
 const {expect} = chai;
 
-describe('Simple Quantum Algorithms', () => {
+describe('Simple Quantum Algorithms', function() {
   const ALL = jsqubits.ALL;
 
   var shuffle = function (a) {
@@ -16,7 +16,7 @@ describe('Simple Quantum Algorithms', () => {
     }
   };
 
-  describe('Super dense coding', () => {
+  describe('Super dense coding', function() {
     const superDense = function (input) {
       let state = jsqubits('|00>').hadamard(0).cnot(0, 1);
 
@@ -35,24 +35,24 @@ describe('Simple Quantum Algorithms', () => {
       return state.measure(ALL).asBitString();
     };
 
-    it('should transmit 00', () => {
+    it('should transmit 00', function() {
       expect(superDense('00')).to.equal('00');
     });
 
-    it('should transmit 01', () => {
+    it('should transmit 01', function() {
       expect(superDense('01')).to.equal('01');
     });
 
-    it('should transmit 10', () => {
+    it('should transmit 10', function() {
       expect(superDense('10')).to.equal('10');
     });
 
-    it('should transmit 11', () => {
+    it('should transmit 11', function() {
       expect(superDense('11')).to.equal('11');
     });
   });
 
-  describe('Simple search', () => {
+  describe('Simple search', function() {
     const createOracle = function (match) { return function (x) { return x === match ? 1 : 0; }; };
 
     const simpleSearch = function (f) {
@@ -68,24 +68,24 @@ describe('Simple Quantum Algorithms', () => {
         .result;
     };
 
-    it('should find f00', () => {
+    it('should find f00', function() {
       expect(simpleSearch(createOracle(0))).to.equal(0);
     });
 
-    it('should find f01', () => {
+    it('should find f01', function() {
       expect(simpleSearch(createOracle(1))).to.equal(1);
     });
 
-    it('should find f10', () => {
+    it('should find f10', function() {
       expect(simpleSearch(createOracle(2))).to.equal(2);
     });
 
-    it('should find f11', () => {
+    it('should find f11', function() {
       expect(simpleSearch(createOracle(3))).to.equal(3);
     });
   });
 
-  describe('Quantum Teleportation', () => {
+  describe('Quantum Teleportation', function() {
     const applyTeleportation = function (state) {
       const alicesMeasurement = state.cnot(2, 1).hadamard(2).measure({from: 1, to: 2});
       let resultingState = alicesMeasurement.newState;
@@ -98,7 +98,7 @@ describe('Simple Quantum Algorithms', () => {
       return resultingState;
     };
 
-    it('should support transmition of quantum state from Alice to Bob', () => {
+    it('should support transmition of quantum state from Alice to Bob', function() {
       const stateToBeTransmitted = jsqubits('|0>').rotateX(0, Math.PI / 3).rotateZ(0, Math.PI / 5);
       const initialState = jsqubits('|000>').hadamard(1).cnot(1, 0).rotateX(2, Math.PI / 3)
         .rotateZ(2, Math.PI / 5);
@@ -122,31 +122,34 @@ describe('Simple Quantum Algorithms', () => {
     });
   });
 
-  describe("Deutsch's algorithm", () => {
+  describe("Deutsch's algorithm", function() {
     const deutsch = function (f) {
       return jsqubits('|01>').hadamard(jsqubits.ALL).applyFunction(1, 0, f).hadamard(jsqubits.ALL)
         .measure(1).result;
     };
 
-    it('should compute 0 for fixed function returning 1', () => {
+    it('should compute 0 for fixed function returning 1', function() {
       const f = function (x) { return 1; };
       expect(deutsch(f)).to.equal(0);
     });
-    it('should compute 0 for fixed function returning 0', () => {
+
+    it('should compute 0 for fixed function returning 0', function() {
       const f = function (x) { return 0; };
       expect(deutsch(f)).to.equal(0);
     });
-    it('should compute 1 for identity function', () => {
+
+    it('should compute 1 for identity function', function() {
       const f = function (x) { return x; };
       expect(deutsch(f)).to.equal(1);
     });
-    it('should compute 1 for not function', () => {
+
+    it('should compute 1 for not function', function() {
       const f = function (x) { return (x + 1) % 2; };
       expect(deutsch(f)).to.equal(1);
     });
   });
 
-  describe('Deutsch-Jozsa algorithm', () => {
+  describe('Deutsch-Jozsa algorithm', function() {
     const deutschJozsa = function (f) {
       const inputBits = {from: 1, to: 3};
       const result = jsqubits('|0001>')
@@ -165,20 +168,20 @@ describe('Simple Quantum Algorithms', () => {
       return function (x) { return nums[x] < 4 ? 0 : 1; };
     };
 
-    it('should return true if function always returns zero', () => {
+    it('should return true if function always returns zero', function() {
       expect(deutschJozsa((x) => { return 0; })).to.equal(true);
     });
 
-    it('should return true if function always returns one', () => {
+    it('should return true if function always returns one', function() {
       expect(deutschJozsa((x) => { return 1; })).to.equal(true);
     });
 
-    it('should return false if function is balanced', () => {
+    it('should return false if function is balanced', function() {
       expect(deutschJozsa(createBalancedFunction())).to.equal(false);
     });
   });
 
-  describe("Simon's algorithm", () => {
+  describe("Simon's algorithm", function() {
     const singleRunOfSimonsCircuit = function (f, numbits) {
       const inputBits = {from: numbits, to: 2 * numbits - 1};
       const targetBits = {from: 0, to: numbits - 1};
@@ -215,7 +218,7 @@ describe('Simple Quantum Algorithms', () => {
       return (f(0) === f(solution)) ? solution : 0;
     };
 
-    it('should find the right key (not identity)', () => {
+    it('should find the right key (not identity)', function() {
       const testFunction = function (x) {
         const mapping = ['101', '010', '000', '110', '000', '110', '101', '010'];
         return parseInt(mapping[x], 2);
@@ -223,7 +226,7 @@ describe('Simple Quantum Algorithms', () => {
       expect(simonsAlgorithm(testFunction, 3).toString(2)).to.equal('110');
     });
 
-    it('should find the right key (identity)', () => {
+    it('should find the right key (identity)', function() {
       const mapping = [0, 1, 2, 3, 4, 5, 6, 7];
       shuffle(mapping);
       const permutation = function (x) {

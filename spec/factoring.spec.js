@@ -3,7 +3,7 @@ import Q from '../lib/index.js';
 const {QMath, QState} = Q;
 const {expect} = chai;
 
-describe("Shor's algorithm", () => {
+describe("Shor's algorithm", function() {
   // WARNING: This takes a random amount of time, but usually less than 10 seconds.
   it('should factor 35', function () {
     this.timeout(10 * 1000);

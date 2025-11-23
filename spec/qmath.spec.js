@@ -3,36 +3,41 @@ import Q from '../lib/index.js';
 const {QMath} = Q;
 const {expect} = chai;
 
-describe('jsqubitsmath', () => {
-  describe('#powerMod', () => {
-    it('should return 1 for x^0 mod 35', () => {
+describe('jsqubitsmath', function() {
+  describe('#powerMod', function() {
+    it('should return 1 for x^0 mod 35', function() {
       expect(QMath.powerMod(2, 0, 35)).to.equal(1);
     });
-    it('should give 16 for 2^4 mod 35', () => {
+
+    it('should give 16 for 2^4 mod 35', function() {
       expect(QMath.powerMod(2, 4, 35)).to.equal(16);
     });
-    it('should give 32 for 2^5 mod 35', () => {
+
+    it('should give 32 for 2^5 mod 35', function() {
       expect(QMath.powerMod(2, 5, 35)).to.equal(32);
     });
-    it('should give 11 for 3^4 mod 70', () => {
+
+    it('should give 11 for 3^4 mod 70', function() {
       expect(QMath.powerMod(3, 4, 70)).to.equal(11);
     });
   });
 
-  describe('#primePowerFactor', () => {
-    it('should return 0 for 35', () => {
+  describe('#primePowerFactor', function() {
+    it('should return 0 for 35', function() {
       expect(QMath.powerFactor(35)).to.equal(0);
     });
-    it('should return 2 for 2^6', () => {
+
+    it('should return 2 for 2^6', function() {
       expect(QMath.powerFactor(Math.pow(2, 6))).to.equal(2);
     });
-    it('should return 5 for 5^6', () => {
+
+    it('should return 5 for 5^6', function() {
       expect(QMath.powerFactor(Math.pow(5, 6))).to.equal(5);
     });
   });
 
-  describe('#nullSpace', () => {
-    it('should solve Ax=0 (single solution)', () => {
+  describe('#nullSpace', function() {
+    it('should solve Ax=0 (single solution)', function() {
       const a = [
         0b001,
         0b111,
@@ -43,7 +48,7 @@ describe('jsqubitsmath', () => {
       expect(results).to.deep.equal([0b110]);
     });
 
-    it('should solve Ax=0 (three bits in solution)', () => {
+    it('should solve Ax=0 (three bits in solution)', function() {
       const a = [
         0b101,
         0b011,
@@ -52,7 +57,7 @@ describe('jsqubitsmath', () => {
       expect(results).to.deep.equal([0b111]);
     });
 
-    it('should solve Ax=0 (many solutions)', () => {
+    it('should solve Ax=0 (many solutions)', function() {
       //            Should reduce to
       //            0101101
       //            0000011
@@ -71,51 +76,53 @@ describe('jsqubitsmath', () => {
     });
   });
 
-  describe('gcd', () => {
-    it('should compute the greatest common divisor of 27 and 18 as 9', () => {
+  describe('gcd', function() {
+    it('should compute the greatest common divisor of 27 and 18 as 9', function() {
       expect(QMath.gcd(27, 18)).to.equal(9);
       expect(QMath.gcd(18, 27)).to.equal(9);
     });
-    it('should compute the greatest common divisor of 27 and 12 as 3', () => {
+
+    it('should compute the greatest common divisor of 27 and 12 as 3', function() {
       expect(QMath.gcd(27, 12)).to.equal(3);
       expect(QMath.gcd(12, 27)).to.equal(3);
     });
   });
 
-  describe('lcm', () => {
-    it('should compute the least common multiple of 7 and 6 as 42', () => {
+  describe('lcm', function() {
+    it('should compute the least common multiple of 7 and 6 as 42', function() {
       expect(QMath.lcm(7, 6)).to.equal(42);
       expect(QMath.lcm(6, 7)).to.equal(42);
     });
-    it('should compute the least common multiple of 9 and 18 as 18', () => {
+
+    it('should compute the least common multiple of 9 and 18 as 18', function() {
       expect(QMath.lcm(9, 18)).to.equal(18);
       expect(QMath.lcm(18, 9)).to.equal(18);
     });
   });
 
-  describe('continuedFraction', () => {
-    it('should compute the continued fraction of 1/3', () => {
+  describe('continuedFraction', function() {
+    it('should compute the continued fraction of 1/3', function() {
       const results = QMath.continuedFraction(1 / 3, 0.0001);
       expect(results.numerator).to.equal(1);
       expect(results.denominator).to.equal(3);
       expect(results.quotients).to.deep.equal([0, 3]);
     });
 
-    it('should compute the continued fraction of 11/13', () => {
+    it('should compute the continued fraction of 11/13', function() {
       const results = QMath.continuedFraction(11 / 13, 0.0001);
       expect(results.numerator).to.equal(11);
       expect(results.denominator).to.equal(13);
       expect(results.quotients).to.deep.equal([0, 1, 5, 2]);
     });
 
-    it('should stop when the desired accuracy is reached', () => {
+    it('should stop when the desired accuracy is reached', function() {
       const results = QMath.continuedFraction(Math.PI, 0.000001);
       expect(results.numerator).to.equal(355);
       expect(results.denominator).to.equal(113);
       expect(results.quotients).to.deep.equal([3, 7, 15, 1]);
     });
 
-    it('should work for negative numbers', () => {
+    it('should work for negative numbers', function() {
       const results = QMath.continuedFraction(-Math.PI, 0.000001);
       expect(results.numerator).to.equal(-355);
       expect(results.denominator).to.equal(113);

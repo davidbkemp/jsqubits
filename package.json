@@ -15,7 +15,6 @@
     "chai": "^6.2.1",
     "eslint": "^9.39.1",
     "eslint-plugin-mocha": "^11.2.0",
-    "eslint-plugin-node": "^11.1.0",
     "mocha": "^11.7.5",
     "sinon": "^21.0.0"
   },
