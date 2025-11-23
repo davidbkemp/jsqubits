@@ -13,12 +13,14 @@
   ],
   "devDependencies": {
     "chai": "^6.2.1",
-    "jshint": "^2.13.6",
+    "eslint": "^9.39.1",
+    "eslint-plugin-mocha": "^11.2.0",
+    "eslint-plugin-node": "^11.1.0",
     "mocha": "^11.7.5",
     "sinon": "^21.0.0"
   },
   "scripts": {
-    "lint": "jshint --verbose ./lib ./spec",
+    "lint": "eslint --ext .js ./lib ./spec",
     "test-only": "mocha $NODE_DEBUG_OPTION --reporter spec \"spec/**/*.spec.js\"",
     "test": "npm run lint && npm run test-only",
     "example": "node $NODE_DEBUG_OPTION",
