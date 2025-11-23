@@ -1,4 +1,3 @@
-/* jshint -W030 */
 import * as chai from 'chai';
 import sinon from 'sinon';
 import Q from '../lib/index.js';
@@ -7,13 +6,18 @@ const {QState, Complex} = Q;
 const {expect} = chai;
 
 describe('QState', function() {
-  const complex = Q.complex;
-  const real = Q.real;
 
-  const hadamardMatrix = [
-    [Complex.SQRT1_2, Complex.SQRT1_2],
-    [Complex.SQRT1_2, Complex.SQRT1_2.multiply(-1)]
-  ];
+  // Shifting these into a before block to keen eslint happy.
+  let complex, real, hadamardMatrix;
+
+  before(function() {
+    complex = Q.complex;
+    real = Q.real;
+    hadamardMatrix = [
+      [Complex.SQRT1_2, Complex.SQRT1_2],
+      [Complex.SQRT1_2, Complex.SQRT1_2.multiply(-1)]
+    ];
+  });
 
   describe('new', function() {
     it('will default amplitudes to the zero state |00...0>', function() {

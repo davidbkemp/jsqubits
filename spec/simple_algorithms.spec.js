@@ -1,11 +1,9 @@
-/* jshint -W030 */
 import * as chai from 'chai';
 import jsqubits from '../lib/index.js';
 const jsqubitsmath = jsqubits.QMath;
 const {expect} = chai;
 
 describe('Simple Quantum Algorithms', function() {
-  const ALL = jsqubits.ALL;
 
   var shuffle = function (a) {
     for (let i = 0; i < a.length; i++) {
@@ -32,7 +30,7 @@ describe('Simple Quantum Algorithms', function() {
       //            Alice sends her qbit to Bob
       const bob = 0;
       state = state.cnot(alice, bob).hadamard(alice);
-      return state.measure(ALL).asBitString();
+      return state.measure(jsqubits.ALL).asBitString();
     };
 
     it('should transmit 00', function() {
@@ -58,7 +56,7 @@ describe('Simple Quantum Algorithms', function() {
     const simpleSearch = function (f) {
       const inputBits = {from: 1, to: 2};
       return jsqubits('|001>')
-        .hadamard(ALL)
+        .hadamard(jsqubits.ALL)
         .applyFunction(inputBits, 0, f)
         .hadamard(inputBits)
         .z(inputBits)
@@ -153,7 +151,7 @@ describe('Simple Quantum Algorithms', function() {
     const deutschJozsa = function (f) {
       const inputBits = {from: 1, to: 3};
       const result = jsqubits('|0001>')
-        .hadamard(ALL)
+        .hadamard(jsqubits.ALL)
         .applyFunction(inputBits, 0, f)
         .hadamard(inputBits)
         .measure(inputBits)
