@@ -1,4 +1,3 @@
-/* jshint -W030 */
 import * as chai from 'chai';
 import Q from '../lib/index.js';
 const {expect} = chai;

@@ -1,6 +1,3 @@
-/* jshint evil:true */
-/* global jQuery */
-
 (function ($) {
   //    Find code samples and compare the actual output with the stated output.
   $(() => {

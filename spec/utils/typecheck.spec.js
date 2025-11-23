@@ -1,4 +1,3 @@
-/* jshint -W010,-W009,-W053 */
 import * as chai from 'chai';
 import typecheck from '../../lib/utils/typecheck.js';
 
