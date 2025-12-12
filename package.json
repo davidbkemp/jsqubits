@@ -18,6 +18,9 @@
     "mocha": "^11.7.5",
     "sinon": "^21.0.0"
   },
+  "overrides": {
+    "glob": "^13.0.0"
+  },
   "scripts": {
     "lint": "eslint --ext .js ./lib ./spec",
     "test-only": "mocha $NODE_DEBUG_OPTION --reporter spec \"spec/**/*.spec.js\"",
