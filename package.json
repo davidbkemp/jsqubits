@@ -15,8 +15,13 @@
     "chai": "^6.2.2",
     "eslint": "^10.2.0",
     "eslint-plugin-mocha": "^11.2.0",
-    "mocha": "^11.7.5",
+    "mocha": "^11.3.0",
     "sinon": "^21.1.0"
+  },
+  "overrides": {
+    "glob": "^13.0.6",
+    "serialize-javascript": "^7.0.5",
+    "diff": "^8.0.4"
   },
   "scripts": {
     "lint": "eslint --ext .js ./lib ./spec",
@@ -24,7 +29,7 @@
     "test": "npm run lint && npm run test-only",
     "example": "node $NODE_DEBUG_OPTION",
     "all-examples": "node $NODE_DEBUG_OPTION examples/algorithms/all.js",
-    "clean": "rm -rf node_modules dist bower_components"
+    "clean": "rm -rf package-lock.json node_modules dist bower_components"
   },
   "main": "./lib/index.js",
   "repository": "git://github.com/davidbkemp/jsqubits.git",
