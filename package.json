@@ -13,15 +13,10 @@
   ],
   "devDependencies": {
     "chai": "^6.2.2",
-    "eslint": "^10.1.0",
+    "eslint": "^10.2.0",
     "eslint-plugin-mocha": "^11.2.0",
-    "mocha": "^11.3.0",
-    "sinon": "^21.0.3"
-  },
-  "overrides": {
-    "glob": "^13.0.0",
-    "serialize-javascript": "^7.0.4",
-    "diff": "^8.0.3"
+    "mocha": "^11.7.5",
+    "sinon": "^21.1.0"
   },
   "scripts": {
     "lint": "eslint --ext .js ./lib ./spec",
