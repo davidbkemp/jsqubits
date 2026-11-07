@@ -92,8 +92,36 @@ $ node myprogram.mjs
 
 ## On your own website
 
-We are using [native ES modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules).
-Sadly, this complicates things when using jsqubits from within a web page:
+### Browser bundle
+
+The GitHub repository includes `dist/jsqubits.js` and the smaller, minified
+`dist/jsqubits.min.js`. Copy either file next to your web page and load it with
+a regular script tag. Both expose the callable `jsqubits` global, including
+helpers such as `jsqubits.QMath`, and require no module loader.
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+  <p id="result"></p>
+  <script src="./jsqubits.min.js"></script>
+  <script>
+    const qstate = jsqubits('|0>').hadamard(0).T(0);
+    document.getElementById('result').textContent = qstate.toString();
+  </script>
+</body>
+</html>
+```
+
+This also works when opening the page directly from the local file system.
+The bundles target modern browsers; they do not transpile JavaScript for
+legacy browsers such as Internet Explorer. They are distributed through GitHub,
+not included in the npm package.
+
+### Native ES modules
+
+You can still use [native ES modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
+directly from the `lib` directory:
 
 - The page will need to be served by a web server, not just loaded from your local file system.
   Note: placing your web page on github pages is an option for this.
@@ -131,6 +159,24 @@ Development
 To run the tests, you will need to install version 16 or later of Node.js (https://nodejs.org).
 Then use `npm install` to install the testing dependencies and `npm test` to run the specs.
 NOTE: The tests include an example of factoring using Shor's faction algorithm.  This is non-deterministic and can take a fraction of a second or several seconds to complete.
+
+### Building the browser distribution
+
+With Node.js 22 or later installed, run:
+
+```shell
+npm install
+npm run build
+```
+
+Rollup generates `dist/jsqubits.js` and `dist/jsqubits.min.js`. After changing
+library source, run the build explicitly and commit both refreshed bundles
+alongside your source changes before pushing to GitHub. The simple web example
+in `examples/simpleWebPage/index.html` uses the unminified bundle.
+
+Building is on demand only: installation, tests, npm packaging/publishing, and
+CI do not regenerate the bundles. Browser tests exercise the checked-in files.
+The clean command preserves them.
 
 License
 -------
