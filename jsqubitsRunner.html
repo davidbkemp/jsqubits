@@ -8,12 +8,11 @@
     <link rel="stylesheet" type="text/css" href="./resources-2.0.0/css/reset.css" />
     <link rel="stylesheet" type="text/css" href="./resources-2.0.0/css/runner.css" />
     <script type="text/javascript" src="./resources-2.0.0/js/jquery-3.6.0.min.js"></script>
-    <script type="module">
-      import Q from './resources-2.0.0/jsqubits/index.js'
-      window.jsqubits = Q;
-      window.jsqubitsmath = Q.QMath;
-    </script>
+    <script type="text/javascript" src="./resources-2.0.0/js/jsqubits.min.js"></script>
     <script type="text/javascript" src="./resources-2.0.0/js/jsqubitsRunner.js"></script>
+    <script>
+      const jsqubitsmath = jsqubits.QMath;
+    </script>
 </head>
 <body>
 <h1>jsqubits runner</h1>
