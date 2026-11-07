@@ -12,10 +12,12 @@
     "lib"
   ],
   "devDependencies": {
+    "@rollup/plugin-terser": "^1.0.2",
     "chai": "^6.2.2",
     "eslint": "^10.14.0",
     "eslint-plugin-mocha": "^11.2.0",
     "mocha": "^12.0.3",
+    "rollup": "^4.68.0",
     "sinon": "^22.0.0"
   },
   "overrides": {
@@ -23,12 +25,13 @@
     "minimatch": "^11.0.5"
   },
   "scripts": {
-    "lint": "eslint --ext .js ./lib ./spec",
+    "build": "rollup --config",
+    "lint": "eslint --ext .js ./lib ./spec browser.js rollup.config.js",
     "test-only": "mocha $NODE_DEBUG_OPTION --reporter spec \"spec/**/*.spec.js\"",
     "test": "npm run lint && npm run test-only",
     "example": "node $NODE_DEBUG_OPTION",
     "all-examples": "node $NODE_DEBUG_OPTION examples/algorithms/all.js",
-    "clean": "rm -rf package-lock.json node_modules dist bower_components"
+    "clean": "rm -rf package-lock.json node_modules bower_components"
   },
   "main": "./lib/index.js",
   "repository": "git://github.com/davidbkemp/jsqubits.git",

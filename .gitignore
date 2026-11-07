@@ -15,4 +15,6 @@ results
 
 node_modules
 bower_components
-dist
+dist/*
+!dist/jsqubits.js
+!dist/jsqubits.min.js

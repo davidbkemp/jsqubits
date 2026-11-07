@@ -11,10 +11,9 @@
     <p>
         234<sup>756</sup> mod 15 = <span id='powerModResult'></span>
     </p>
-    <script type="module">
-        import Q from '../../lib/index.js';
-        const jsqubits = Q;
-        const jsqubitsmath = Q.QMath;
+    <script src="../../dist/jsqubits.js"></script>
+    <script>
+        const jsqubitsmath = jsqubits.QMath;
         const qstate = jsqubits('|0>').hadamard(0).T(0);
         document.getElementById("jsqubitsResult").innerHTML = qstate.toString();
         document.getElementById("powerModResult").innerHTML = jsqubitsmath.powerMod(234, 756, 15).toString();
